@@ -23,7 +23,7 @@ describe 'User visits login page' do
   end
 
   it 'and logins successfully' do
-    innkeeper = Innkeeper.create! email: 'gui@test.com', password: '12345678'
+    innkeeper = Innkeeper.create! name: 'Gui', email: 'gui@test.com', password: '12345678'
 
     visit new_innkeeper_session_path
 
@@ -41,7 +41,7 @@ describe 'User visits login page' do
   end
 
   it 'and fails to login, seeing the related errors' do
-    innkeeper = Innkeeper.create! email: 'gui@test.com', password: '12345678'
+    innkeeper = Innkeeper.create! name: 'Gui', email: 'gui@test.com', password: '12345678'
 
     visit new_innkeeper_session_path
 
