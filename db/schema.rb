@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_01_071115) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_01_180514) do
   create_table "innkeepers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -24,4 +24,24 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_01_071115) do
     t.index ["reset_password_token"], name: "index_innkeepers_on_reset_password_token", unique: true
   end
 
+  create_table "inns", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "corporate_name", null: false
+    t.string "registration_number", null: false
+    t.string "description", null: false
+    t.boolean "pets_are_allowed", null: false
+    t.string "usage_policies", null: false
+    t.string "email", null: false
+    t.boolean "enabled", null: false
+    t.integer "innkeeper_id", null: false
+    t.string "check_in", null: false
+    t.string "check_out", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_inns_on_email", unique: true
+    t.index ["innkeeper_id"], name: "index_inns_on_innkeeper_id"
+    t.index ["registration_number"], name: "index_inns_on_registration_number", unique: true
+  end
+
+  add_foreign_key "inns", "innkeepers"
 end
