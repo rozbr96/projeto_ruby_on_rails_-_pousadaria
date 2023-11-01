@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_01_180514) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_01_234720) do
+  create_table "addresses", force: :cascade do |t|
+    t.string "street", null: false
+    t.integer "number"
+    t.string "complement"
+    t.string "neighbourhood", null: false
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "postal_code", null: false
+    t.integer "inn_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inn_id"], name: "index_addresses_on_inn_id"
+  end
+
   create_table "innkeepers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -43,5 +57,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_01_180514) do
     t.index ["registration_number"], name: "index_inns_on_registration_number", unique: true
   end
 
+  add_foreign_key "addresses", "inns"
   add_foreign_key "inns", "innkeepers"
 end
