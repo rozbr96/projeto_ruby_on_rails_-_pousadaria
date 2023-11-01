@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   resources :inns, except: :destroy
 
   # Defines the root path route ("/")
-  root "application#index"
+  root "inns#index"
 end
