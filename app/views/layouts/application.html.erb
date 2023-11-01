@@ -21,8 +21,13 @@
         </li>
     </nav>
 
-    <%= notice %>
-    <%= alert %>
+    <% if notice %>
+      <%= render partial: 'common/alert', locals: { message: notice, bootstrap_class: 'success' } %>
+    <% end %>
+
+    <% if alert %>
+      <%= render partial: 'common/alert', locals: { message: alert, bootstrap_class: 'danger' } %>
+    <% end %>
 
     <%= yield %>
 
