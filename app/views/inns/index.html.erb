@@ -1,0 +1,9 @@
+
+<% if @inns.empty? %>
+  Nenhuma pousada disponível
+<% else %>
+  <% @inns.each do |inn| %>
+    <%= inn.name %>
+    <%= inn.description %>
+  <% end %>
+<% end %>
