@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_02_041241) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_02_051121) do
   create_table "addresses", force: :cascade do |t|
     t.string "street", null: false
     t.integer "number"
@@ -23,6 +23,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_041241) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["inn_id"], name: "index_addresses_on_inn_id"
+  end
+
+  create_table "inn_phone_numbers", force: :cascade do |t|
+    t.integer "inn_id", null: false
+    t.integer "phone_number_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inn_id", "phone_number_id"], name: "index_inn_phone_numbers_on_inn_id_and_phone_number_id", unique: true
+    t.index ["inn_id"], name: "index_inn_phone_numbers_on_inn_id"
+    t.index ["phone_number_id"], name: "index_inn_phone_numbers_on_phone_number_id"
   end
 
   create_table "innkeepers", force: :cascade do |t|
@@ -67,5 +77,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_041241) do
   end
 
   add_foreign_key "addresses", "inns"
+  add_foreign_key "inn_phone_numbers", "inns"
+  add_foreign_key "inn_phone_numbers", "phone_numbers"
   add_foreign_key "inns", "innkeepers"
 end
