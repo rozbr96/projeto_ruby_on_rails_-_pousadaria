@@ -202,7 +202,7 @@ RSpec.describe Inn, type: :model do
 
   describe '#pets_are_allowed' do
     context 'default value' do
-      it 'should fail if #pets_are_allowed is true by default' do
+      it 'should fail unless #pets_are_allowed is false by default' do
         first_inn = Inn.new(
           name: 'Fist Inn', corporate_name: 'First Inn LTDA',
           registration_number: '11338082000103', description: 'First Inn...',
@@ -211,7 +211,7 @@ RSpec.describe Inn, type: :model do
           check_in: '10:00', check_out: '10:00'
         )
 
-        expect(first_inn.pets_are_allowed?).to eq false
+        expect(first_inn.pets_are_allowed).to eq false
       end
     end
   end

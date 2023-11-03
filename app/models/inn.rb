@@ -6,5 +6,6 @@ class Inn < ApplicationRecord
 
   after_initialize do |inn|
     inn.enabled = true if inn.enabled.nil?
+    inn.pets_are_allowed = inn.pets_are_allowed?
   end
 end
