@@ -33,11 +33,7 @@ describe 'User visits login page' do
       click_on 'Log in'
     end
 
-    expect(current_path).to eq root_path
-
-    within '.alert-success' do
-      expect(page).to have_content 'Login efetuado com sucesso'
-    end
+    expect(current_path).to eq new_own_inn_path
   end
 
   it 'and fails to login, seeing the related errors' do

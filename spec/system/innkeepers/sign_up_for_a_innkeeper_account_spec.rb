@@ -35,12 +35,7 @@ describe 'User visits registration page' do
       click_on 'Cadastrar'
     end
 
-    expect(current_path).to eq root_path
-    expect(page).to have_content 'Boas vindas! Você realizou seu registro com sucesso'
-
-    within 'nav' do
-      expect(page).to have_content 'Gui'
-    end
+    expect(current_path).to eq new_own_inn_path
   end
 
   it 'and fails to create an account, seeing the related errors' do

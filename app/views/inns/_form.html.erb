@@ -1,0 +1,63 @@
+
+<% if @inn.errors.any? %>
+  <% @inn.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<%= form_with scope: @inn, url: action_url, id: 'inn-form' do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :corporate_name %>
+  <%= form.text_field :corporate_name %>
+
+  <%= form.label :registration_number %>
+  <%= form.text_field :registration_number %>
+
+  <%= form.label :description %>
+  <%= form.text_field :description %>
+
+  <%= form.label :pets_are_allowed %>
+  <%= form.check_box :pets_are_allowed %>
+
+  <%= form.label :usage_policies %>
+  <%= form.text_field :usage_policies %>
+
+  <%= form.label :email %>
+  <%= form.text_field :email %>
+
+  <%= form.label :enabled %>
+  <%= form.check_box :enabled %>
+
+  <%= form.label :check_in %>
+  <%= form.text_field :check_in %>
+
+  <%= form.label :check_out %>
+  <%= form.text_field :check_out %>
+
+  <%= form.fields_for :address, @inn.address do |address_fields| %>
+    <%= address_fields.label :street %>
+    <%= address_fields.text_field :street %>
+
+    <%= address_fields.label :number %>
+    <%= address_fields.text_field :number %>
+
+    <%= address_fields.label :complement %>
+    <%= address_fields.text_field :complement %>
+
+    <%= address_fields.label :neighbourhood %>
+    <%= address_fields.text_field :neighbourhood %>
+
+    <%= address_fields.label :city %>
+    <%= address_fields.text_field :city %>
+
+    <%= address_fields.label :state %>
+    <%= address_fields.text_field :state %>
+
+    <%= address_fields.label :postal_code %>
+    <%= address_fields.text_field :postal_code %>
+  <% end %>
+
+  <%= form.submit %>
+<% end %>
