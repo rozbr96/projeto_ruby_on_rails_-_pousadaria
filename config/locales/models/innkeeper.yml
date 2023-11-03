@@ -1,5 +1,8 @@
 pt-BR:
   activerecord:
+    models:
+      innkeeper: Dono de Pousada
+
     attributes:
       innkeeper:
         name: Nome

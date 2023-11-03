@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      address: Endereço
+
+    attributes:
+      address:
+        street: Rua
+        number: Número
+        complement: Complemento
+        neighbourhood: Bairro
+        city: Cidade
+        state: Estado
+        postal_code: CEP

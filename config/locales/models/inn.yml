@@ -1,0 +1,18 @@
+pt-BR:
+  activerecord:
+    models:
+      inn: Pousada
+
+    attributes:
+      inn:
+        name: Nome Fantasia
+        corporate_name: Razão Social
+        registration_number: CNPJ
+        description: Descrição
+        pets_are_allowed: Animais são permitidos?
+        usage_policies: Polítias de Uso
+        email: E-mail
+        enabled: Habilitada
+        check_in: Check in
+        check_out: Check out
+        innkeeper: Dono de Pousada
