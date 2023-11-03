@@ -5,4 +5,6 @@ class Innkeeper < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates_presence_of :name
+
+  has_one :inn
 end

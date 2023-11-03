@@ -31,6 +31,7 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to 'Minha Pousada', own_inn_path, class: 'dropdown-item' %>
               <%= button_to 'Sair', destroy_innkeeper_session_path, method: :delete, class: 'dropdown-item' %>
             </div>
           <% else %>

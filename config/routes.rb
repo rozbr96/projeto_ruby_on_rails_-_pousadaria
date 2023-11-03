@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :inns, except: :destroy
+  resource :own_inn, except: [:destroy], controller: :own_inn
 
   # Defines the root path route ("/")
   root "inns#index"

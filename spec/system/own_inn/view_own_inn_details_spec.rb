@@ -1,0 +1,37 @@
+
+describe 'User visits his own inn details page' do
+  context 'when logged in as an innkeeper' do
+    it 'from the home page and sees the details' do
+      innkeeper = Innkeeper.create! name: 'Gui', email: 'gui@test.com',
+        password: 'password'
+
+      address = Address.new street: 'Rua Galática', number: '42',
+        neighbourhood: 'Virgem', city: 'Terra', state: 'Via Láctea',
+        postal_code: '01.137-000', complement: 'Shaka'
+
+      inn = Inn.create! name: 'Pousada Universal', corporate_name: 'Pousada Universal LTDA',
+        registration_number: '11338082000103', description: 'Pousada universal...',
+        pets_are_allowed: true, usage_policies: 'Está estritamente proibido...',
+        email: 'pousada.universal@test.com', enabled: false, innkeeper: innkeeper,
+        check_in: '10:00', check_out: '10:00', address: address
+
+      login_as innkeeper
+
+      visit root_path
+
+      within 'nav' do
+        click_on innkeeper.name
+        click_on 'Minha Pousada'
+      end
+
+      expect(current_path).to eq own_inn_path
+      expect(page).to have_content 'Rua Galática'
+      expect(page).to have_content '01.137-000'
+      expect(page).to have_content 'Pousada Universal'
+      expect(page).to have_content 'Pousada Universal LTDA'
+      expect(page).to have_content 'Está estritamente proibido...'
+      expect(page).to have_content 'pousada.universal@test.com'
+      expect(page).to have_content '10:00'
+    end
+  end
+end
