@@ -47,12 +47,10 @@
       </ul>
     </nav>
 
-    <% if notice %>
-      <%= render partial: 'common/alert', locals: { message: notice, bootstrap_class: 'success' } %>
-    <% end %>
-
-    <% if alert %>
-      <%= render partial: 'common/alert', locals: { message: alert, bootstrap_class: 'danger' } %>
+    <% flash.each do |type, message| %>
+      <% type = :success if type == 'notice' %>
+      <% type = :danger if type == 'alert' %>
+      <%= render partial: 'common/alert', locals: { message: message, bootstrap_class: type } %>
     <% end %>
 
     <%= yield %>

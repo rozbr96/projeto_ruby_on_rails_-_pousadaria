@@ -20,6 +20,10 @@ describe 'User visits the inn creation page' do
       end
 
       expect(current_path).to eq new_own_inn_path
+
+      within '.alert.alert-warning' do
+        expect(page).to have_content 'Primeiro é necessário registrar sua pousada'
+      end
     end
 
     it 'and sees the creation form' do
