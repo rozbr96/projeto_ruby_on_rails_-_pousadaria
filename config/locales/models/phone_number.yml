@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    models:
+      phone_number: Telefone
+
+    attributes:
+      phone_number: &phone_number
+        name: Falar com
+        number: Número
+        city_code: DDD
+
+      phone_numbers:
+        <<: *phone_number

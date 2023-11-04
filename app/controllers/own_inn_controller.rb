@@ -1,5 +1,7 @@
 
 class OwnInnController < ApplicationController
+  MAXIMUM_PHONES_AMOUNT = 3
+
   def create
     @inn = Inn.new inn_params
     @inn.innkeeper = current_innkeeper
@@ -7,6 +9,10 @@ class OwnInnController < ApplicationController
     if @inn.save
       redirect_to own_inn_path, notice: 'Pousada criada com sucesso'
     else
+      1.upto(MAXIMUM_PHONES_AMOUNT - @inn.phone_numbers.size).each do |index|
+        @inn.phone_numbers << PhoneNumber.new
+      end
+
       flash.now[:alert] = 'Erro ao cadastrar pousada'
       render :new
     end
@@ -14,7 +20,8 @@ class OwnInnController < ApplicationController
 
   def new
     address = Address.new
-    @inn = Inn.new address: address
+    phone_numbers = MAXIMUM_PHONES_AMOUNT.times.map { PhoneNumber.new }
+    @inn = Inn.new address: address, phone_numbers: phone_numbers
   end
 
   def show
@@ -28,8 +35,11 @@ class OwnInnController < ApplicationController
     address_attributes = :street, :number, :neighbourhood, :city,
       :complement, :state, :postal_code
 
+    phone_numbers_attributes = :number, :city_code, :name
+
     params.require(:inn).permit :name, :corporate_name, :registration_number,
       :description, :pets_are_allowed, :usage_policies, :email, :enabled,
-      :check_in, :check_out, address_attributes: address_attributes
+      :check_in, :check_out, address_attributes: address_attributes,
+      phone_numbers_attributes: phone_numbers_attributes
   end
 end

@@ -36,28 +36,45 @@
   <%= form.label :check_out %>
   <%= form.text_field :check_out %>
 
-  <%= form.fields_for :address, @inn.address do |address_fields| %>
-    <%= address_fields.label :street %>
-    <%= address_fields.text_field :street %>
+  <div id="address-wrapper">
+    <%= form.fields_for :address, @inn.address do |address_fields| %>
+      <%= address_fields.label :street %>
+      <%= address_fields.text_field :street %>
 
-    <%= address_fields.label :number %>
-    <%= address_fields.text_field :number %>
+      <%= address_fields.label :number %>
+      <%= address_fields.text_field :number %>
 
-    <%= address_fields.label :complement %>
-    <%= address_fields.text_field :complement %>
+      <%= address_fields.label :complement %>
+      <%= address_fields.text_field :complement %>
 
-    <%= address_fields.label :neighbourhood %>
-    <%= address_fields.text_field :neighbourhood %>
+      <%= address_fields.label :neighbourhood %>
+      <%= address_fields.text_field :neighbourhood %>
 
-    <%= address_fields.label :city %>
-    <%= address_fields.text_field :city %>
+      <%= address_fields.label :city %>
+      <%= address_fields.text_field :city %>
 
-    <%= address_fields.label :state %>
-    <%= address_fields.text_field :state %>
+      <%= address_fields.label :state %>
+      <%= address_fields.text_field :state %>
 
-    <%= address_fields.label :postal_code %>
-    <%= address_fields.text_field :postal_code %>
-  <% end %>
+      <%= address_fields.label :postal_code %>
+      <%= address_fields.text_field :postal_code %>
+    <% end %>
+  </div>
+
+  <div id="phone-numbers-wrapper">
+    <%= form.fields_for :phone_numbers, @inn.phone_numbers do |phone_numbers_fields, index| %>
+      <div class="phone-number">
+        <%= phone_numbers_fields.label :city_code %>
+        <%= phone_numbers_fields.text_field :city_code %>
+
+        <%= phone_numbers_fields.label :number %>
+        <%= phone_numbers_fields.text_field :number %>
+
+        <%= phone_numbers_fields.label :name %>
+        <%= phone_numbers_fields.text_field :name %>
+      </div>
+    <% end %>
+  </div>
 
   <%= form.submit %>
 <% end %>

@@ -39,13 +39,23 @@ describe 'User visits the inn creation page' do
         expect(page).to have_field 'Check in'
         expect(page).to have_field 'Check out'
 
-        expect(page).to have_field 'Rua'
-        expect(page).to have_field 'Número'
-        expect(page).to have_field 'Complemento'
-        expect(page).to have_field 'Bairro'
-        expect(page).to have_field 'Cidade'
-        expect(page).to have_field 'Estado'
-        expect(page).to have_field 'CEP'
+        within '#address-wrapper' do
+          expect(page).to have_field 'Rua'
+          expect(page).to have_field 'Número'
+          expect(page).to have_field 'Complemento'
+          expect(page).to have_field 'Bairro'
+          expect(page).to have_field 'Cidade'
+          expect(page).to have_field 'Estado'
+          expect(page).to have_field 'CEP'
+        end
+
+        1.upto(3).each do |index|
+          within "#phone-numbers-wrapper > .phone-number:nth-child(#{index})" do
+            expect(page).to have_field 'Falar com'
+            expect(page).to have_field 'DDD'
+            expect(page).to have_field 'Número'
+          end
+        end
       end
     end
 
@@ -66,13 +76,27 @@ describe 'User visits the inn creation page' do
         fill_in 'Check in', with: '10:00'
         fill_in 'Check out', with: '10:00'
 
-        fill_in 'Rua', with: 'Rua Galática'
-        fill_in 'Número', with: '42'
-        fill_in 'Complemento', with: 'Shaka'
-        fill_in 'Bairro', with: 'Virgem'
-        fill_in 'Cidade', with: 'Terra'
-        fill_in 'Estado', with: 'Via Láctea'
-        fill_in 'CEP', with: '01.137-000'
+        within '#address-wrapper' do
+          fill_in 'Rua', with: 'Rua Galática'
+          fill_in 'Número', with: '42'
+          fill_in 'Complemento', with: 'Shaka'
+          fill_in 'Bairro', with: 'Virgem'
+          fill_in 'Cidade', with: 'Terra'
+          fill_in 'Estado', with: 'Via Láctea'
+          fill_in 'CEP', with: '01.137-000'
+        end
+
+        within "#phone-numbers-wrapper > .phone-number:nth-child(1)" do
+          fill_in 'Falar com', with: 'Gui'
+          fill_in 'DDD', with: '11'
+          fill_in 'Número', with: '40028922'
+        end
+
+        within "#phone-numbers-wrapper > .phone-number:nth-child(2)" do
+          fill_in 'Falar com', with: 'Gui'
+          fill_in 'DDD', with: '11'
+          fill_in 'Número', with: '49922'
+        end
 
         click_on 'Criar Pousada'
       end
@@ -82,6 +106,8 @@ describe 'User visits the inn creation page' do
       expect(page).to have_content 'Pousada Universal'
       expect(page).to have_content 'Pousada universal...'
       expect(page).to have_content 'Rua Galática'
+      expect(page).to have_content '(11) 40028922'
+      expect(page).to have_content '(11) 49922'
     end
 
     it 'fails to create the inn, seeing the related errors' do
@@ -107,13 +133,21 @@ describe 'User visits the inn creation page' do
         fill_in 'Check in', with: '10:00'
         fill_in 'Check out', with: '10:00'
 
-        fill_in 'Rua', with: ''
-        fill_in 'Número', with: '42'
-        fill_in 'Complemento', with: 'Shaka'
-        fill_in 'Bairro', with: 'Virgem'
-        fill_in 'Cidade', with: 'Terra'
-        fill_in 'Estado', with: 'Via Láctea'
-        fill_in 'CEP', with: '01.137-000'
+        within '#address-wrapper' do
+          fill_in 'Rua', with: ''
+          fill_in 'Número', with: '42'
+          fill_in 'Complemento', with: 'Shaka'
+          fill_in 'Bairro', with: 'Virgem'
+          fill_in 'Cidade', with: 'Terra'
+          fill_in 'Estado', with: 'Via Láctea'
+          fill_in 'CEP', with: '01.137-000'
+        end
+
+        within "#phone-numbers-wrapper > .phone-number:nth-child(1)" do
+          fill_in 'Falar com', with: ''
+          fill_in 'DDD', with: '11'
+          fill_in 'Número', with: '40028922'
+        end
 
         click_on 'Criar Pousada'
       end
@@ -122,6 +156,7 @@ describe 'User visits the inn creation page' do
       expect(page).to have_content 'Nome Fantasia não pode ficar em branco'
       expect(page).to have_content 'Rua não pode ficar em branco'
       expect(page).to have_content 'Dono de Pousada já está em uso'
+      expect(page).to have_content 'Falar com não pode ficar em branco'
     end
   end
 end
