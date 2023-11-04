@@ -33,6 +33,6 @@
 
 <%= @inn.address.postal_code %>
 
-<%= @inn.phone_numbers.each do |phone_number| %>
+<% @inn.phone_numbers.each do |phone_number| %>
   (<%= phone_number.city_code %>) <%= phone_number.number %>
 <% end %>
