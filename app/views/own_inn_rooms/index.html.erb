@@ -1,0 +1,24 @@
+
+<table id="inn-rooms-table">
+  <thead>
+    <th>
+      <tr>Nome</tr>
+      <tr>Habilitado</tr>
+      <tr>Ações</tr>
+    </th>
+  </thead>
+
+  <tbody>
+    <% if @rooms.empty? %>
+      <tr colspan="3">Nenhum quarto registrado</td>
+    <% else %>
+      <% @rooms.each do |room| %>
+        <tr>
+          <td><%= room.name %></td>
+          <td><%= room.enabled? ? 'SIM' : 'NÃO' %></td>
+          <td><%= link_to 'Detalhes' %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
