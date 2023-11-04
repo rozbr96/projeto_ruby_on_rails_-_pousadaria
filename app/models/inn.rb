@@ -3,6 +3,7 @@ class Inn < ApplicationRecord
   has_one :address
   has_many :inn_phone_numbers
   has_many :phone_numbers, through: :inn_phone_numbers
+  has_many :inn_rooms
 
   validates_uniqueness_of :email, :registration_number, :innkeeper
   validates_presence_of :name, :corporate_name, :registration_number, :description,

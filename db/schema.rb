@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_02_051121) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_04_102055) do
   create_table "addresses", force: :cascade do |t|
     t.string "street", null: false
     t.integer "number"
@@ -33,6 +33,26 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_051121) do
     t.index ["inn_id", "phone_number_id"], name: "index_inn_phone_numbers_on_inn_id_and_phone_number_id", unique: true
     t.index ["inn_id"], name: "index_inn_phone_numbers_on_inn_id"
     t.index ["phone_number_id"], name: "index_inn_phone_numbers_on_phone_number_id"
+  end
+
+  create_table "inn_rooms", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.integer "dimension", null: false
+    t.integer "price", null: false
+    t.integer "maximum_number_of_guests", null: false
+    t.integer "number_of_bathrooms", null: false
+    t.integer "number_of_wardrobes", null: false
+    t.boolean "has_balcony", default: false
+    t.boolean "has_tv", default: false
+    t.boolean "has_air_conditioning", default: false
+    t.boolean "has_vault", default: false
+    t.boolean "is_accessible_for_people_with_disabilities", default: false
+    t.boolean "enabled", default: false
+    t.integer "inn_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inn_id"], name: "index_inn_rooms_on_inn_id"
   end
 
   create_table "innkeepers", force: :cascade do |t|
@@ -79,5 +99,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_02_051121) do
   add_foreign_key "addresses", "inns"
   add_foreign_key "inn_phone_numbers", "inns"
   add_foreign_key "inn_phone_numbers", "phone_numbers"
+  add_foreign_key "inn_rooms", "inns"
   add_foreign_key "inns", "innkeepers"
 end
