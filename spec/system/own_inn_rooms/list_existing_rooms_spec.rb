@@ -65,4 +65,13 @@ describe 'User visits listing rooms page' do
       end
     end
   end
+
+  context 'when the user is not authenticated' do
+    it 'should be redirected to the login page' do
+      visit own_inn_rooms_path
+
+      expect(current_path).to eq new_innkeeper_session_path
+      expect(page).to have_content 'Para continuar, faça login ou registre-se'
+    end
+  end
 end

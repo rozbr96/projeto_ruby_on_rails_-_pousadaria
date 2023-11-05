@@ -2,6 +2,8 @@
 class OwnInnController < ApplicationController
   MAXIMUM_PHONES_AMOUNT = 3
 
+  before_action :authenticate_innkeeper!
+
   def create
     @inn = Inn.new inn_params
     @inn.innkeeper = current_innkeeper

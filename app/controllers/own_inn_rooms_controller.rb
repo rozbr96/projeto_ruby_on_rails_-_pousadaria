@@ -1,5 +1,7 @@
 
 class OwnInnRoomsController < ApplicationController
+  before_action :authenticate_innkeeper!
+
   def create
     @room = InnRoom.new room_params
     @room.inn = current_innkeeper.inn
