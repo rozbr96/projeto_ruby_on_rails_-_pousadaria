@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_04_102055) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_05_025905) do
   create_table "addresses", force: :cascade do |t|
     t.string "street", null: false
     t.integer "number"
@@ -23,6 +23,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_04_102055) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["inn_id"], name: "index_addresses_on_inn_id"
+  end
+
+  create_table "inn_payment_methods", force: :cascade do |t|
+    t.boolean "enabled", default: false
+    t.integer "inn_id", null: false
+    t.integer "payment_method_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inn_id", "payment_method_id"], name: "index_inn_payment_methods_on_inn_id_and_payment_method_id", unique: true
+    t.index ["inn_id"], name: "index_inn_payment_methods_on_inn_id"
+    t.index ["payment_method_id"], name: "index_inn_payment_methods_on_payment_method_id"
   end
 
   create_table "inn_phone_numbers", force: :cascade do |t|
@@ -87,6 +98,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_04_102055) do
     t.index ["registration_number"], name: "index_inns_on_registration_number", unique: true
   end
 
+  create_table "payment_methods", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "enabled", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_payment_methods_on_name", unique: true
+  end
+
   create_table "phone_numbers", force: :cascade do |t|
     t.string "city_code", null: false
     t.string "number", null: false
@@ -97,6 +116,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_04_102055) do
   end
 
   add_foreign_key "addresses", "inns"
+  add_foreign_key "inn_payment_methods", "inns"
+  add_foreign_key "inn_payment_methods", "payment_methods"
   add_foreign_key "inn_phone_numbers", "inns"
   add_foreign_key "inn_phone_numbers", "phone_numbers"
   add_foreign_key "inn_rooms", "inns"

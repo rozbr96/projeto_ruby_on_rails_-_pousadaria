@@ -7,3 +7,10 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+payment_methods = 'Dinheiro', 'Boleto', 'PIX', 'Cartão de Crédito',
+  'Cartão de Débito', 'TED', 'DOC'
+
+payment_methods.each do |payment_method|
+  PaymentMethod.create name: payment_method, enabled: true
+end
