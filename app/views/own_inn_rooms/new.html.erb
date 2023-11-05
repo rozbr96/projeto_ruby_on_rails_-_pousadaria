@@ -1,0 +1,49 @@
+
+<% if @room.errors.any? %>
+  <% @room.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<%= form_with scope: @room, url: own_inn_rooms_path, id: 'inn-room-form' do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :description %>
+  <%= form.text_field :description %>
+
+  <%= form.label :dimension %>
+  <%= form.text_field :dimension %>
+
+  <%= form.label :price %>
+  <%= form.text_field :price %>
+
+  <%= form.label :maximum_number_of_guests %>
+  <%= form.text_field :maximum_number_of_guests %>
+
+  <%= form.label :number_of_bathrooms %>
+  <%= form.text_field :number_of_bathrooms %>
+
+  <%= form.label :number_of_wardrobes %>
+  <%= form.text_field :number_of_wardrobes %>
+
+  <%= form.label :has_balcony %>
+  <%= form.check_box :has_balcony %>
+
+  <%= form.label :has_tv %>
+  <%= form.check_box :has_tv %>
+
+  <%= form.label :has_air_conditioning %>
+  <%= form.check_box :has_air_conditioning %>
+
+  <%= form.label :has_vault %>
+  <%= form.check_box :has_vault %>
+
+  <%= form.label :is_accessible_for_people_with_disabilities %>
+  <%= form.check_box :is_accessible_for_people_with_disabilities %>
+
+  <%= form.label :enabled %>
+  <%= form.check_box :enabled %>
+
+  <%= form.submit %>
+<% end %>

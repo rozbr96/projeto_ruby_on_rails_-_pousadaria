@@ -1,0 +1,22 @@
+pt-BR:
+  activerecord:
+    models:
+      inn_room:
+        one: Quarto de Pousada
+        other: Quartos de Pousada
+
+    attributes:
+      inn_room:
+        name: Nome
+        description: Descrição
+        dimension: Dimensão
+        price: Diária
+        maximum_number_of_guests: Número Máximo de Convidados
+        number_of_bathrooms: Número de Banheiros
+        number_of_wardrobes: Número de Guarda-roupas
+        has_balcony: Possui sacada?
+        has_tv: Possui TV?
+        has_air_conditioning: Possui Ar Condicionado?
+        has_vault: Possui Cofre?
+        is_accessible_for_people_with_disabilities: É acessível para pessoas com deficiência?
+        enabled: Habilitado?
