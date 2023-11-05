@@ -13,6 +13,7 @@ class Inn < ApplicationRecord
 
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :phone_numbers, reject_if: :all_blank
+  accepts_nested_attributes_for :inn_payment_methods, allow_destroy: true
 
   after_initialize do |inn|
     inn.enabled = true if inn.enabled.nil?

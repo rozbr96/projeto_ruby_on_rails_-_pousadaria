@@ -5,7 +5,7 @@
   <% end %>
 <% end %>
 
-<%= form_with scope: @inn, url: action_url, id: 'inn-form' do |form| %>
+<%= form_with scope: @inn, url: action_url, method: method, id: 'inn-form' do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>
 
@@ -64,12 +64,12 @@
   <div id="payment-methods-wrapper">
     <% PaymentMethod.all.each do |payment| %>
       <%= label_tag payment.name %>
-      <%= check_box_tag payment.name, value: payment.id, name: 'payment_methods_ids[]' %>
+      <%= check_box_tag payment.name, value: payment.id, name: 'payment_methods_ids[]', checked: @payment_methods_ids.include?(payment.id) %>
     <% end %>
   </div>
 
   <div id="phone-numbers-wrapper">
-    <%= form.fields_for :phone_numbers, @inn.phone_numbers do |phone_numbers_fields, index| %>
+    <%= form.fields_for :phone_numbers, @phone_numbers do |phone_numbers_fields, index| %>
       <div class="phone-number">
         <%= phone_numbers_fields.label :city_code %>
         <%= phone_numbers_fields.text_field :city_code %>
