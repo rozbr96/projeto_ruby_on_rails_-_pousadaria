@@ -4,6 +4,8 @@ class Inn < ApplicationRecord
   has_many :inn_phone_numbers
   has_many :phone_numbers, through: :inn_phone_numbers
   has_many :inn_rooms
+  has_many :inn_payment_methods
+  has_many :payment_methods, through: :inn_payment_methods
 
   validates_uniqueness_of :email, :registration_number, :innkeeper
   validates_presence_of :name, :corporate_name, :registration_number, :description,

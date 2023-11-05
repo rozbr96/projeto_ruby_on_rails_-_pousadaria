@@ -9,7 +9,7 @@ class OwnInnController < ApplicationController
     if @inn.save
       redirect_to own_inn_path, notice: 'Pousada criada com sucesso'
     else
-      1.upto(MAXIMUM_PHONES_AMOUNT - @inn.phone_numbers.size).each do |index|
+      (MAXIMUM_PHONES_AMOUNT - @inn.phone_numbers.size).times do
         @inn.phone_numbers << PhoneNumber.new
       end
 
@@ -21,6 +21,7 @@ class OwnInnController < ApplicationController
   def new
     address = Address.new
     phone_numbers = MAXIMUM_PHONES_AMOUNT.times.map { PhoneNumber.new }
+
     @inn = Inn.new address: address, phone_numbers: phone_numbers
   end
 
@@ -37,9 +38,17 @@ class OwnInnController < ApplicationController
 
     phone_numbers_attributes = :number, :city_code, :name
 
-    params.require(:inn).permit :name, :corporate_name, :registration_number,
+    room_data = params.require(:inn).permit :name, :corporate_name, :registration_number,
       :description, :pets_are_allowed, :usage_policies, :email, :enabled,
-      :check_in, :check_out, address_attributes: address_attributes,
+      :check_in, :check_out, :inn_payment_methods, address_attributes: address_attributes,
       phone_numbers_attributes: phone_numbers_attributes
+
+    unless params[:payment_methods_ids].nil?
+      room_data[:inn_payment_methods] = params[:payment_methods_ids].map do |payment_method_id|
+        InnPaymentMethod.new payment_method_id: payment_method_id, enabled: true
+      end
+    end
+
+    room_data
   end
 end

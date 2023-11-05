@@ -61,6 +61,13 @@
     <% end %>
   </div>
 
+  <div id="payment-methods-wrapper">
+    <% PaymentMethod.all.each do |payment| %>
+      <%= label_tag payment.name %>
+      <%= check_box_tag payment.name, value: payment.id, name: 'payment_methods_ids[]' %>
+    <% end %>
+  </div>
+
   <div id="phone-numbers-wrapper">
     <%= form.fields_for :phone_numbers, @inn.phone_numbers do |phone_numbers_fields, index| %>
       <div class="phone-number">

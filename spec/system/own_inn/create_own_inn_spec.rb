@@ -2,11 +2,16 @@
 describe 'User visits the inn creation page' do
   context 'when authenticated as an innkeeper' do
     before :all do
+      ['Dinheiro', 'PIX', 'Cartão'].each do |payment_method|
+        PaymentMethod.create! name: payment_method, enabled: true
+      end
+
       @innkeeper = Innkeeper.create! name: 'Gui', email: 'gui@test.com',
         password: 'password'
     end
 
     after :all do
+      PaymentMethod.delete_all
       Innkeeper.delete_all
     end
 
@@ -51,6 +56,12 @@ describe 'User visits the inn creation page' do
           expect(page).to have_field 'Cidade'
           expect(page).to have_field 'Estado'
           expect(page).to have_field 'CEP'
+        end
+
+        within '#payment-methods-wrapper' do
+          expect(page).to have_field 'Cartão'
+          expect(page).to have_field 'Dinheiro'
+          expect(page).to have_field 'PIX'
         end
 
         1.upto(3).each do |index|
