@@ -18,7 +18,7 @@
         <tr>
           <td><%= room.name %></td>
           <td><%= room.enabled? ? 'SIM' : 'NÃO' %></td>
-          <td><%= link_to 'Detalhes' %></td>
+          <td><%= link_to 'Detalhes', own_inn_room_path(room) %></td>
         </tr>
       <% end %>
     <% end %>

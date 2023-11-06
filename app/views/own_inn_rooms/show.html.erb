@@ -1,0 +1,28 @@
+
+<%= link_to 'Voltar', own_inn_rooms_path %>
+
+<%= @room.name %>
+
+<%= @room.description %>
+
+<%= @room.dimension %> m²
+
+<%= number_to_currency(@room.price.to_f / 100) %>
+
+<%= @room.maximum_number_of_guests %>
+
+<%= @room.number_of_bathrooms %>
+
+<%= @room.number_of_wardrobes %>
+
+<%= @room.has_balcony %>
+
+<%= @room.has_tv %>
+
+<%= @room.has_air_conditioning %>
+
+<%= @room.has_vault %>
+
+<%= @room.is_accessible_for_people_with_disabilities %>
+
+<%= @room.enabled %>
