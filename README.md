@@ -1,24 +1,18 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## TODO
+  - [  ] fix some creation/editon logics
+    - [  ] inn
+      - [  ] phone numbers
+        - [  ] deletion
+        - [  ] ensure at least one is being saved
 
-Things you may want to cover:
+  - [  ] frontend (almost everything, since no much work has been done regarding the frontend)
+    - [  ] pages structures
+    - [  ] use better input fields according for some fields
+    - [  ] use some styles
+    - [  ] use some icons
+    - [  ] enable dark theme
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  - [  ] some extra ideas
+    - [  ] inn rooms
+      - [  ] add photos upload capability
