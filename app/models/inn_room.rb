@@ -1,5 +1,6 @@
 class InnRoom < ApplicationRecord
   belongs_to :inn
+  has_many :custom_prices
 
   validates_presence_of :name, :description, :dimension, :price,
     :maximum_number_of_guests, :number_of_bathrooms, :number_of_wardrobes

@@ -26,3 +26,33 @@
 <%= @room.is_accessible_for_people_with_disabilities %>
 
 <%= @room.enabled %>
+
+<table>
+  <th>
+    <tr colspan="3">
+      Preços por temporada
+    </tr>
+
+    <tr>
+      <td>Incício</td>
+      <td>Fim</td>
+      <td>Preço</td>
+    </tr>
+  </th>
+
+  <tbody>
+    <% if @room.custom_prices.empty? %>
+      <td colspan="3">
+        Nenhum preço especial encontrado
+      </td>
+    <% else %>
+      <% @room.custom_prices.each do |custom_price| %>
+        <tr>
+          <td><%= I18n.l custom_price.start_date %></td>
+          <td><%= I18n.l custom_price.end_date %></td>
+          <td><%= number_to_currency(custom_price.price.to_f / 100)  %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
