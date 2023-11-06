@@ -39,6 +39,16 @@ describe 'User visits room creation page' do
       expect(current_path).to eq new_own_inn_room_path
     end
 
+    it 'and goes back to the inn rooms page' do
+      login_as @innkeeper
+
+      visit new_own_inn_room_path
+
+      click_on 'Voltar'
+
+      expect(current_path).to eq own_inn_rooms_path
+    end
+
     it 'and sees the registration form' do
       login_as @innkeeper
 

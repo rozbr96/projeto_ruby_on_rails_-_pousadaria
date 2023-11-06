@@ -38,6 +38,16 @@ describe 'User visits listing rooms page' do
       expect(current_path).to eq own_inn_rooms_path
     end
 
+    it 'and goes back to the inn details page' do
+      login_as @innkeeper
+
+      visit own_inn_rooms_path
+
+      click_on 'Voltar'
+
+      expect(current_path).to eq own_inn_path
+    end
+
     it 'and sees no existing rooms' do
       login_as @innkeeper
 

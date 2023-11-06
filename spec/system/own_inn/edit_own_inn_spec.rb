@@ -50,6 +50,16 @@ describe 'User visits own inn edit page' do
       expect(current_path).to eq edit_own_inn_path
     end
 
+    it 'and goes back to the inn details page' do
+      login_as @innkeeper
+
+      visit edit_own_inn_path
+
+      click_on 'Voltar'
+
+      expect(current_path).to eq own_inn_path
+    end
+
     it 'and sees the edition form' do
       login_as @innkeeper
 
