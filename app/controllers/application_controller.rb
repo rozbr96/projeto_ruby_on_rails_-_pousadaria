@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  add_flash_types :warning
+  add_flash_types :warning, :info
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :redirect_to_inn_creation_page

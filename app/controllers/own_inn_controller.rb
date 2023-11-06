@@ -3,6 +3,7 @@ class OwnInnController < ApplicationController
   MAXIMUM_PHONES_AMOUNT = 3
 
   before_action :authenticate_innkeeper!
+  before_action :redirect_to_details_page, only: :new
   before_action :set_inn, except: [:create, :new]
 
   def create
@@ -89,6 +90,12 @@ class OwnInnController < ApplicationController
     end
 
     inn_data
+  end
+
+  def redirect_to_details_page
+    return if current_innkeeper.inn.nil?
+
+    redirect_to own_inn_path, info: 'Sua pousada já está cadastrada'
   end
 
   def set_inn

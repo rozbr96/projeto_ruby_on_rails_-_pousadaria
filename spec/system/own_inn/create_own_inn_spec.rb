@@ -126,12 +126,6 @@ describe 'User visits the inn creation page' do
     end
 
     it 'fails to create the inn, seeing the related errors' do
-      Inn.create! name: 'Pousada Universal', corporate_name: 'Pousada Universal LTDA',
-        registration_number: '11338082000103', description: 'Pousada universal...',
-        pets_are_allowed: true, usage_policies: 'Está estritamente proibido...',
-        email: 'pousada.universal@test.com', enabled: false, innkeeper: @innkeeper,
-        check_in: '10:00', check_out: '10:00'
-
       login_as @innkeeper
 
       visit new_own_inn_path
@@ -170,7 +164,6 @@ describe 'User visits the inn creation page' do
       expect(page).to have_content 'Erro ao cadastrar pousada'
       expect(page).to have_content 'Nome Fantasia não pode ficar em branco'
       expect(page).to have_content 'Rua não pode ficar em branco'
-      expect(page).to have_content 'Dono de Pousada já está em uso'
       expect(page).to have_content 'Falar com não pode ficar em branco'
     end
   end
