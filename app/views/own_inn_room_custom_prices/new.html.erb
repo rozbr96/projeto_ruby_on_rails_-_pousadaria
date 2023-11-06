@@ -1,0 +1,25 @@
+
+<% if @custom_price.errors.any? %>
+  <% @custom_price.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<%= link_to 'Voltar', own_inn_room_path(@room) %>
+
+<%=
+  form_with scope: @custom_price,
+  url: own_inn_room_custom_prices_path(@room),
+  id: 'custom-price-form' do |form|
+%>
+  <%= form.label :start_date %>
+  <%= form.date_field :start_date %>
+
+  <%= form.label :end_date %>
+  <%= form.date_field :end_date %>
+
+  <%= form.label :price %>
+  <%= form.text_field :price %>
+
+  <%= form.submit %>
+<% end %>

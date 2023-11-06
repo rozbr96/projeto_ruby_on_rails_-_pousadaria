@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      custom_price: Preço Especial
+
+    attributes:
+      custom_price:
+        start_date: Início
+        end_date: Fim
+        price: Diária

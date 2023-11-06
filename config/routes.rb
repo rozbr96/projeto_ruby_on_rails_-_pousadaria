@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   resources :inns, except: :destroy
   resource :own_inn, except: [:destroy], controller: :own_inn do
-    resources :rooms, controller: :own_inn_rooms
+    resources :rooms, controller: :own_inn_rooms do
+      resources :custom_prices, controller: :own_inn_room_custom_prices
+    end
   end
 
   # Defines the root path route ("/")
