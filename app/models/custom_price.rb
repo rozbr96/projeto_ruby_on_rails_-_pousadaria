@@ -7,7 +7,7 @@ class CustomPrice < ApplicationRecord
   def overlappinp_dates
     return if inn_room.nil?
 
-    prices = CustomPrice.where inn_room: inn_room
+    prices = CustomPrice.where(inn_room: inn_room).where.not(id: id)
     invalid_ranges = prices.map &:reservation_dates_range
 
     return unless invalid_ranges.any? do |invalid_range|
