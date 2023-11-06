@@ -15,10 +15,24 @@ class OwnInnRoomCustomPricesController < ApplicationController
     end
   end
 
+  def edit
+    @custom_price = CustomPrice.find params[:id]
+  end
+
   def new
     @custom_price = CustomPrice.new inn_room: @room
   end
 
+  def update
+    @custom_price = CustomPrice.find params[:id]
+
+    if @custom_price.update custom_price_params
+      redirect_to own_inn_room_path(@room), notice: 'Preço especial atualizado com sucesso'
+    else
+      flash.now[:alert] = 'Erro ao atualizar preço especial'
+      render :edit
+    end
+  end
 
   private
 

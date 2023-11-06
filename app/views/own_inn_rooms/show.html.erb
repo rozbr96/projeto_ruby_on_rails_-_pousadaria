@@ -29,9 +29,9 @@
 
 <%= link_to 'Adicionar Preço Especial', new_own_inn_room_custom_price_path(@room) %>
 
-<table>
+<table id="custom-prices">
   <th>
-    <tr colspan="3">
+    <tr colspan="4">
       Preços por temporada
     </tr>
 
@@ -39,12 +39,13 @@
       <td>Incício</td>
       <td>Fim</td>
       <td>Preço</td>
+      <td>Ações</td>
     </tr>
   </th>
 
   <tbody>
     <% if @room.custom_prices.empty? %>
-      <td colspan="3">
+      <td colspan="4">
         Nenhum preço especial encontrado
       </td>
     <% else %>
@@ -53,6 +54,7 @@
           <td><%= I18n.l custom_price.start_date %></td>
           <td><%= I18n.l custom_price.end_date %></td>
           <td><%= number_to_currency(custom_price.price.to_f / 100)  %></td>
+          <td><%= link_to 'Editar', edit_own_inn_room_custom_price_path(@room, custom_price) %></td>
         </tr>
       <% end %>
     <% end %>
