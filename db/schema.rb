@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_06_061815) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_07_183249) do
   create_table "addresses", force: :cascade do |t|
     t.string "street", null: false
     t.integer "number"
@@ -99,8 +99,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_06_061815) do
     t.string "email", null: false
     t.boolean "enabled", null: false
     t.integer "innkeeper_id", null: false
-    t.string "check_in", null: false
-    t.string "check_out", null: false
+    t.time "check_in", null: false
+    t.time "check_out", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_inns_on_email", unique: true
