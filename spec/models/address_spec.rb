@@ -80,4 +80,54 @@ RSpec.describe Address, type: :model do
       end
     end
   end
+
+  describe '#formatted' do
+    it 'should format the entire address correctly' do
+      address = Address.new(
+        street: 'Rua Galática', number: '42', neighbourhood: 'Virgem',
+        city: 'Terra', state: 'Via Láctea', postal_code: '01.137-000',
+        complement: 'Shaka', inn: @inn
+      )
+
+      expected_full_address = 'Rua Galática, nº 42, Shaka - Virgem, Terra - Via Láctea, 01.137-000'
+
+      expect(address.full_address).to eq expected_full_address
+    end
+
+    it 'should format the address correctly when no number was given' do
+      address = Address.new(
+        street: 'Rua Galática', number: nil, neighbourhood: 'Virgem',
+        city: 'Terra', state: 'Via Láctea', postal_code: '01.137-000',
+        complement: 'Shaka', inn: @inn
+      )
+
+      expected_full_address = 'Rua Galática, sem número, Shaka - Virgem, Terra - Via Láctea, 01.137-000'
+
+      expect(address.full_address).to eq expected_full_address
+    end
+
+    it 'should format the address correctly when no complement was given' do
+      address = Address.new(
+        street: 'Rua Galática', number: 42, neighbourhood: 'Virgem',
+        city: 'Terra', state: 'Via Láctea', postal_code: '01.137-000',
+        complement: nil, inn: @inn
+      )
+
+      expected_full_address = 'Rua Galática, nº 42 - Virgem, Terra - Via Láctea, 01.137-000'
+
+      expect(address.full_address).to eq expected_full_address
+    end
+
+    it 'should format the address correctly when number nor complement were given' do
+      address = Address.new(
+        street: 'Rua Galática', number: nil, neighbourhood: 'Virgem',
+        city: 'Terra', state: 'Via Láctea', postal_code: '01.137-000',
+        complement: nil, inn: @inn
+      )
+
+      expected_full_address = 'Rua Galática, sem número - Virgem, Terra - Via Láctea, 01.137-000'
+
+      expect(address.full_address).to eq expected_full_address
+    end
+  end
 end
