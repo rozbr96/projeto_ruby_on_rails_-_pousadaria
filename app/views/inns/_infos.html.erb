@@ -1,0 +1,21 @@
+
+<%= @inn.name %>
+
+<% if display_senstive_data %>
+  <%= @inn.corporate_name %>
+  <%= @inn.registration_number %>
+<% end %>
+
+<%= @inn.description %>
+<%= get_text_for @inn, :pets_are_allowed %>
+<%= @inn.description %>
+<%= @inn.usage_policies %>
+<%= @inn.email %>
+<%= get_time_from @inn.check_in %>
+<%= get_time_from @inn.check_out %>
+
+<%= @inn.address.full_address %>
+
+<% @inn.phone_numbers.each do |phone_number| %>
+  <%= phone_number.formatted %>
+<% end %>
