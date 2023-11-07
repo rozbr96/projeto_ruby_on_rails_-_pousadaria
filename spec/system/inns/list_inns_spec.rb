@@ -25,6 +25,12 @@ describe 'User visits inns listing page' do
         check_in: '10:00', check_out: '10:00'
       )
 
+      Address.create!(
+        street: 'Rua Galática', number: '42', neighbourhood: 'Virgem',
+        city: 'Terra', state: 'Via Láctea', postal_code: '01.137-000',
+        complement: 'Shaka', inn: inn
+      )
+
       visit root_path
 
       within 'nav' do
@@ -33,7 +39,7 @@ describe 'User visits inns listing page' do
 
       expect(current_path).to eq inns_path
       expect(page).to have_content inn.name
-      expect(page).to have_content inn.description
+      expect(page).to have_content inn.address.city
     end
 
     it 'and sees no available inns' do

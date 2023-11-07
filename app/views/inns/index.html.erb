@@ -4,6 +4,6 @@
 <% else %>
   <% @inns.each do |inn| %>
     <%= inn.name %>
-    <%= inn.description %>
+    <%= inn.address.city %>
   <% end %>
 <% end %>
