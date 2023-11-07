@@ -53,4 +53,12 @@ describe 'User visits an inn details page' do
     expect(page).not_to have_content 'Pousada Solar LTDA'
     expect(page).not_to have_content '11338082000103'
   end
+
+  it 'and goes back to the listing page' do
+    visit inn_path @inn
+
+    click_on 'Voltar'
+
+    expect(current_path).to eq inns_path
+  end
 end
