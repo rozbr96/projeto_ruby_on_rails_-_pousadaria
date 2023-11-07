@@ -3,7 +3,7 @@
   Nenhuma pousada disponível
 <% else %>
   <% @inns.each do |inn| %>
-    <%= inn.name %>
+    <%= link_to inn.name, inn %>
     <%= inn.address.city %>
   <% end %>
 <% end %>
