@@ -38,4 +38,12 @@ RSpec.describe PhoneNumber, type: :model do
       end
     end
   end
+
+  describe '#formatted' do
+    it 'should format the number correctly' do
+      phone_number = PhoneNumber.new city_code: 11, number: 40028922
+
+      expect(phone_number.formatted).to eq '(11) 40028922'
+    end
+  end
 end
