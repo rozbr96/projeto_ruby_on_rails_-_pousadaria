@@ -22,6 +22,8 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "rspec-rails"
   gem "capybara"
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
