@@ -1,0 +1,28 @@
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2"><%= table_title %></th>
+    </tr>
+
+    <tr>
+      <th>Nome</th>
+      <th>Cidade</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if inns.empty? %>
+      <tr>
+        <td colspan="2">Nenhuma pousada disponível</td>
+      </tr>
+    <% else %>
+      <% inns.each do |inn| %>
+        <tr>
+          <td><%= link_to inn.name, inn %></td>
+          <td><%= inn.address.city %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

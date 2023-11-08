@@ -1,9 +1,18 @@
 
-<% if @inns.empty? %>
-  Nenhuma pousada disponível
-<% else %>
-  <% @inns.each do |inn| %>
-    <%= link_to inn.name, inn %>
-    <%= inn.address.city %>
-  <% end %>
-<% end %>
+<div id="newest-inns">
+  <%=
+    render partial: 'table', locals: {
+      inns: @newest_inns,
+      table_title: 'Pousadas Recentes'
+    }
+  %>
+</div>
+
+<div id="inns">
+  <%=
+    render partial: 'table', locals: {
+      inns: @remaining_inns,
+      table_title: 'Outras Pousadas'
+    }
+  %>
+</div>
