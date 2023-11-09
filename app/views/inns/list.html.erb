@@ -3,6 +3,15 @@
   <%= link_to 'Voltar', root_path %>
 </div>
 
+<% unless @searched_term.nil? %>
+  <div class="container h4 d-flex justify-content-end">
+    <div class="d-flex flex-column text-end">
+      <span>Você procurou por: <%= @searched_term %></span>
+      <span>Nº de Pousadas encontradas: <%= @inns.size %></span>
+    </div>
+  </div>
+<% end %>
+
 <div id="inns">
   <%=
     render partial: 'inns/table', locals: {

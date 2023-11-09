@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   get "search/by-city/:city" => "search#search_by_city", as: :search_by_city
+  post "search" => "search#search", as: :search
 
   # Defines the root path route ("/")
   root "inns#index"
