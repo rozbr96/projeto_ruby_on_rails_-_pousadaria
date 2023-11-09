@@ -1,5 +1,30 @@
 
-<div id="newest-inns" class="my-5">
+<div class="d-flex mt-3">
+  <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#quick-search" aria-expanded="false" aria-controls="quick-search">
+    Busca rápida
+  </button>
+
+  <div class="collapse collapse-horizontal" id="quick-search">
+    <div class="card card-body fixed-top" style="width: 300px; overflow: auto; height: 100vh">
+      <div class="bg-light sticky-top mb-2">
+        <button class="btn btn-outline-danger form-control" data-bs-target="#quick-search" data-bs-toggle="collapse">
+          Fechar
+        </button>
+      </div>
+
+      <h3 class="text-center">Cidades</h3>
+
+      <div id="cities-list" class="list-group">
+        <% @cities.each do |city| %>
+          <%= link_to city, search_by_city_path(city), class: 'list-group-item list-group-item-action list-group-item-light' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="newest-inns" class="mb-5">
   <%=
     render partial: 'table', locals: {
       inns: @newest_inns,

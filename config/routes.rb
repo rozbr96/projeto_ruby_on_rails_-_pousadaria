@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "search/by-city/:city" => "search#search_by_city", as: :search_by_city
+
   # Defines the root path route ("/")
   root "inns#index"
 end

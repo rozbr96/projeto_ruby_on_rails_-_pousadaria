@@ -1,0 +1,13 @@
+
+<div class="d-flex mt-5 mb-1 mx-5">
+  <%= link_to 'Voltar', root_path %>
+</div>
+
+<div id="inns">
+  <%=
+    render partial: 'inns/table', locals: {
+      inns: @inns,
+      table_title: 'Pousadas Encontradas'
+    }
+  %>
+</div>
