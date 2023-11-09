@@ -1,25 +1,12 @@
 
-<%= link_to 'Voltar', own_inn_room_path(@room) %>
+<div class="d-flex mx-5 mt-5 pb-1">
+  <%= link_to 'Voltar', own_inn_room_path(@room) %>
+</div>
 
-<% if @custom_price.errors.any? %>
-  <% @custom_price.errors.full_messages.each do |message| %>
-    <%= message %>
-  <% end %>
-<% end %>
+<h3 class="text-center mb-3">Editar Preço Especial</h3>
 
 <%=
-  form_with model: @custom_price,
-  url: own_inn_room_custom_price_path(@room, @custom_price),
-  id: 'custom-price-form' do |form|
+  render partial: 'form', locals: {
+    url: own_inn_room_custom_price_path(@room, @custom_price)
+  }
 %>
-  <%= form.label :start_date %>
-  <%= form.date_field :start_date %>
-
-  <%= form.label :end_date %>
-  <%= form.date_field :end_date %>
-
-  <%= form.label :price %>
-  <%= form.text_field :price %>
-
-  <%= form.submit %>
-<% end %>

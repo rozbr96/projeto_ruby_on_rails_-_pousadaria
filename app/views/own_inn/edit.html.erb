@@ -1,4 +1,8 @@
 
-<%= link_to 'Voltar', own_inn_path %>
+<div class="d-flex mx-5 mt-5 pb-1">
+  <%= link_to 'Voltar', own_inn_path %>
+</div>
+
+<h2 class="text-center">Editar Pousada</h2>
 
 <%= render partial: 'inns/form', locals: { action_url: own_inn_path, method: :patch } %>

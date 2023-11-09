@@ -1,87 +1,157 @@
 
-<% if @inn.errors.any? %>
-  <% @inn.errors.full_messages.each do |message| %>
-    <%= message %>
+<div class="container">
+  <% if @inn.errors.any? %>
+    <% @inn.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
   <% end %>
-<% end %>
 
-<%= form_with scope: @inn, url: action_url, method: method, id: 'inn-form' do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
-
-  <%= form.label :corporate_name %>
-  <%= form.text_field :corporate_name %>
-
-  <%= form.label :registration_number %>
-  <%= form.text_field :registration_number %>
-
-  <%= form.label :description %>
-  <%= form.text_field :description %>
-
-  <%= form.label :pets_are_allowed %>
-  <%= form.check_box :pets_are_allowed %>
-
-  <%= form.label :usage_policies %>
-  <%= form.text_field :usage_policies %>
-
-  <%= form.label :email %>
-  <%= form.text_field :email %>
-
-  <%= form.label :enabled %>
-  <%= form.check_box :enabled %>
-
-  <%= form.label :check_in %>
-  <%= form.text_field :check_in %>
-
-  <%= form.label :check_out %>
-  <%= form.text_field :check_out %>
-
-  <div id="address-wrapper">
-    <%= form.fields_for :address, @inn.address do |address_fields| %>
-      <%= address_fields.label :street %>
-      <%= address_fields.text_field :street %>
-
-      <%= address_fields.label :number %>
-      <%= address_fields.text_field :number %>
-
-      <%= address_fields.label :complement %>
-      <%= address_fields.text_field :complement %>
-
-      <%= address_fields.label :neighbourhood %>
-      <%= address_fields.text_field :neighbourhood %>
-
-      <%= address_fields.label :city %>
-      <%= address_fields.text_field :city %>
-
-      <%= address_fields.label :state %>
-      <%= address_fields.text_field :state %>
-
-      <%= address_fields.label :postal_code %>
-      <%= address_fields.text_field :postal_code %>
-    <% end %>
-  </div>
-
-  <div id="payment-methods-wrapper">
-    <% PaymentMethod.all.each do |payment| %>
-      <%= label_tag payment.name %>
-      <%= check_box_tag payment.name, value: payment.id, name: 'payment_methods_ids[]', checked: @payment_methods_ids.include?(payment.id) %>
-    <% end %>
-  </div>
-
-  <div id="phone-numbers-wrapper">
-    <%= form.fields_for :phone_numbers, @phone_numbers do |phone_numbers_fields, index| %>
-      <div class="phone-number">
-        <%= phone_numbers_fields.label :city_code %>
-        <%= phone_numbers_fields.text_field :city_code %>
-
-        <%= phone_numbers_fields.label :number %>
-        <%= phone_numbers_fields.text_field :number %>
-
-        <%= phone_numbers_fields.label :name %>
-        <%= phone_numbers_fields.text_field :name %>
+  <%= form_with scope: @inn, url: action_url, method: method, id: 'inn-form' do |form| %>
+    <div class="d-flex flex-column gap-3 mt-2">
+      <div>
+        <%= form.label :name %>
+        <%= form.text_field :name, class: 'form-control' %>
       </div>
-    <% end %>
-  </div>
 
-  <%= form.submit %>
-<% end %>
+      <div>
+        <%= form.label :corporate_name %>
+        <%= form.text_field :corporate_name, class: 'form-control' %>
+      </div>
+
+      <div>
+        <%= form.label :registration_number %>
+        <%= form.text_field :registration_number, class: 'form-control' %>
+      </div>
+
+      <div class="d-flex justify-content-around">
+        <div>
+          <%= form.label :pets_are_allowed %>
+          <%= form.check_box :pets_are_allowed %>
+        </div>
+
+        <div>
+          <%= form.label :enabled %>
+          <%= form.check_box :enabled %>
+        </div>
+      </div>
+
+      <div>
+        <%= form.label :description %>
+        <%= form.text_area :description, class: 'form-control', rows: 5 %>
+      </div>
+
+      <div>
+        <%= form.label :usage_policies %>
+        <%= form.text_area :usage_policies, class: 'form-control', rows: 5 %>
+      </div>
+
+
+      <h5 class="text-center mt-2">Horários</h5>
+      <div class="d-flex justify-content-around">
+        <div class="d-flex flex-column" style="width: 25%">
+          <%= form.label :check_in %>
+          <%= form.time_field :check_in, class: 'form-control' %>
+        </div>
+
+        <div class="d-flex flex-column" style="width: 25%">
+          <%= form.label :check_out, class: 'form-label' %>
+          <%= form.time_field :check_out, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div id="address-wrapper">
+        <h5 class="text-center mt-2">Endereço</h5>
+
+        <%= form.fields_for :address, @inn.address do |address_fields| %>
+          <div class="d-flex flex-column gap-2">
+            <div class="d-flex gap-1">
+              <div style="width: 25%">
+                <%= address_fields.label :postal_code %>
+                <%= address_fields.text_field :postal_code, class: 'form-control' %>
+              </div>
+
+              <div style="width: 65%">
+                <%= address_fields.label :street %>
+                <%= address_fields.text_field :street, class: 'form-control' %>
+              </div>
+
+              <div style="width: 15%">
+                <%= address_fields.label :number %>
+                <%= address_fields.text_field :number, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="d-flex gap-1">
+              <div style="width: 60%">
+                <%= address_fields.label :complement %>
+                <%= address_fields.text_field :complement, class: 'form-control' %>
+              </div>
+
+              <div style="width: 40%">
+                <%= address_fields.label :neighbourhood %>
+                <%= address_fields.text_field :neighbourhood, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="d-flex gap-1">
+              <div style="width: 80%">
+                <%= address_fields.label :city %>
+                <%= address_fields.text_field :city, class: 'form-control' %>
+              </div>
+
+              <div style="width: 20%">
+                <%= address_fields.label :state %>
+                <%= address_fields.text_field :state, class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div id="payment-methods-wrapper">
+        <h5 class="text-center mt-2">Meios de Pagamento</h5>
+
+        <div class="row">
+          <% PaymentMethod.all.each do |payment| %>
+            <div class="d-flex col gap-2">
+              <%= label_tag payment.name %>
+              <%= check_box_tag payment.name, value: payment.id, name: 'payment_methods_ids[]', checked: @payment_methods_ids.include?(payment.id) %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <h5 class="text-center mt-2">Contatos</h5>
+
+      <div id="phone-numbers-wrapper">
+        <%= form.fields_for :phone_numbers, @phone_numbers do |phone_numbers_fields, index| %>
+          <div class="phone-number">
+            <div class="d-flex gap-2">
+              <div class="d-flex flex-column" style="width: 20%">
+                <%= phone_numbers_fields.label :city_code, class: 'form-label' %>
+                <%= phone_numbers_fields.text_field :city_code, class: 'form-control' %>
+              </div>
+
+              <div class="d-flex flex-column" style="width: 50%">
+                <%= phone_numbers_fields.label :number %>
+                <%= phone_numbers_fields.text_field :number, class: 'form-control' %>
+              </div>
+
+              <div class="d-flex flex-column" style="width: 30%">
+                <%= phone_numbers_fields.label :name %>
+                <%= phone_numbers_fields.text_field :name, class: 'form-control' %>
+              </div>
+              </div>
+          </div>
+        <% end %>
+
+        <div class="mt-1">
+          <%= form.label :email %>
+          <%= form.email_field :email, class: 'form-control' %>
+        </div>
+      </div>
+
+      <%= form.submit class: 'btn btn-outline-primary' %>
+    </div>
+  <% end %>
+</div>

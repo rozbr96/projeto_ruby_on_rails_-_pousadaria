@@ -1,14 +1,22 @@
 
-<%= link_to 'Voltar', own_inn_path %>
-<%= link_to 'Registrar Quarto', new_own_inn_room_path %>
+<div class="d-flex justify-content-between mx-5 mt-5">
+  <%= link_to 'Voltar', own_inn_path %>
+  <%= link_to 'Registrar Quarto', new_own_inn_room_path %>
+</div>
 
-<table id="inn-rooms-table">
+<table id="inn-rooms-table" class="table table-responsive table-striped table-hover text-center">
   <thead>
-    <th>
-      <tr>Nome</tr>
-      <tr>Habilitado</tr>
-      <tr>Ações</tr>
-    </th>
+    <tr>
+      <th class="text-center" colspan="3">
+        <h3>Quartos</h3>
+      </th>
+    </tr>
+
+    <tr>
+      <th>Nome</th>
+      <th style="width: 25%">Habilitado</th>
+      <th style="width: 25%">Ações</th>
+    </tr>
   </thead>
 
   <tbody>
@@ -17,7 +25,7 @@
     <% else %>
       <% @rooms.each do |room| %>
         <tr>
-          <td><%= room.name %></td>
+          <td class="text-start"><%= room.name %></td>
           <td><%= room.enabled? ? 'SIM' : 'NÃO' %></td>
           <td><%= link_to 'Detalhes', own_inn_room_path(room) %></td>
         </tr>

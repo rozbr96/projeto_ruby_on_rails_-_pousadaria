@@ -1,21 +1,40 @@
 
-<%= @inn.name %>
+<div class="container">
+  <h1><%= @inn.name %></h1>
 
-<% if display_senstive_data %>
-  <%= @inn.corporate_name %>
-  <%= @inn.registration_number %>
-<% end %>
+  <dl>
+    <% if display_senstive_data %>
+      <dt>Razão Social</dt>
+      <dd><%= @inn.corporate_name %></dd>
 
-<%= @inn.description %>
-<%= get_text_for @inn, :pets_are_allowed %>
-<%= @inn.description %>
-<%= @inn.usage_policies %>
-<%= @inn.email %>
-<%= get_time_from @inn.check_in %>
-<%= get_time_from @inn.check_out %>
+      <dt>CNPJ</dt>
+      <dd><%= @inn.registration_number %></dd>
+    <% end %>
 
-<%= @inn.address.full_address %>
+    <dt>Descrição</dt>
+    <dd><%= @inn.description %></dd>
 
-<% @inn.phone_numbers.each do |phone_number| %>
-  <%= phone_number.formatted %>
-<% end %>
+    <dt>Animais</dt>
+    <dd><%= get_text_for @inn, :pets_are_allowed %></dd>
+
+    <dt>E-mail</dt>
+    <dd><%= @inn.email %></dd>
+
+     <% @inn.phone_numbers.each_with_index do |phone_number, index| %>
+      <dt>Contato nº <%= index + 1 %></dt>
+      <dd><%= phone_number.formatted %>, falar com: <%= phone_number.name %></dd>
+    <% end %>
+
+    <dt>Endereço</dt>
+    <dd><%= @inn.address.full_address %></dd>
+
+    <dt>Horário de Check in</dt>
+    <dd><%= get_time_from @inn.check_in %></dd>
+
+    <dt>Horário de Check out</dt>
+    <dd><%= get_time_from @inn.check_out %></dd>
+
+    <dt>Políticas de Uso</dt>
+    <dd><%= @inn.usage_policies %></dd>
+  </dl>
+</div>

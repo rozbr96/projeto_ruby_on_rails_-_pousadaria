@@ -8,40 +8,43 @@
 
     <%= stylesheet_link_tag "application" %>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light px-5">
       <a class="navbar-brand" href="/">Pousadaria</a>
 
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-        </li>
-
+      <ul class="navbar-nav justify-content-between gap-3" style="width: 100vw">
         <li class="nav-item">
           <%= link_to 'Pousadas', inns_path, class: 'nav-link' %>
         </li>
 
+        <li class="nav-item">
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Busque por nome, cidade..." aria-label="Buscar Pousadas">
+            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+          </form>
+        </li>
+
         <li class="nav-item dropdown">
           <% if innkeeper_signed_in? %>
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <%= current_innkeeper.name %>
-            </a>
+            </button>
 
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to 'Minha Pousada', own_inn_path, class: 'dropdown-item' %>
-              <%= button_to 'Sair', destroy_innkeeper_session_path, method: :delete, class: 'dropdown-item' %>
-            </div>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><%= link_to 'Minha Pousada', own_inn_path, class: 'dropdown-item' %></li>
+              <li><%= button_to 'Sair', destroy_innkeeper_session_path, method: :delete, class: 'dropdown-item', style: 'cursor: pointer' %></li>
+            </ul>
           <% else %>
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               Entrar
-            </a>
+            </button>
 
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to 'Como Dono de Pousada', new_innkeeper_session_path, class: 'dropdown-item' %>
-            </div>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><%= link_to 'Como Dono de Pousada', new_innkeeper_session_path, class: 'dropdown-item' %></li>
+            </ul>
           <% end %>
         </li>
       </ul>
@@ -53,10 +56,10 @@
       <%= render partial: 'common/alert', locals: { message: message, bootstrap_class: type } %>
     <% end %>
 
-    <%= yield %>
+    <div class="container-fluid mb-5">
+      <%= yield %>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
 </html>

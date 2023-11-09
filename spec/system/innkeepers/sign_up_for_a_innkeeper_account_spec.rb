@@ -16,7 +16,7 @@ describe 'User visits registration page' do
   it 'and sees the registration form' do
     visit new_innkeeper_registration_path
 
-    within 'form' do
+    within 'form#new_innkeeper' do
       expect(page).to have_field 'Nome'
       expect(page).to have_field 'E-mail'
       expect(page).to have_field 'Senha'
@@ -27,7 +27,7 @@ describe 'User visits registration page' do
   it 'and creates an account successfully' do
     visit new_innkeeper_registration_path
 
-    within 'form' do
+    within 'form#new_innkeeper' do
       fill_in 'Nome', with: 'Gui'
       fill_in 'E-mail', with: 'gui@test.com'
       fill_in 'Senha', with: 'password'
@@ -41,7 +41,7 @@ describe 'User visits registration page' do
   it 'and fails to create an account, seeing the related errors' do
     visit new_innkeeper_registration_path
 
-    within 'form' do
+    within 'form#new_innkeeper' do
       fill_in 'Nome', with: ''
       fill_in 'E-mail', with: 'gui2test.com'
       fill_in 'Senha', with: '123456'

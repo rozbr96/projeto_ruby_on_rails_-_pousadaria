@@ -1,4 +1,8 @@
 
-<%= link_to 'Voltar', inns_path %>
+<div class="d-flex mx-5 mt-5 pb-1">
+  <%= link_to 'Voltar', inns_path %>
+</div>
 
-<%= render partial: 'infos', locals: { display_senstive_data: false } %>
+<div class="container-fluid">
+  <%= render partial: 'infos', locals: { display_senstive_data: false } %>
+</div>

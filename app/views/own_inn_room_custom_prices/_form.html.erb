@@ -1,0 +1,33 @@
+
+<% if @custom_price.errors.any? %>
+  <% @custom_price.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<div class="container" style="width: 400px">
+  <%=
+    form_with model: @custom_price,
+    url: url,
+    id: 'custom-price-form' do |form|
+  %>
+    <div class="d-flex flex-column gap-3">
+      <div class="d-flex flex-column">
+        <%= form.label :start_date %>
+        <%= form.date_field :start_date, class: 'form-control' %>
+      </div>
+
+      <div class="d-flex flex-column">
+        <%= form.label :end_date %>
+        <%= form.date_field :end_date, class: 'form-control' %>
+      </div>
+
+      <div class="d-flex flex-column">
+        <%= form.label :price %>
+        <%= form.text_field :price, class: 'form-control' %>
+      </div>
+
+      <%= form.submit class: 'btn btn-outline-primary' %>
+    </div>
+  <% end %>
+</div

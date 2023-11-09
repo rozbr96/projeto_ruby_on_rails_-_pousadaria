@@ -1,62 +1,114 @@
 
-<%= link_to 'Voltar', own_inn_rooms_path %>
+<div class="d-flex mx-5 mt-5 pb-1 justify-content-between">
+  <%= link_to 'Voltar', own_inn_rooms_path %>
+</div>
 
-<%= @room.name %>
+<h1 class="text-center"><%= @room.name %></h1>
 
-<%= @room.description %>
+<div class="container">
+  <div>
+    <dl>
+      <dt>Descrição</dt>
+      <dd><%= @room.description %></dd>
+    </dl>
+  </div>
 
-<%= @room.dimension %> m²
+  <div class="d-flex justify-content-around">
+    <dl class="d-flex flex-column gap-1">
+      <div>
+        <dt>Diária</dt>
+        <dd><%= number_to_currency(@room.price.to_f / 100) %></dd>
+      </div>
 
-<%= number_to_currency(@room.price.to_f / 100) %>
+      <div>
+        <dt>Dimensões</dt>
+        <dd><%= @room.dimension %> m²</dd>
+      </div>
 
-<%= @room.maximum_number_of_guests %>
+      <div>
+        <dt>Número máximo de convidados</dt>
+        <dd><%= @room.maximum_number_of_guests %></dd>
+      </div>
 
-<%= @room.number_of_bathrooms %>
+      <div>
+        <dt>Número de banheiros</dt>
+        <dd><%= @room.number_of_bathrooms %></dd>
+      </div>
 
-<%= @room.number_of_wardrobes %>
+      <div>
+        <dt>Número de guarda-roupas</dt>
+        <dd><%= @room.number_of_wardrobes %></dd>
+      </div>
+    </dl>
 
-<%= @room.has_balcony %>
+    <dl class="d-flex flex-column gap-1">
+      <div>
+        <dt>Varanda</dt>
+        <dd><%= @room.has_balcony %></dd>
+      </div>
 
-<%= @room.has_tv %>
+      <div>
+        <dt>TV</dt>
+        <dd><%= @room.has_tv %></dd>
+      </div>
 
-<%= @room.has_air_conditioning %>
+      <div>
+        <dt>Ar Condionado</dt>
+        <dd><%= @room.has_air_conditioning %></dd>
+      </div>
 
-<%= @room.has_vault %>
+      <div>
+        <dt>Cofre</dt>
+        <dd><%= @room.has_vault %></dd>
+      </div>
 
-<%= @room.is_accessible_for_people_with_disabilities %>
+      <div>
+        <dt>Acessível</dt>
+        <dd><%= @room.is_accessible_for_people_with_disabilities %></dd>
+      </div>
 
-<%= @room.enabled %>
+      <div>
+        <dt>Disponível</dt>
+        <dd><%= @room.enabled %></dd>
+      </div>
+    </dl>
+  </div>
 
-<%= link_to 'Adicionar Preço Especial', new_own_inn_room_custom_price_path(@room) %>
+  <div class="d-flex mx-5 mt-3 justify-content-end">
+    <%= link_to 'Adicionar Preço Especial', new_own_inn_room_custom_price_path(@room) %>
+  </div>
 
-<table id="custom-prices">
-  <th>
-    <tr colspan="4">
-      Preços por temporada
-    </tr>
+  <table id="custom-prices" class="table table-responsive table-striped table-hover text-center">
+    <thead>
+      <tr>
+        <th colspan="4">
+          <h4>Preços por temporada</h4>
+        </th>
+      </tr>
 
-    <tr>
-      <td>Incício</td>
-      <td>Fim</td>
-      <td>Preço</td>
-      <td>Ações</td>
-    </tr>
-  </th>
+      <tr>
+        <th>Incício</th>
+        <th>Fim</th>
+        <th>Preço</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <% if @room.custom_prices.empty? %>
-      <td colspan="4">
-        Nenhum preço especial encontrado
-      </td>
-    <% else %>
-      <% @room.custom_prices.each do |custom_price| %>
-        <tr>
-          <td><%= I18n.l custom_price.start_date %></td>
-          <td><%= I18n.l custom_price.end_date %></td>
-          <td><%= number_to_currency(custom_price.price.to_f / 100)  %></td>
-          <td><%= link_to 'Editar', edit_own_inn_room_custom_price_path(@room, custom_price) %></td>
-        </tr>
+    <tbody>
+      <% if @room.custom_prices.empty? %>
+        <td colspan="4">
+          Nenhum preço especial encontrado
+        </td>
+      <% else %>
+        <% @room.custom_prices.each do |custom_price| %>
+          <tr>
+            <td><%= I18n.l custom_price.start_date %></td>
+            <td><%= I18n.l custom_price.end_date %></td>
+            <td class="text-end"><%= number_to_currency(custom_price.price.to_f / 100)  %></td>
+            <td><%= link_to 'Editar', edit_own_inn_room_custom_price_path(@room, custom_price) %></td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

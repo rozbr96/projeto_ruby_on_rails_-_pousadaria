@@ -16,7 +16,7 @@ describe 'User visits login page' do
   it 'and sees the login form' do
     visit new_innkeeper_session_path
 
-    within 'form' do
+    within 'form#new_innkeeper' do
       expect(page).to have_field 'E-mail'
       expect(page).to have_field 'Senha'
     end
@@ -27,7 +27,7 @@ describe 'User visits login page' do
 
     visit new_innkeeper_session_path
 
-    within 'form' do
+    within 'form#new_innkeeper' do
       fill_in 'E-mail', with: innkeeper.email
       fill_in 'Senha', with: innkeeper.password
       click_on 'Log in'
@@ -41,7 +41,7 @@ describe 'User visits login page' do
 
     visit new_innkeeper_session_path
 
-    within 'form' do
+    within 'form#new_innkeeper' do
       fill_in 'E-mail', with: innkeeper.email
       fill_in 'Senha', with: 'wrong password'
       click_on 'Log in'

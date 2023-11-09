@@ -18,7 +18,7 @@ describe 'User visits the inn creation page' do
     it 'automatically after signing in' do
       visit new_innkeeper_session_path
 
-      within 'form' do
+      within 'form#new_innkeeper' do
         fill_in 'E-mail', with: @innkeeper.email
         fill_in 'Senha', with: @innkeeper.password
         click_on 'Log in'

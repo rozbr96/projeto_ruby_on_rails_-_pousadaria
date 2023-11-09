@@ -1,28 +1,32 @@
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="2"><%= table_title %></th>
-    </tr>
-
-    <tr>
-      <th>Nome</th>
-      <th>Cidade</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if inns.empty? %>
+<div class="table-responsive">
+  <table class="table table-sm table-striped table-hover text-center">
+    <thead>
       <tr>
-        <td colspan="2">Nenhuma pousada disponível</td>
+        <th colspan="2">
+          <h3><%= table_title %></h3>
+        </th>
       </tr>
-    <% else %>
-      <% inns.each do |inn| %>
+
+      <tr>
+        <th>Nome</th>
+        <th>Cidade</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if inns.empty? %>
         <tr>
-          <td><%= link_to inn.name, inn %></td>
-          <td><%= inn.address.city %></td>
+          <td colspan="2">Nenhuma pousada disponível</td>
         </tr>
+      <% else %>
+        <% inns.each do |inn| %>
+          <tr class="text-start">
+            <td><%= link_to inn.name, inn %></td>
+            <td style="width: 50%"><%= inn.address.city %></td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
