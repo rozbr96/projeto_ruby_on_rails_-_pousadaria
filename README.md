@@ -12,6 +12,17 @@
     - [    ] use some styles
     - [    ] use some icons
     - [    ] enable dark theme
+    - [    ] display errors close to their related fields
+    - [    ] add meaningful descriptions for some boolean values
+    - [    ] auto format some input values
+      - [    ] inn
+        - [    ] registration_number
+        - [    ] postal_code
+      - [    ] inn room
+        - [    ] price
+    - [    ] dynamically search for the address data by the given postal code
+    - [    ] add some pre/append label icons to some input fields
+
 
   - [    ] some extra ideas
     - [    ] inn rooms
