@@ -39,4 +39,6 @@ describe 'User opens the advanced search menu' do
       expect(page).to have_field 'advanced_search_most_number_of_bathrooms'
     end
   end
+
+  xit 'and searches...' do; end
 end
