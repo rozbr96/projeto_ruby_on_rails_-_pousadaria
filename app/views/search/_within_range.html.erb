@@ -1,0 +1,9 @@
+
+<div class="d-flex flex-column gap-1">
+  <%= form.label "number_of_#{attr}", class: 'form-label' %>
+
+  <div class="d-flex gap-2">
+    <%= form.number_field "least_number_of_#{attr}", class: 'form-control', placeholder: '<=' %>
+    <%= form.number_field "most_number_of_#{attr}", class: 'form-control', placeholder: '>=' %>
+  </div>
+</div>

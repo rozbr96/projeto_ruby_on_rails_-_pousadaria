@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :redirect_to_inn_creation_page
+  before_action :set_search
 
 
   protected
@@ -20,5 +21,18 @@ class ApplicationController < ActionController::Base
     return unless current_innkeeper.inn.nil?
 
     redirect_to new_own_inn_path, warning: 'Primeiro é necessário registrar sua pousada!'
+  end
+
+  def set_search
+    @search = AdvancedSearch.new search_in_city: false,
+      search_in_description: false,
+      search_in_name: false,
+      search_in_neighbourhood: false,
+      with_accessibility_for_disabled_people: :indifferent,
+      with_air_conditioning: :indifferent,
+      with_balcony: :indifferent,
+      with_pets_allowed: :indifferent,
+      with_vault: :indifferent,
+      with_tv: :indifferent
   end
 end

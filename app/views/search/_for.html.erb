@@ -1,0 +1,13 @@
+
+<div class="d-flex flex-column gap-1">
+  <%= form.label search_for_attr, class: 'form-label' %>
+  <%= form.text_field search_for_attr, class: 'form-control' %>
+
+  <%= form.label attr, class: 'form-label' %>
+  <div class="d-flex justify-content-around">
+    <% search_in_options.each do |search_in_option| %>
+      <%= form.label "#{attr}_#{search_in_option}", style: 'cursor: pointer' %>
+      <%= form.check_box"#{attr}_#{search_in_option}" %>
+    <% end %>
+  </div>
+</div>

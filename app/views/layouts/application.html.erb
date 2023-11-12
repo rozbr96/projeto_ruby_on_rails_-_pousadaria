@@ -23,7 +23,11 @@
         <li class="nav-item">
           <%= form_with url: search_path, method: :post, class: 'd-flex', role: 'search' do |form| %>
             <input id="search" class="form-control me-2" type="search" placeholder="Busque por nome, cidade..." aria-label="Buscar Pousadas" name="term">
-            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+
+            <div class="btn-group">
+              <button class="btn btn-outline-primary" type="submit">Buscar</button>
+              <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#advanced-search-wrapper">Busca Avançada</button>
+            </div>
           <% end %>
         </li>
 
@@ -49,6 +53,47 @@
         </li>
       </ul>
     </nav>
+
+    <div class="collapse collapse-horizontal" id="advanced-search-wrapper">
+      <div class="fixed-top bg-light" style="width: 400px; margin-left: calc(100vw - 400px); height: 100vh; overflow-y: auto">
+        <div class="container d-flex flex-column mt-3 mb-5">
+          <%= form_with model: @search, url: advanced_search_path do |form| %>
+            <div class="container d-flex flex-column gap-3">
+              <button type="button" class="btn btn-outline-danger" data-bs-toggle="collapse" data-bs-target="#advanced-search-wrapper">
+                Fechar
+              </button>
+
+              <%=
+                render partial: 'search/for', locals: {
+                  form: form,
+                  attr: 'search_in',
+                  search_for_attr: 'term',
+                  search_in_options: [ :name, :city, :neighbourhood, :description ]
+                }
+              %>
+
+              <%= render partial: 'search/with', locals: { form: form, attr: 'pets_allowed' } %>
+
+              <%= render partial: 'search/with', locals: { form: form, attr: 'accessibility_for_disabled_people' } %>
+
+              <%= render partial: 'search/with', locals: { form: form, attr: 'air_conditioning' } %>
+
+              <%= render partial: 'search/with', locals: { form: form, attr: 'tv' } %>
+
+              <%= render partial: 'search/with', locals: { form: form, attr: 'balcony' } %>
+
+              <%= render partial: 'search/with', locals: { form: form, attr: 'vault' } %>
+
+              <%= render partial: 'search/within_range', locals: { form: form, attr: 'guests' } %>
+
+              <%= render partial: 'search/within_range', locals: { form: form, attr: 'bathrooms' } %>
+
+              <%= form.submit class: 'btn btn-outline-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
     <% flash.each do |type, message| %>
       <% type = :success if type == 'notice' %>

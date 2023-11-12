@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get "search/by-city/:city" => "search#search_by_city", as: :search_by_city
   post "search" => "search#search", as: :search
+  post "search/advanced" => "search#advanced_search", as: :advanced_search
 
   # Defines the root path route ("/")
   root "inns#index"

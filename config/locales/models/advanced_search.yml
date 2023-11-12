@@ -1,0 +1,25 @@
+pt-BR:
+  activemodel:
+    models:
+      advanced_search: Busca Avançada
+
+    attributes:
+      advanced_search:
+        indifferent: Indiferente
+        negative: Não
+        number_of_bathrooms: Número de Banheiros
+        number_of_guests: Número de Convidados
+        positive: Sim
+        search_in: Buscar em...
+        search_in_city: Cidade
+        search_in_description: Descrição
+        search_in_name: Nome
+        search_in_neighbourhood: Bairro
+        term: Buscar por...
+        with_accessibility_for_disabled_people: Acessível para PcD?
+        with_air_conditioning: Com Ar Condionado?
+        with_balcony: Com Varanda?
+        with_pets_allowed: Animais permitidos?
+        with_pets_alloed_no: Sem animais permitidos
+        with_tv: Com TV?
+        with_vault: Com Cofre?

@@ -1,0 +1,15 @@
+
+<div class="d-flex flex-column gap-1">
+  <%= form.label "with_#{attr}", class: 'form-label' %>
+
+  <div class="btn-group" role="group">
+    <%= form.radio_button "with_#{attr}", :no, id: "with_#{attr}_no", class: 'btn-check' %>
+    <%= form.label :negative, class: 'btn btn-outline-primary', for: "with_#{attr}_no" %>
+
+    <%= form.radio_button "with_#{attr}", :indifferent, id: "with_#{attr}_indifferent", class: 'btn-check' %>
+    <%= form.label :indifferent, class: 'btn btn-outline-primary', for: "with_#{attr}_indifferent" %>
+
+    <%= form.radio_button "with_#{attr}", :yes, id: "with_#{attr}_yes", class: 'btn-check' %>
+    <%= form.label :positive, class: 'btn btn-outline-primary', for: "with_#{attr}_yes" %>
+  </div>
+</div>
