@@ -6,3 +6,9 @@
 <div class="container-fluid">
   <%= render partial: 'infos', locals: { display_senstive_data: false } %>
 </div>
+
+<div class="container-fluid">
+  <%= render partial: 'inn_rooms/list', locals: {
+    rooms: @rooms
+  } %>
+</div>

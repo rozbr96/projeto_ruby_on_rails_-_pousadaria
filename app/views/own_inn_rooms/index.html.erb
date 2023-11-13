@@ -4,32 +4,8 @@
   <%= link_to 'Registrar Quarto', new_own_inn_room_path %>
 </div>
 
-<table id="inn-rooms-table" class="table table-responsive table-striped table-hover text-center">
-  <thead>
-    <tr>
-      <th class="text-center" colspan="3">
-        <h3>Quartos</h3>
-      </th>
-    </tr>
-
-    <tr>
-      <th>Nome</th>
-      <th style="width: 25%">Habilitado</th>
-      <th style="width: 25%">Ações</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if @rooms.empty? %>
-      <tr colspan="3">Nenhum quarto registrado</td>
-    <% else %>
-      <% @rooms.each do |room| %>
-        <tr>
-          <td class="text-start"><%= room.name %></td>
-          <td><%= room.enabled? ? 'SIM' : 'NÃO' %></td>
-          <td><%= link_to 'Detalhes', own_inn_room_path(room) %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<%=
+  render partial: 'inn_rooms/list', locals: {
+    rooms: @rooms
+  }
+%>

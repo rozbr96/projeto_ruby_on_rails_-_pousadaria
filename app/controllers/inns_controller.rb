@@ -13,5 +13,6 @@ class InnsController < ApplicationController
 
   def show
     @inn = Inn.find params[:id]
+    @rooms = @inn.inn_rooms.where enabled: true
   end
 end

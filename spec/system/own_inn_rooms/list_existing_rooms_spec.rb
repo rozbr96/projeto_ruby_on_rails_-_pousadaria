@@ -54,7 +54,7 @@ describe 'User visits listing rooms page' do
       visit own_inn_rooms_path
 
       within '#inn-rooms-table' do
-        expect(page).to have_content 'Nenhum quarto registrado'
+        expect(page).to have_content 'Nenhum quarto encontrado'
       end
     end
 
