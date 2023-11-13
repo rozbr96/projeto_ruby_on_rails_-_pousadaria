@@ -1,0 +1,16 @@
+
+
+<div class="d-flex mx-5 mt-5 pb-1 justify-content-between">
+  <%= link_to 'Voltar', @room.inn %>
+</div>
+
+<h1 class="text-center"><%= @room.name %></h1>
+
+<div class="container">
+  <%= render partial: 'info', locals: { room: @room } %>
+
+  <%= render partial: 'custom_prices/list', locals: {
+    prices: @room.custom_prices,
+    display_sensitive_data: false
+  } %>
+</div>

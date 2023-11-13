@@ -1,0 +1,68 @@
+
+<div>
+  <dl>
+    <dt>Descrição</dt>
+    <dd><%= room.description %></dd>
+  </dl>
+</div>
+
+<div class="d-flex justify-content-around">
+  <dl class="d-flex flex-column gap-1">
+    <div>
+      <dt>Diária</dt>
+      <dd><%= number_to_currency(room.price.to_f / 100) %></dd>
+    </div>
+
+    <div>
+      <dt>Dimensões</dt>
+      <dd><%= room.dimension %> m²</dd>
+    </div>
+
+    <div>
+      <dt>Número máximo de convidados</dt>
+      <dd><%= room.maximum_number_of_guests %></dd>
+    </div>
+
+    <div>
+      <dt>Número de banheiros</dt>
+      <dd><%= room.number_of_bathrooms %></dd>
+    </div>
+
+    <div>
+      <dt>Número de guarda-roupas</dt>
+      <dd><%= room.number_of_wardrobes %></dd>
+    </div>
+  </dl>
+
+  <dl class="d-flex flex-column gap-1">
+    <div>
+      <dt>Varanda</dt>
+      <dd><%= room.has_balcony %></dd>
+    </div>
+
+    <div>
+      <dt>TV</dt>
+      <dd><%= room.has_tv %></dd>
+    </div>
+
+    <div>
+      <dt>Ar Condionado</dt>
+      <dd><%= room.has_air_conditioning %></dd>
+    </div>
+
+    <div>
+      <dt>Cofre</dt>
+      <dd><%= room.has_vault %></dd>
+    </div>
+
+    <div>
+      <dt>Acessível</dt>
+      <dd><%= room.is_accessible_for_people_with_disabilities %></dd>
+    </div>
+
+    <div>
+      <dt>Disponível</dt>
+      <dd><%= room.enabled %></dd>
+    </div>
+  </dl>
+</div>

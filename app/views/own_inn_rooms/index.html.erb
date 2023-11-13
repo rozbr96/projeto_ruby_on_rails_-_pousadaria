@@ -5,7 +5,9 @@
 </div>
 
 <%=
-  render partial: 'inn_rooms/list', locals: {
-    rooms: @rooms
+  render partial: 'rooms/list', locals: {
+    rooms: @rooms,
+    display_sensitive_data: true,
+    get_room_path: -> room { own_inn_room_path(room) }
   }
 %>

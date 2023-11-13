@@ -1,0 +1,40 @@
+
+<table id="inn-rooms-table" class="table table-responsive table-striped table-hover text-center">
+  <thead>
+    <tr>
+      <th class="text-center" colspan="<%= display_sensitive_data ? 4 : 3 %>">
+        <h3>Quartos Disponíveis</h3>
+      </th>
+    </tr>
+
+    <tr>
+      <th>Nome</th>
+
+      <% if display_sensitive_data %>
+        <th style="width: 20%">Habilitado</th>
+      <% end %>
+
+      <th style="width: 20%">Diária</th>
+      <th style="width: 20%">Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if rooms.empty? %>
+      <tr colspan="<%= display_sensitive_data ? 4 : 3 %>">Nenhum quarto encontrado</td>
+    <% else %>
+      <% rooms.each do |room| %>
+        <tr>
+          <td class="text-start"><%= link_to room.name, get_room_path.call(room) %></td>
+
+          <% if display_sensitive_data %>
+            <td><%= room.enabled? ? 'SIM' : 'NÃO' %></td>
+          <% end %>
+
+          <td><%= number_to_currency(room.price.to_f / 100) %></td>
+          <td><%= link_to 'Detalhes', get_room_path.call(room) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

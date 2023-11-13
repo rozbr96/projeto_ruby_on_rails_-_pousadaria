@@ -8,7 +8,7 @@ describe 'User visits an inn details page' do
     FactoryBot.create :address, inn: inn
 
     [true, true, false].each do |enabled|
-      FactoryBot.create :inn_room, inn: inn, enabled: enabled
+      FactoryBot.create :inn_room, inn: inn, enabled: enabled, price: 150_00
     end
 
     visit root_path
@@ -19,6 +19,7 @@ describe 'User visits an inn details page' do
     expect(page).to have_content 'Quartos Disponíveis'
     expect(page).to have_content InnRoom.first.name
     expect(page).not_to have_content InnRoom.last.name
+    expect(page).to have_content 'R$ 150,00'
   end
 
   it 'and sees no available rooms' do
