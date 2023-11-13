@@ -65,6 +65,20 @@ describe 'User visits own inn room details page' do
       expect(page).to have_content '100 m²'
       expect(page).to have_content 'R$ 150,00'
     end
+
+    it 'trying to get to the room of a not owed inn' do
+      second_innkeeper = FactoryBot.create :innkeeper
+      second_inn = FactoryBot.create :inn, innkeeper: second_innkeeper, enabled: true
+      FactoryBot.create :address, inn: second_inn
+      second_room = FactoryBot.create :inn_room, inn: second_inn
+
+      login_as @innkeeper
+
+      visit own_inn_room_path second_room
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Você não tem permissão para acessar essa página'
+    end
   end
 
   context 'when not logged in' do
