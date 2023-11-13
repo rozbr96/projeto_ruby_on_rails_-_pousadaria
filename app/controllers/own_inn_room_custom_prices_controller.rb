@@ -2,6 +2,7 @@
 class OwnInnRoomCustomPricesController < ApplicationController
   before_action :authenticate_innkeeper!
   before_action :set_room
+  before_action :verify_room
 
   def create
     @custom_price = CustomPrice.new custom_price_params
@@ -42,5 +43,11 @@ class OwnInnRoomCustomPricesController < ApplicationController
 
   def set_room
     @room = InnRoom.find params[:room_id]
+  end
+
+  def verify_room
+    return if @room.inn == current_innkeeper.inn
+
+    redirect_to root_path, warning: 'Você não tem permissão para acessar essa página'
   end
 end

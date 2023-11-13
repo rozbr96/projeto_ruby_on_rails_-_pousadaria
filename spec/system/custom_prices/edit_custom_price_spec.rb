@@ -108,6 +108,21 @@ describe 'User visit custom price edition' do
       expect(page).to have_content 'Erro ao atualizar preço especial'
       expect(page).to have_content 'Fim não pode ser anterior à data inicial'
     end
+
+    it 'accessing a room price edition page for a not owned inn room' do
+      second_innkeeper = FactoryBot.create :innkeeper
+      second_inn = FactoryBot.create :inn, innkeeper: second_innkeeper
+      FactoryBot.create :address, inn: second_inn
+      second_room = FactoryBot.create :inn_room, inn: second_inn
+      second_price = FactoryBot.create :custom_price, inn_room: second_room
+
+      login_as @innkeeper
+
+      visit edit_own_inn_room_custom_price_path(second_room, second_price)
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Você não tem permissão para acessar essa página'
+    end
   end
 
   context 'when not logged' do

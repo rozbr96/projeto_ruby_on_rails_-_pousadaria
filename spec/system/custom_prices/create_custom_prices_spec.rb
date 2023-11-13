@@ -103,6 +103,20 @@ describe 'User visits own inn room custom price creation page' do
       expect(page).to have_content 'Erro ao adicionar preço especial'
       expect(page).to have_content 'Fim não pode ser anterior à data inicial'
     end
+
+    it 'accessing a room price creation page for a not owned inn room' do
+      second_innkeeper = FactoryBot.create :innkeeper
+      second_inn = FactoryBot.create :inn, innkeeper: second_innkeeper
+      FactoryBot.create :address, inn: second_inn
+      second_room = FactoryBot.create :inn_room, inn: second_inn
+
+      login_as @innkeeper
+
+      visit new_own_inn_room_custom_price_path second_room
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Você não tem permissão para acessar essa página'
+    end
   end
 
   context 'when not logged in' do
