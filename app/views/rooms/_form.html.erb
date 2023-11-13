@@ -1,0 +1,79 @@
+
+<% unless room.errors.empty? %>
+  <% room.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<%= form_with scope: room, url: action_url, method: action_method, id: 'inn-room-form' do |form| %>
+  <div class="d-flex flex-column gap-2">
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div>
+      <%= form.label :description %>
+      <%= form.text_area :description, class: 'form-control', rows: 5 %>
+    </div>
+
+    <div>
+      <%= form.label :dimension %>
+      <%= form.text_field :dimension, class: 'form-control' %>
+    </div>
+
+    <div>
+      <%= form.label :price %>
+      <%= form.text_field :price, class: 'form-control' %>
+    </div>
+
+    <div>
+      <%= form.label :maximum_number_of_guests %>
+      <%= form.number_field :maximum_number_of_guests, class: 'form-control' %>
+    </div>
+
+    <div>
+      <%= form.label :number_of_bathrooms %>
+      <%= form.number_field :number_of_bathrooms, class: 'form-control' %>
+    </div>
+
+    <div>
+      <%= form.label :number_of_wardrobes %>
+      <%= form.number_field :number_of_wardrobes, class: 'form-control' %>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3">
+      <%= form.label :has_balcony %>
+      <%= form.check_box :has_balcony %>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3">
+      <%= form.label :has_tv %>
+      <%= form.check_box :has_tv %>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3">
+      <%= form.label :has_air_conditioning %>
+      <%= form.check_box :has_air_conditioning %>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3">
+      <%= form.label :has_vault %>
+      <%= form.check_box :has_vault %>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3">
+      <%= form.label :is_accessible_for_people_with_disabilities %>
+      <%= form.check_box :is_accessible_for_people_with_disabilities %>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3">
+      <%= form.label :enabled %>
+      <%= form.check_box :enabled %>
+    </div>
+
+    <div class="my-2">
+      <%= form.submit class: 'btn btn-outline-primary form-control' %>
+    </div>
+  </div>
+<% end %>

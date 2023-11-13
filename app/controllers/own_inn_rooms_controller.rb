@@ -1,8 +1,8 @@
 
 class OwnInnRoomsController < ApplicationController
   before_action :authenticate_innkeeper!
-  before_action :set_room, only: [:show]
-  before_action :verify_inn, only: [:show]
+  before_action :set_room, only: [:show, :edit, :update]
+  before_action :verify_inn, only: [:show, :edit, :update]
 
   def create
     @room = InnRoom.new room_params
@@ -16,6 +16,8 @@ class OwnInnRoomsController < ApplicationController
     end
   end
 
+  def edit; end
+
   def index
     @rooms = current_innkeeper.inn.inn_rooms
   end
@@ -25,6 +27,15 @@ class OwnInnRoomsController < ApplicationController
   end
 
   def show; end
+
+  def update
+    if @room.update room_params
+      redirect_to own_inn_room_path(@room), notice: 'Quarto atualizado com sucesso'
+    else
+      flash.now[:alert] = 'Erro ao atualizar quarto'
+      render :edit
+    end
+  end
 
 
   private
