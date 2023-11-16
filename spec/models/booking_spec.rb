@@ -4,7 +4,8 @@ RSpec.describe Booking, type: :model do
   before :all do
     innkeeper = FactoryBot.create :innkeeper
     inn = FactoryBot.create :inn, innkeeper: innkeeper
-    @room = FactoryBot.create :inn_room, inn: inn, enabled: true
+    @room = FactoryBot.create :inn_room, inn: inn, enabled: true,
+      maximum_number_of_guests: 2
   end
 
   after :all do
@@ -76,6 +77,13 @@ RSpec.describe Booking, type: :model do
       it 'should be invalid when guests number is not positive' do
         booking = Booking.new start_date: '2020-01-10', end_date: '2020-01-24',
           guests_number: 0, status: 0, inn_room: @room
+
+        expect(booking).not_to be_valid
+      end
+
+      it 'should be invalid when guests number is higher than the max allowed' do
+        booking = Booking.new start_date: '2020-01-10', end_date: '2020-01-24',
+          guests_number: 3, status: 0, inn_room: @room
 
         expect(booking).not_to be_valid
       end

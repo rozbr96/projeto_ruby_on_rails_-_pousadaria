@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      booking: Reserva
+
+    attributes:
+      booking:
+        start_date: Data Inicial
+        end_date: Data Final
+        guests_number: Número de Convidados

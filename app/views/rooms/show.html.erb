@@ -2,6 +2,7 @@
 
 <div class="d-flex mx-5 mt-5 pb-1 justify-content-between">
   <%= link_to 'Voltar', @room.inn %>
+  <%= link_to 'Verificar Disponibilidade', availability_verification_room_path(@room) %>
 </div>
 
 <h1 class="text-center"><%= @room.name %></h1>

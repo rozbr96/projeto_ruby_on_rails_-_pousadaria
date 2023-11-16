@@ -10,6 +10,13 @@ Rails.application.routes.draw do
     resources :rooms, shallow: true, only: [:show]
   end
 
+  resources :rooms do
+    member do
+      get "verification" => "rooms#verification", as: :availability_verification
+      post "verify" => "rooms#verify", as: :verify_availability
+    end
+  end
+
   resource :own_inn, except: [:destroy], controller: :own_inn do
     resources :rooms, controller: :own_inn_rooms do
       resources :custom_prices, controller: :own_inn_room_custom_prices

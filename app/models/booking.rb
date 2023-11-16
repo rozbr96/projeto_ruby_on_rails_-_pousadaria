@@ -3,7 +3,7 @@ class Booking < ApplicationRecord
 
   validates_presence_of :start_date, :end_date, :guests_number
   validates_numericality_of :guests_number, greater_than: 0
-  validate :start_and_end_dates, :overlappinp_dates
+  validate :start_and_end_dates, :overlappinp_dates, :guests_capacity
 
   enum status: {
     pending: 0,
@@ -11,6 +11,33 @@ class Booking < ApplicationRecord
     finished: 2,
     canceled: 3
   }
+
+  def estimated_price
+    return unless valid?
+
+    custom_prices = inn_room.custom_prices.to_a
+
+    estimated_price = start_date.upto(end_date).map do |date|
+      custom_price = custom_prices.find do |custom_price|
+        next false if date < custom_price.start_date
+        next false if date > custom_price.end_date
+
+        true
+      end
+
+      next inn_room.price if custom_price.nil?
+
+      custom_price.price
+    end.sum
+  end
+
+  def guests_capacity
+    return if inn_room.nil?
+    return if guests_number.nil?
+    return if inn_room.maximum_number_of_guests >= guests_number
+
+    errors.add :guests_number, 'excede a quantidade máxima permitida pelo quarto'
+  end
 
   def overlappinp_dates
     return if inn_room.nil?
@@ -34,6 +61,12 @@ class Booking < ApplicationRecord
     return if end_date.nil?
     return if end_date > start_date
 
-    errors.add :end_date, 'não pode ser anterior à data inicial'
+    error = if end_date == start_date
+      'não pode ser igual à data inicial'
+    else
+      'não pode ser anterior à data inicial'
+    end
+
+    errors.add :end_date, error
   end
 end

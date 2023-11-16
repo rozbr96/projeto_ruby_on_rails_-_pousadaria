@@ -1,8 +1,27 @@
 
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show]
+  before_action :set_room, only: [:show, :verification, :verify]
 
   def show; end
+
+  def verification
+    @booking = Booking.new
+  end
+
+  def verify
+    booking_params = params.require(:booking).permit :start_date, :end_date, :guests_number
+
+    @booking = Booking.new booking_params
+    @booking.inn_room = @room
+
+    if @booking.valid?
+      flash.now[:notice] = 'Quarto disponível para o período especificado'
+    else
+      flash.now[:alert] = 'Impossível reservar esse quarto para o período especificado'
+    end
+
+    render :verification
+  end
 
 
   private
