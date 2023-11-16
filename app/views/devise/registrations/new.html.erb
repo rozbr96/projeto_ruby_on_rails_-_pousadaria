@@ -10,6 +10,13 @@
     <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control my-2" %>
   </div>
 
+  <% if resource.kind_of? Guest %>
+    <div class="field">
+      <%= f.label :citizen_number %>
+      <%= f.text_field :citizen_number, class: "form-control my-2" %>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autocomplete: "email", class: "form-control my-2" %>

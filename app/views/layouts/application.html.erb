@@ -41,6 +41,10 @@
               <li><%= link_to 'Minha Pousada', own_inn_path, class: 'dropdown-item' %></li>
               <li><%= button_to 'Sair', destroy_innkeeper_session_path, method: :delete, class: 'dropdown-item', style: 'cursor: pointer' %></li>
             </ul>
+          <% elsif guest_signed_in? %>
+            <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= current_guest.name %>
+            </button>
           <% else %>
             <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               Entrar
@@ -48,6 +52,7 @@
 
             <ul class="dropdown-menu dropdown-menu-end">
               <li><%= link_to 'Como Dono de Pousada', new_innkeeper_session_path, class: 'dropdown-item' %></li>
+              <li><%= link_to 'Como Hóspede', new_guest_session_path, class: 'dropdown-item' %></li>
             </ul>
           <% end %>
         </li>

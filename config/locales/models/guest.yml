@@ -5,5 +5,8 @@ pt-BR:
 
     attributes:
       guest:
+        name: Nome
         email: E-mail
+        citizen_number: CPF
         password: Senha
+        password_confirmation: Confirme sua senha
