@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      guest: Hóspede
+
+    attributes:
+      guest:
+        email: E-mail
+        password: Senha
