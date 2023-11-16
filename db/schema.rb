@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_15_045720) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_16_064724) do
   create_table "addresses", force: :cascade do |t|
     t.string "street", null: false
     t.integer "number"
@@ -44,6 +44,21 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_045720) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["inn_room_id"], name: "index_custom_prices_on_inn_room_id"
+  end
+
+  create_table "guests", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name", null: false
+    t.string "citizen_number", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["citizen_number"], name: "index_guests_on_citizen_number", unique: true
+    t.index ["email"], name: "index_guests_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_guests_on_reset_password_token", unique: true
   end
 
   create_table "inn_payment_methods", force: :cascade do |t|
