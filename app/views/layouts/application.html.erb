@@ -45,6 +45,10 @@
             <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <%= current_guest.name %>
             </button>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><%= button_to 'Sair', destroy_guest_session_path, method: :delete, class: 'dropdown-item', style: 'cursor: pointer' %></li>
+            </ul>
           <% else %>
             <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               Entrar
