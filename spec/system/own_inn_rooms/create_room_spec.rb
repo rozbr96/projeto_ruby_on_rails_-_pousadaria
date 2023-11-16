@@ -24,7 +24,7 @@ describe 'User visits room creation page' do
     end
 
     it 'from the home page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit root_path
 
@@ -40,7 +40,7 @@ describe 'User visits room creation page' do
     end
 
     it 'and goes back to the inn rooms page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_room_path
 
@@ -50,7 +50,7 @@ describe 'User visits room creation page' do
     end
 
     it 'and sees the registration form' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_room_path
 
@@ -72,7 +72,7 @@ describe 'User visits room creation page' do
     end
 
     it 'and creates the room successfully' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_room_path
 
@@ -98,7 +98,7 @@ describe 'User visits room creation page' do
     end
 
     it 'and fails to create the room, seeing the related errors' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_room_path
 

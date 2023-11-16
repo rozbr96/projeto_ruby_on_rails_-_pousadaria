@@ -30,7 +30,7 @@ describe 'User visits own inn room details page' do
 
   context 'when logged in as innkeeper' do
     it 'from the home page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit root_path
 
@@ -46,7 +46,7 @@ describe 'User visits own inn room details page' do
     end
 
     it 'and goes back to rooms listing page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit own_inn_room_path @room
 
@@ -56,7 +56,7 @@ describe 'User visits own inn room details page' do
     end
 
     it 'and sees all info' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit own_inn_room_path @room
 
@@ -72,7 +72,7 @@ describe 'User visits own inn room details page' do
       FactoryBot.create :address, inn: second_inn
       second_room = FactoryBot.create :inn_room, inn: second_inn
 
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit own_inn_room_path second_room
 

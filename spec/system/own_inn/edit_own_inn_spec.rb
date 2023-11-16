@@ -36,7 +36,7 @@ describe 'User visits own inn edit page' do
     end
 
     it 'from the home page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit root_path
 
@@ -51,7 +51,7 @@ describe 'User visits own inn edit page' do
     end
 
     it 'and goes back to the inn details page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit edit_own_inn_path
 
@@ -61,7 +61,7 @@ describe 'User visits own inn edit page' do
     end
 
     it 'and sees the edition form' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit edit_own_inn_path
 
@@ -104,7 +104,7 @@ describe 'User visits own inn edit page' do
     end
 
     it 'and updates the inn successfully' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit edit_own_inn_path
 

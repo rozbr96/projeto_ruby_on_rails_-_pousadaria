@@ -23,7 +23,7 @@ describe 'User visits his own inn details page' do
     end
 
     it 'from the home page and sees the details' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit root_path
 
@@ -43,7 +43,7 @@ describe 'User visits his own inn details page' do
     end
 
     it 'automatically when trying to access the inn creation page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_path
 

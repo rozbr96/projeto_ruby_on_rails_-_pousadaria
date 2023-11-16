@@ -32,7 +32,7 @@ describe 'User visits the inn creation page' do
     end
 
     it 'and sees the creation form' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_path
 
@@ -75,7 +75,7 @@ describe 'User visits the inn creation page' do
     end
 
     it 'and creates the inn successfully' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_path
 
@@ -126,7 +126,7 @@ describe 'User visits the inn creation page' do
     end
 
     it 'fails to create the inn, seeing the related errors' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_path
 

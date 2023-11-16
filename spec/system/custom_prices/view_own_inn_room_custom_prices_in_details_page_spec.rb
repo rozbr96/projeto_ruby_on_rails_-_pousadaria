@@ -30,7 +30,7 @@ describe 'User visits own inn room details page' do
 
   context 'when logged in as innkeeper' do
     it 'and sees no existing custom prices' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit own_inn_room_path @room
 
@@ -42,7 +42,7 @@ describe 'User visits own inn room details page' do
       CustomPrice.create! start_date: '2020-12-27', end_date: '2021-01-05',
         price: 200_00, inn_room: @room
 
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit own_inn_room_path @room
 

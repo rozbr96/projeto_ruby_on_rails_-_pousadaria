@@ -30,7 +30,7 @@ describe 'User visits own inn room custom price creation page' do
 
   context 'when logged in as innkeeper' do
     it 'from the home page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit root_path
 
@@ -47,7 +47,7 @@ describe 'User visits own inn room custom price creation page' do
     end
 
     it 'and goes back to the room page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_room_custom_price_path @room
 
@@ -57,7 +57,7 @@ describe 'User visits own inn room custom price creation page' do
     end
 
     it 'and sees the custom price creation form' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_room_custom_price_path @room
 
@@ -69,7 +69,7 @@ describe 'User visits own inn room custom price creation page' do
     end
 
     it 'and creates a new custom price successfully' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_room_custom_price_path @room
 
@@ -88,7 +88,7 @@ describe 'User visits own inn room custom price creation page' do
     end
 
     it 'and fails to create a new custom price, seeing the related errors' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_room_custom_price_path @room
 
@@ -110,7 +110,7 @@ describe 'User visits own inn room custom price creation page' do
       FactoryBot.create :address, inn: second_inn
       second_room = FactoryBot.create :inn_room, inn: second_inn
 
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit new_own_inn_room_custom_price_path second_room
 

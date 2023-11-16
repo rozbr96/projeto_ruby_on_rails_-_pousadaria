@@ -24,7 +24,7 @@ describe 'User visits listing rooms page' do
     end
 
     it 'from the home page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit root_path
 
@@ -39,7 +39,7 @@ describe 'User visits listing rooms page' do
     end
 
     it 'and goes back to the inn details page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit own_inn_rooms_path
 
@@ -49,7 +49,7 @@ describe 'User visits listing rooms page' do
     end
 
     it 'and sees no existing rooms' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit own_inn_rooms_path
 
@@ -65,7 +65,7 @@ describe 'User visits listing rooms page' do
         has_vault: false, is_accessible_for_people_with_disabilities: true, inn: @inn,
         enabled: true
 
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit own_inn_rooms_path
 

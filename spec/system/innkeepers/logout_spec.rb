@@ -4,7 +4,7 @@ require 'rails_helper'
 describe 'User logouts' do
   it 'after opening the application' do
     innkeeper = Innkeeper.create! name: 'Gui', email: 'gui@test.com', password: 'password'
-    login_as innkeeper
+    login_as innkeeper, scope: :innkeeper
 
     visit root_path
 

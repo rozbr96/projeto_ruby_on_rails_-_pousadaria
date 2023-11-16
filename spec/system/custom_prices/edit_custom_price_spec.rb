@@ -34,7 +34,7 @@ describe 'User visit custom price edition' do
 
   context 'when logged in as innkeeper' do
     it 'from the home page' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit root_path
 
@@ -54,7 +54,7 @@ describe 'User visit custom price edition' do
     end
 
     it 'and goes back' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit edit_own_inn_room_custom_price_path(@room, @custom_price)
 
@@ -64,7 +64,7 @@ describe 'User visit custom price edition' do
     end
 
     it 'and sees the edition form' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit edit_own_inn_room_custom_price_path(@room, @custom_price)
 
@@ -76,7 +76,7 @@ describe 'User visit custom price edition' do
     end
 
     it 'and updates the custom price successfully' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit edit_own_inn_room_custom_price_path(@room, @custom_price)
 
@@ -95,7 +95,7 @@ describe 'User visit custom price edition' do
     end
 
     it 'and fails to update the price, seeing the related errors' do
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit edit_own_inn_room_custom_price_path(@room, @custom_price)
 
@@ -116,7 +116,7 @@ describe 'User visit custom price edition' do
       second_room = FactoryBot.create :inn_room, inn: second_inn
       second_price = FactoryBot.create :custom_price, inn_room: second_room
 
-      login_as @innkeeper
+      login_as @innkeeper, scope: :innkeeper
 
       visit edit_own_inn_room_custom_price_path(second_room, second_price)
 
