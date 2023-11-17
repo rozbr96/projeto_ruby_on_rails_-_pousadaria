@@ -15,6 +15,7 @@ class RoomsController < ApplicationController
     @booking.inn_room = @room
 
     if @booking.valid?
+      session[:booking] = @booking
       flash.now[:notice] = 'Quarto disponível para o período especificado'
     else
       flash.now[:alert] = 'Impossível reservar esse quarto para o período especificado'

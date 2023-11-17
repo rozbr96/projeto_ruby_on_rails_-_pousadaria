@@ -1,7 +1,13 @@
 class Booking < ApplicationRecord
+  # TODO add 8-length random code attribute
+
   belongs_to :inn_room
+  belongs_to :guest, optional: true
+
+  has_one :inn, through: :inn_room
 
   validates_presence_of :start_date, :end_date, :guests_number
+  validates_presence_of :guest, on: :save
   validates_numericality_of :guests_number, greater_than: 0
   validate :start_and_end_dates, :overlappinp_dates, :guests_capacity
 

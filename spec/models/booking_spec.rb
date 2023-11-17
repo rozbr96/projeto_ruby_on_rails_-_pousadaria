@@ -63,8 +63,9 @@ RSpec.describe Booking, type: :model do
 
     context 'uniqueness' do
       it 'should be invalid when dates range overlapping occurs' do
+        guest = FactoryBot.create :guest
         Booking.create! start_date: '2020-01-10', end_date: '2020-01-24',
-          guests_number: 2, status: 1, inn_room: @room
+          guests_number: 2, status: 1, inn_room: @room, guest: guest
 
         booking = Booking.new start_date: '2020-01-22', end_date: '2020-01-31',
           guests_number: 3, status: 0, inn_room: @room

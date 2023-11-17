@@ -11,6 +11,8 @@
 
 <% unless @booking.estimated_price.nil? %>
   Preço Total Estimado: <%= number_to_currency(@booking.estimated_price.to_f / 100) %>
+
+  <%= link_to 'Reservar', new_booking_path %>
 <% end %>
 
 <div class="container d-flex justify-content-center">
