@@ -87,6 +87,25 @@ describe 'User visits the booking creation page' do
       expect(current_path).to eq new_guest_session_path
       expect(page).to have_content 'É necessário estar logado para prosseguir'
     end
+
+    it 'after logging in with an reservation in progress' do
+      booking = {
+        start_date: '2020-01-15', end_date: '2020-01-28',
+        guests_number: 1, inn_room_id: @room.id
+      }
+
+      SessionInjecter::inject booking: booking
+
+      visit new_guest_session_path
+
+      within 'form#new_guest' do
+        fill_in 'E-mail', with: @guest.email
+        fill_in 'Senha', with: @guest.password
+        click_on 'Log in'
+      end
+
+      expect(current_path).to eq new_booking_path
+    end
   end
 
   context 'when logged in as guest' do

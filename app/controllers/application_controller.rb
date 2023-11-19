@@ -8,6 +8,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def after_sign_in_path_for resource
+    return new_booking_path if guest_signed_in? and session[:booking]
+
+    super
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit :sign_up, keys: [:name, :citizen_number]
   end
