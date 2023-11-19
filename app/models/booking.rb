@@ -13,7 +13,7 @@ class Booking < ApplicationRecord
   validates_uniqueness_of :code
   validates_length_of :code, is: 8, if: :code
 
-  before_save :generate_random_code
+  before_save :generate_random_code, :set_estimated_price
 
   enum status: {
     pending: 0,
@@ -22,12 +22,16 @@ class Booking < ApplicationRecord
     canceled: 3
   }
 
-  def estimated_price
+  def generate_random_code
+    self.code ||= SecureRandom.alphanumeric(8).upcase
+  end
+
+  def get_estimated_price
     return unless valid?
 
     custom_prices = inn_room.custom_prices.to_a
 
-    estimated_price = start_date.upto(end_date).map do |date|
+    start_date.upto(end_date).map do |date|
       custom_price = custom_prices.find do |custom_price|
         next false if date < custom_price.start_date
         next false if date > custom_price.end_date
@@ -39,10 +43,6 @@ class Booking < ApplicationRecord
 
       custom_price.price
     end.sum
-  end
-
-  def generate_random_code
-    self.code ||= SecureRandom.alphanumeric(8).upcase
   end
 
   def guests_capacity
@@ -68,6 +68,12 @@ class Booking < ApplicationRecord
 
   def reservation_dates_range
     start_date..end_date
+  end
+
+  def set_estimated_price
+    return unless valid?
+
+    self.estimated_price ||= get_estimated_price
   end
 
   def start_and_end_dates
