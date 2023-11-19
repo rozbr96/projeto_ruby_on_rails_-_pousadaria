@@ -1,7 +1,7 @@
 
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:create, :new]
-  before_action :redirect_to_login_page, only: [:create]
+  before_action :redirect_to_login_page, only: [:create, :index]
 
   def create
     @booking.guest = current_guest
@@ -14,7 +14,9 @@ class BookingsController < ApplicationController
     end
   end
 
-  def index; end
+  def index
+    @bookings = Booking.where guest: current_guest
+  end
 
   def new; end
 
