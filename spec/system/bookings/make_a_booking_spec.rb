@@ -2,40 +2,38 @@
 require 'rails_helper'
 
 describe 'User visits the booking creation page' do
-  context 'when logged in as guest' do
-    before :all do
-      innkeeper = FactoryBot.create :innkeeper
-      @guest = FactoryBot.create :guest
-      @inn = FactoryBot.create :inn, enabled: true, innkeeper: innkeeper,
-        check_in: '10:00', check_out: '12:00'
-      @room = FactoryBot.create :inn_room, inn: @inn, enabled: true, price: 100_00,
-        maximum_number_of_guests: 3
+  before :all do
+    innkeeper = FactoryBot.create :innkeeper
+    @guest = FactoryBot.create :guest
+    @inn = FactoryBot.create :inn, enabled: true, innkeeper: innkeeper,
+      check_in: '10:00', check_out: '12:00'
+    @room = FactoryBot.create :inn_room, inn: @inn, enabled: true, price: 100_00,
+      maximum_number_of_guests: 3
 
-      ['Dinheiro', 'PIX', 'Cartão'].each do |payment|
-        payment_method = PaymentMethod.create! name: payment, enabled: true
-        InnPaymentMethod.create! inn: @inn, payment_method: payment_method,
-          enabled: true
-      end
-
-      FactoryBot.create :address, inn: @inn
-      CustomPrice.create! start_date: '2020-01-10', end_date: '2020-01-23',
-        price: 150_00, inn_room: @room
+    ['Dinheiro', 'PIX', 'Cartão'].each do |payment|
+      payment_method = PaymentMethod.create! name: payment, enabled: true
+      InnPaymentMethod.create! inn: @inn, payment_method: payment_method,
+        enabled: true
     end
 
-    after :all do
-      Guest.delete_all
-      Address.delete_all
-      CustomPrice.delete_all
-      InnPaymentMethod.delete_all
-      PaymentMethod.delete_all
-      InnRoom.delete_all
-      Inn.delete_all
-      Innkeeper.delete_all
-    end
+    FactoryBot.create :address, inn: @inn
+    CustomPrice.create! start_date: '2020-01-10', end_date: '2020-01-23',
+      price: 150_00, inn_room: @room
+  end
 
+  after :all do
+    Guest.delete_all
+    Address.delete_all
+    CustomPrice.delete_all
+    InnPaymentMethod.delete_all
+    PaymentMethod.delete_all
+    InnRoom.delete_all
+    Inn.delete_all
+    Innkeeper.delete_all
+  end
+
+  context 'when not logged' do
     it 'after verifying the availability of the room' do
-      login_as @guest, scope: :guest
-
       visit root_path
 
       click_on @inn.name
@@ -74,6 +72,24 @@ describe 'User visits the booking creation page' do
       end
     end
 
+    it 'and gets redirected to the login page when trying to finish the reservation' do
+      booking = {
+        start_date: '2020-01-15', end_date: '2020-01-28',
+        guests_number: 1, inn_room_id: @room.id
+      }
+
+      SessionInjecter::inject booking: booking
+
+      visit new_booking_path
+
+      click_on 'Confirmar Reserva'
+
+      expect(current_path).to eq new_guest_session_path
+      expect(page).to have_content 'É necessário estar logado para prosseguir'
+    end
+  end
+
+  context 'when logged in as guest' do
     it 'and finishes the booking in the next page' do
       booking = {
         start_date: '2020-01-15', end_date: '2020-01-28',
@@ -108,6 +124,4 @@ describe 'User visits the booking creation page' do
       expect(current_path).to eq availability_verification_room_path @room
     end
   end
-
-  # TODO add context for not logged users
 end

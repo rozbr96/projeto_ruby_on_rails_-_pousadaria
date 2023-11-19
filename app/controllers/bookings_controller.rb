@@ -1,6 +1,7 @@
 
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:create, :new]
+  before_action :redirect_to_login_page, only: [:create]
 
   def create
     @booking.guest = current_guest
@@ -19,6 +20,12 @@ class BookingsController < ApplicationController
 
 
   private
+
+  def redirect_to_login_page
+    return if guest_signed_in?
+
+    redirect_to new_guest_session_path, alert: 'É necessário estar logado para prosseguir'
+  end
 
   def set_booking
     # TODO clear session after successful save
