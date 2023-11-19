@@ -10,6 +10,10 @@ class Booking < ApplicationRecord
   validates_presence_of :guest, on: :save
   validates_numericality_of :guests_number, greater_than: 0
   validate :start_and_end_dates, :overlappinp_dates, :guests_capacity
+  validates_uniqueness_of :code
+  validates_length_of :code, is: 8, if: :code
+
+  before_save :generate_random_code
 
   enum status: {
     pending: 0,
@@ -35,6 +39,10 @@ class Booking < ApplicationRecord
 
       custom_price.price
     end.sum
+  end
+
+  def generate_random_code
+    self.code ||= SecureRandom.alphanumeric(8).upcase
   end
 
   def guests_capacity

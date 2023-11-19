@@ -59,6 +59,17 @@ RSpec.describe Booking, type: :model do
 
         expect(booking).not_to be_valid
       end
+
+      it 'should raise an exception when code length is different than 8' do
+        guest = FactoryBot.create :guest
+
+
+        expect {
+          Booking.create! start_date: '2020-01-10', end_date: '2020-01-11',
+            guests_number: 2, status: 0, inn_room: @room, code: 'B00K006',
+            guest: guest
+        }.to raise_error ActiveRecord::RecordInvalid
+      end
     end
 
     context 'uniqueness' do
@@ -71,6 +82,20 @@ RSpec.describe Booking, type: :model do
           guests_number: 3, status: 0, inn_room: @room
 
         expect(booking).not_to be_valid
+      end
+
+      it 'should be invalid when an existing code is reissued' do
+        guest = FactoryBot.create :guest
+
+        Booking.create! start_date: '2020-01-10', end_date: '2020-01-24',
+          guests_number: 2, status: 2, inn_room: @room, guest: guest,
+          code: 'B00K0064'
+
+        allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('B00K0064')
+        expect {
+          Booking.create! start_date: '2020-02-10', end_date: '2020-02-24',
+            guests_number: 2, status: 1, inn_room: @room, guest: guest
+        }.to raise_error ActiveRecord::RecordNotUnique
       end
     end
 
