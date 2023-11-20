@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, only: [:new, :create, :index]
+  resources :bookings, only: [:new, :create, :index, :show]
 
   resource :own_inn, except: [:destroy], controller: :own_inn do
     resources :rooms, controller: :own_inn_rooms do

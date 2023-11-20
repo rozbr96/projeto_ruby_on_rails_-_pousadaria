@@ -20,7 +20,7 @@
     <tbody>
       <% @bookings.each do |booking| %>
         <tr>
-          <td><%= booking.code %></td>
+          <td><%= link_to booking.code, booking %></td>
           <td><%= booking.status.upcase %></td>
           <td><%= I18n.l booking.start_date %> às <%= get_time_from(booking.inn_room.inn.check_in) %></td>
           <td><%= I18n.l booking.end_date %> às <%= get_time_from(booking.inn_room.inn.check_out) %></td>

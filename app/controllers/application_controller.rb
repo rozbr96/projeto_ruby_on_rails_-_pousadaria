@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for resource
     return new_booking_path if guest_signed_in? and session[:booking]
 
-    super
+    stored_location_for(resource) || super
   end
 
   def configure_permitted_parameters
