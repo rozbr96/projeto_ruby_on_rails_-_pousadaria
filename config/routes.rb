@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     resources :rooms, controller: :own_inn_rooms do
       resources :custom_prices, controller: :own_inn_room_custom_prices
     end
+
+    resources :bookings, only: [:index], controller: :own_inn_bookings
   end
 
   get "search/by-city/:city" => "search#search_by_city", as: :search_by_city

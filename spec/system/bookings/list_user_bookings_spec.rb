@@ -55,6 +55,7 @@ describe 'User visits the bookings page' do
         expect(page).to have_content '10/01/2020 às 10:00'
         expect(page).to have_content '23/01/2020 às 14:00'
         expect(page).to have_content 'R$ 1.400,00'
+        expect(page).not_to have_content @booking.inn_room.name
       end
     end
   end

@@ -39,6 +39,7 @@
 
             <ul class="dropdown-menu dropdown-menu-end">
               <li><%= link_to 'Minha Pousada', own_inn_path, class: 'dropdown-item' %></li>
+              <li><%= link_to 'Reservas', own_inn_bookings_path, class: 'dropdown-item' %></li>
               <li><%= button_to 'Sair', destroy_innkeeper_session_path, method: :delete, class: 'dropdown-item', style: 'cursor: pointer' %></li>
             </ul>
           <% elsif guest_signed_in? %>
