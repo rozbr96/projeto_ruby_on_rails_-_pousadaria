@@ -3,6 +3,23 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:create, :new, :show]
   before_action :redirect_to_login_page, only: [:create, :index, :show]
 
+  def cancel
+    @booking = Booking.find params[:id]
+
+    if @booking.ongoing?
+      flash.now[:alert] = 'Erro ao cancelar reserva'
+      @booking.errors.add :status, 'já está em andamento'
+    elsif Time.now > @booking.start_date.ago(7.days)
+      flash.now[:alert] = 'Erro ao cancelar reserva'
+      @booking.errors.add :start_date, 'está a 7 dias ou menos de hoje'
+    else
+      @booking.canceled!
+      flash.now[:notice] = 'Reserva cancelada com sucesso'
+    end
+
+    render :show
+  end
+
   def create
     @booking.guest = current_guest
 

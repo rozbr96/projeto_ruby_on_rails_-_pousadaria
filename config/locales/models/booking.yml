@@ -8,3 +8,11 @@ pt-BR:
         start_date: Data Inicial
         end_date: Data Final
         guests_number: Número de Convidados
+
+        status:
+          one: Status
+          pending: Pendente
+          reserved: Reservada
+          ongoing: Em Andamento
+          finished: Finalizada
+          canceled: Cancelada
