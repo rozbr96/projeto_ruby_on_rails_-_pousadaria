@@ -6,13 +6,13 @@ FactoryBot.define do
     description { Faker::Lorem.paragraph }
     pets_are_allowed { Faker::Boolean.boolean }
     usage_policies {  Faker::Lorem.paragraph }
-    email { Faker::Internet.email }
     enabled { Faker::Boolean.boolean true_ratio: 0.8 }
     check_in { Faker::Time.between from: DateTime.now - 1, to: DateTime.now }
     check_out { Faker::Time.between from: DateTime.now - 1, to: DateTime.now }
 
     after :build do |object, values|
       object.corporate_name = "#{values.name} LTDA"
+      object.email = Faker::Internet.email name: object.name
     end
   end
 end
