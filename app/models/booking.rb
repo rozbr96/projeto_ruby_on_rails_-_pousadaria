@@ -17,9 +17,10 @@ class Booking < ApplicationRecord
 
   enum status: {
     pending: 0,
-    ongoing: 1,
-    finished: 2,
-    canceled: 3
+    reserved: 1,
+    ongoing: 2,
+    finished: 3,
+    canceled: 4
   }
 
   def generate_random_code
@@ -56,7 +57,8 @@ class Booking < ApplicationRecord
   def overlappinp_dates
     return if inn_room.nil?
 
-    bookings = Booking.where(inn_room: inn_room, status: :ongoing).where.not(id: id)
+    bookings = Booking.where(inn_room: inn_room, status: [:reserved, :ongoing])
+
     invalid_ranges = bookings.map &:reservation_dates_range
 
     return unless invalid_ranges.any? do |invalid_range|

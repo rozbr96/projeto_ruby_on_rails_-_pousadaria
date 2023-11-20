@@ -35,7 +35,8 @@ describe 'User vists the booking details page' do
 
   context 'fails to cancel the booking, seeing the related error' do
     it 'when it is already on going' do
-      booking = FactoryBot.create :booking, guest: @guest, status: 1,
+      booking = FactoryBot.create :booking, guest: @guest,
+        status: Booking.statuses[:ongoing],
         start_date: Time.now.yesterday, inn_room: @room
 
       login_as @guest, scope: :guest
@@ -50,7 +51,8 @@ describe 'User vists the booking details page' do
     end
 
     it 'when there is less than seven days before the start' do
-      booking = FactoryBot.create :booking, guest: @guest, status: 0,
+      booking = FactoryBot.create :booking, guest: @guest,
+        status: Booking.statuses[:reserved],
         start_date: Time.now.advance(days: 6), inn_room: @room
 
       login_as @guest, scope: :guest

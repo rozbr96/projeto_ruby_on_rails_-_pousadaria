@@ -12,7 +12,7 @@ describe 'User visits the booking details page' do
     @room = FactoryBot.create :inn_room, enabled: true, inn: @inn,
       price: 100_00
 
-    @booking = Booking.create! inn_room: @room, status: 0, guest: @guest,
+    @booking = Booking.create! inn_room: @room, status: Booking.statuses[:pending], guest: @guest,
       guests_number: 1, start_date: '2020-01-10', end_date: '2020-01-23'
 
     FactoryBot.create :address, inn: @inn
