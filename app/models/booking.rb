@@ -57,7 +57,10 @@ class Booking < ApplicationRecord
   def overlappinp_dates
     return if inn_room.nil?
 
-    bookings = Booking.where(inn_room: inn_room, status: [:reserved, :ongoing])
+    bookings = Booking.where(
+      inn_room: inn_room,
+      status: [:reserved, :ongoing]
+    ).where.not(id: id)
 
     invalid_ranges = bookings.map &:reservation_dates_range
 
