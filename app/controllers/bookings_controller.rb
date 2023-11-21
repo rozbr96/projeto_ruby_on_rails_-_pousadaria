@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
     if @booking.ongoing?
       flash.now[:alert] = 'Erro ao cancelar reserva'
       @booking.errors.add :status, 'já está em andamento'
-    elsif Time.now > @booking.start_date.ago(7.days)
+    elsif Time.current > @booking.start_date.ago(6.days)
       flash.now[:alert] = 'Erro ao cancelar reserva'
       @booking.errors.add :start_date, 'está a 7 dias ou menos de hoje'
     else

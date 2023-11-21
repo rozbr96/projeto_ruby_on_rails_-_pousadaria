@@ -18,7 +18,7 @@ describe 'User vists the booking details page' do
 
   it 'and cancels the booking successfully' do
     booking = FactoryBot.create :booking, guest: @guest,
-      start_date: Time.now.next_week.tomorrow, inn_room: @room
+      start_date: Time.current.advance(days: 7), inn_room: @room
 
     login_as @guest, scope: :guest
 
