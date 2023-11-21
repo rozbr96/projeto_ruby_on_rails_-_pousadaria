@@ -29,7 +29,11 @@ Rails.application.routes.draw do
       resources :custom_prices, controller: :own_inn_room_custom_prices
     end
 
-    resources :bookings, only: [:index], controller: :own_inn_bookings
+    resources :bookings, only: [:index, :show], controller: :own_inn_bookings do
+      member do
+        post "check_in" => "own_inn_bookings#check_in"
+      end
+    end
   end
 
   get "search/by-city/:city" => "search#search_by_city", as: :search_by_city
