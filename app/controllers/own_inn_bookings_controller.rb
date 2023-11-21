@@ -17,6 +17,10 @@ class OwnInnBookingsController < ApplicationController
         innkeeper: current_innkeeper
       }
     })
+
+    if whitelisted_statuses.include? params[:status]
+      @bookings = @bookings.where status: params[:status]
+    end
   end
 
   def show; end
@@ -26,5 +30,9 @@ class OwnInnBookingsController < ApplicationController
 
   def set_booking
     @booking = Booking.find params[:id]
+  end
+
+  def whitelisted_statuses
+    ['ongoing']
   end
 end
