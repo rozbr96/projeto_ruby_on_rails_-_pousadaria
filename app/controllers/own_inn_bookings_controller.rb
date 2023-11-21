@@ -1,7 +1,21 @@
 
 class OwnInnBookingsController < ApplicationController
   before_action :authenticate_innkeeper!
-  before_action :set_booking, only: [:check_in, :show]
+  before_action :set_booking, only: [:cancel, :check_in, :show]
+
+  def cancel
+    if Time.current.ago(2.days) >= @booking.start_date
+      @booking.status = :canceled
+      @booking.save!
+
+      flash.now[:notice] = 'Reserva cancelada com sucesso'
+    else
+      @booking.errors.add :start_date, 'deve ser anterior à dois dias atuais'
+      flash.now[:alert] = 'Erro ao cancelar a reserva'
+    end
+
+    render :show
+  end
 
   def check_in
     @booking.status = :ongoing

@@ -3,8 +3,17 @@
   <%= link_to 'Voltar', bookings_path %>
 </div>
 
-<% content_for :booking_actions do %>
-  <%= button_to 'Registrar check in', check_in_own_inn_booking_path(@booking), method: :post %>
+<% unless @booking.errors.empty? %>
+  <% @booking.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
 <% end %>
 
-<%= render partial: 'bookings/info' %>
+<% content_for :booking_actions do %>
+  <%= button_to 'Registrar check in', check_in_own_inn_booking_path(@booking), method: :post %>
+  <%= button_to 'Cancelar Reserva', cancel_own_inn_booking_path(@booking), method: :post %>
+<% end %>
+
+<%= render partial: 'bookings/info', locals: {
+  get_booking_path: -> booking { own_inn_booking_path booking }
+} %>

@@ -8,4 +8,6 @@
   <%= button_to 'Cancelar Reserva', cancel_booking_path(@booking), method: :post %>
 <% end %>
 
-<%= render partial: 'info' %>
+<%= render partial: 'info', locals: {
+  get_booking_path: -> booking { booking_path booking }
+} %>
