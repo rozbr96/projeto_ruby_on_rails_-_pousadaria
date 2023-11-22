@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_21_054757) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_22_163711) do
   create_table "addresses", force: :cascade do |t|
     t.string "street", null: false
     t.integer "number"
@@ -23,6 +23,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_054757) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["inn_id"], name: "index_addresses_on_inn_id"
+  end
+
+  create_table "billings", force: :cascade do |t|
+    t.integer "base_price", null: false
+    t.integer "payment_method_id", null: false
+    t.integer "booking_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_billings_on_booking_id"
+    t.index ["payment_method_id"], name: "index_billings_on_payment_method_id"
   end
 
   create_table "bookings", force: :cascade do |t|
@@ -159,6 +169,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_054757) do
   end
 
   add_foreign_key "addresses", "inns"
+  add_foreign_key "billings", "bookings"
+  add_foreign_key "billings", "payment_methods"
   add_foreign_key "bookings", "guests"
   add_foreign_key "bookings", "inn_rooms"
   add_foreign_key "custom_prices", "inn_rooms"

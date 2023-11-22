@@ -28,6 +28,10 @@ class Booking < ApplicationRecord
   end
 
   def get_estimated_price
+    get_real_price end_date
+  end
+
+  def get_real_price end_date
     return unless valid?
 
     custom_prices = inn_room.custom_prices.to_a
