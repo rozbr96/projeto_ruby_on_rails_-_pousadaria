@@ -1,7 +1,7 @@
 
 class OwnInnBookingsController < ApplicationController
   before_action :authenticate_innkeeper!
-  before_action :set_booking, only: [:cancel, :check_in, :show]
+  before_action :set_booking, only: [:cancel, :check_in, :check_out, :show]
 
   def cancel
     if Time.current.ago(2.days) >= @booking.start_date
@@ -23,6 +23,14 @@ class OwnInnBookingsController < ApplicationController
     @booking.save!
 
     redirect_to own_inn_booking_path(@booking), notice: 'Check in realizado com sucesso'
+  end
+
+  def check_out
+    @booking.status = :finished
+    @booking.check_out = DateTime.now
+    @booking.save!
+
+    redirect_to own_inn_booking_path(@booking), notice: 'Check out realizado com sucesso'
   end
 
   def index
