@@ -49,7 +49,7 @@ describe 'User visits the booking creation page' do
 
       click_on 'Reservar'
 
-      expect(current_path).to eq new_booking_path
+      expect(current_path).to eq new_guest_booking_path
 
       within 'table' do
         expect(page).to have_content 'Resumo da Reserva'
@@ -80,7 +80,7 @@ describe 'User visits the booking creation page' do
 
       SessionInjecter::inject booking: booking
 
-      visit new_booking_path
+      visit new_guest_booking_path
 
       click_on 'Confirmar Reserva'
 
@@ -104,7 +104,7 @@ describe 'User visits the booking creation page' do
         click_on 'Log in'
       end
 
-      expect(current_path).to eq new_booking_path
+      expect(current_path).to eq new_guest_booking_path
     end
   end
 
@@ -119,10 +119,10 @@ describe 'User visits the booking creation page' do
 
       login_as @guest, scope: :guest
 
-      visit new_booking_path
+      visit new_guest_booking_path
 
       click_on 'Confirmar Reserva'
-      expect(current_path).to eq bookings_path
+      expect(current_path).to eq guest_bookings_path
       expect(page).to have_content 'Reserva efetuada com sucesso'
     end
 
@@ -136,7 +136,7 @@ describe 'User visits the booking creation page' do
 
       login_as @guest
 
-      visit new_booking_path
+      visit new_guest_booking_path
 
       click_on 'Voltar'
 

@@ -61,7 +61,7 @@
             </button>
 
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><%= link_to 'Minhas Reservas', bookings_path, class: 'dropdown-item' %></li>
+              <li><%= link_to 'Minhas Reservas', guest_bookings_path, class: 'dropdown-item' %></li>
               <li><%= button_to 'Sair', destroy_guest_session_path, method: :delete, class: 'dropdown-item', style: 'cursor: pointer' %></li>
             </ul>
           <% else %>

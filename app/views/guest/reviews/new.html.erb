@@ -1,0 +1,16 @@
+
+<div class="d-flex mx-5 mt-5">
+  <%= link_to 'Voltar', guest_booking_path(@booking) %>
+</div>
+
+<div class="container">
+  <%= form_with model: @review, url: guest_booking_reviews_path(@booking), id: 'booking-review' do |form| %>
+    <%= form.label :score %>
+    <%= form.number_field :score, min: 0, max: 5 %>
+
+    <%= form.label :guest_commentary %>
+    <%= form.text_area :guest_commentary %>
+
+    <%= form.submit 'Avaliar' %>
+  <% end %>
+</div>

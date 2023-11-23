@@ -42,23 +42,23 @@ describe 'User visits the booking details page' do
         click_on @booking.code
       end
 
-      expect(current_path).to eq booking_path @booking
+      expect(current_path).to eq guest_booking_path @booking
     end
 
     it 'and goes back to the bookings listing page' do
       login_as @guest, scope: :guest
 
-      visit booking_path @booking
+      visit guest_booking_path @booking
 
       click_on 'Voltar'
 
-      expect(current_path).to eq bookings_path
+      expect(current_path).to eq guest_bookings_path
     end
 
     it 'and sees the booking details' do
       login_as @guest, scope: :guest
 
-      visit booking_path @booking
+      visit guest_booking_path @booking
 
       expect(page).to have_content "Reserva: #{@booking.code}"
       expect(page).to have_content 'Data de Entrada'
@@ -80,13 +80,13 @@ describe 'User visits the booking details page' do
 
   context 'when not logged' do
     it 'and gets redirected to the login page' do
-      visit booking_path @booking
+      visit guest_booking_path @booking
 
       expect(current_path).to eq new_guest_session_path
     end
 
     it 'after login in' do
-      visit booking_path @booking
+      visit guest_booking_path @booking
 
       within 'form#new_guest' do
         fill_in 'E-mail', with: @guest.email
@@ -94,7 +94,7 @@ describe 'User visits the booking details page' do
         click_on 'Log in'
       end
 
-      expect(current_path).to eq booking_path @booking
+      expect(current_path).to eq guest_booking_path @booking
     end
   end
 end

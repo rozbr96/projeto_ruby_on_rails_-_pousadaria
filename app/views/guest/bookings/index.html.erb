@@ -1,0 +1,6 @@
+
+<%= render partial: 'bookings/list', locals: {
+  table_title: 'Minhas Reservas',
+  display_sensitive_info: false,
+  get_booking_path: -> booking { guest_booking_path booking }
+} %>

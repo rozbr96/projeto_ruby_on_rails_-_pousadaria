@@ -1,7 +1,7 @@
 
-class BookingsController < ApplicationController
-  before_action :set_booking, only: [:create, :new, :show]
+class Guest::BookingsController < Guest::BasicController
   before_action :redirect_to_login_page, only: [:create, :index, :show]
+  before_action :set_booking, only: [:create, :new, :show]
 
   def cancel
     @booking = Booking.find params[:id]
@@ -24,7 +24,7 @@ class BookingsController < ApplicationController
     @booking.guest = current_guest
 
     if @booking.save
-      redirect_to bookings_path, notice: 'Reserva efetuada com sucesso'
+      redirect_to guest_bookings_path, notice: 'Reserva efetuada com sucesso'
     else
       flash.now[:alert] = 'Erro ao efetuar reserva'
       render :new
@@ -40,6 +40,7 @@ class BookingsController < ApplicationController
   def show
     @booking = Booking.find params[:id]
   end
+
 
   private
 

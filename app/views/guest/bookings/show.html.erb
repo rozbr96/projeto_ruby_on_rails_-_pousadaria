@@ -1,0 +1,14 @@
+
+<div class="d-flex mx-5 mt-5 mb-1">
+  <%= link_to 'Voltar', guest_bookings_path %>
+  <%= link_to 'Registrar Avaliação', new_guest_booking_review_path(@booking) %>
+</div>
+
+
+<% content_for :booking_actions do %>
+  <%= button_to 'Cancelar Reserva', cancel_guest_booking_path(@booking), method: :post %>
+<% end %>
+
+<%= render partial: 'bookings/info', locals: {
+  get_booking_path: -> booking { guest_booking_path booking }
+} %>

@@ -37,23 +37,23 @@ describe 'User visits the review creation page' do
       click_on @booking.code
       click_on 'Registrar Avaliação'
 
-      expect(current_path).to eq new_booking_review_path @booking
+      expect(current_path).to eq new_guest_booking_review_path @booking
     end
 
     it 'and goes back to the booking details page' do
       login_as @guest, scope: :guest
 
-      visit new_booking_review_path @booking
+      visit new_guest_booking_review_path @booking
 
       click_on 'Voltar'
 
-      expect(current_path).to eq booking_path @booking
+      expect(current_path).to eq guest_booking_path @booking
     end
 
     it 'and sees the review form' do
       login_as @guest, scope: :guest
 
-      visit new_booking_review_path @booking
+      visit new_guest_booking_review_path @booking
 
       within '#booking-review' do
         expect(page).to have_field 'Nota'
@@ -64,7 +64,7 @@ describe 'User visits the review creation page' do
     it 'and creates the review successfully' do
       login_as @guest, scope: :guest
 
-      visit new_booking_review_path @booking
+      visit new_guest_booking_review_path @booking
 
       within '#booking-review' do
         fill_in 'Nota', with: '4'
@@ -72,7 +72,7 @@ describe 'User visits the review creation page' do
         click_on 'Avaliar'
       end
 
-      expect(current_path).to eq booking_path @booking
+      expect(current_path).to eq guest_booking_path @booking
       expect(page).to have_content 'Avaliação registrada com sucesso'
       expect(page).to have_content 'Muito bom!!!'
     end

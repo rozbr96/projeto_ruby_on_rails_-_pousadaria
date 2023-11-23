@@ -18,12 +18,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, only: [:new, :create, :index, :show] do
-    member do
-      post "cancel" => "bookings#cancel"
-    end
+  namespace :guest do
+    resources :bookings, only: [:new, :create, :index, :show] do
+      member do
+        post "cancel" => "bookings#cancel"
+      end
 
-    resources :reviews, only: [:new, :create]
+      resources :reviews, only: [:new, :create]
+    end
   end
 
   resource :own_inn, except: [:destroy], controller: :own_inn do

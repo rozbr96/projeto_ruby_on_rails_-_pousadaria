@@ -4,7 +4,7 @@ require 'rails_helper'
 describe 'User visits the bookings page' do
   context 'when not logged in' do
     it 'and gets redirected to the login page' do
-      visit bookings_path
+      visit guest_bookings_path
 
       expect(current_path).to eq new_guest_session_path
     end
@@ -41,14 +41,14 @@ describe 'User visits the bookings page' do
         click_on 'Minhas Reservas'
       end
 
-      expect(current_path).to eq bookings_path
+      expect(current_path).to eq guest_bookings_path
       expect(page).to have_content 'Minhas Reservas'
     end
 
     it 'and sees the bookings infos' do
       login_as @guest, scope: :guest
 
-      visit bookings_path
+      visit guest_bookings_path
 
       within '#bookins-table' do
         expect(page).to have_content @booking.code

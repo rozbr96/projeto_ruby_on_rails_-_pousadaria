@@ -25,7 +25,7 @@ describe 'User vists the booking details page' do
 
       login_as @guest, scope: :guest
 
-      visit booking_path booking
+      visit guest_booking_path booking
 
       click_on 'Cancelar Reserva'
 
@@ -44,7 +44,7 @@ describe 'User vists the booking details page' do
 
         login_as @guest, scope: :guest
 
-        visit booking_path booking
+        visit guest_booking_path booking
 
         click_on 'Cancelar Reserva'
 
@@ -60,7 +60,7 @@ describe 'User vists the booking details page' do
 
         login_as @guest, scope: :guest
 
-        visit booking_path booking
+        visit guest_booking_path booking
 
         click_on 'Cancelar Reserva'
 
