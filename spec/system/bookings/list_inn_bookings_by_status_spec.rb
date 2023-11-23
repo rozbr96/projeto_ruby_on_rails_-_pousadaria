@@ -42,7 +42,7 @@ describe 'User visits the bookings page' do
         click_on 'Em Andamento'
       end
 
-      expect(current_path).to eq own_inn_bookings_path
+      expect(current_path).to eq host_inn_bookings_path
       expect(page).to have_content @ongoing_booking.code
       expect(page).not_to have_content @pending_booking.code
       expect(page).not_to have_content @reserved_booking.code
@@ -53,7 +53,7 @@ describe 'User visits the bookings page' do
     it 'and sees all the bookings' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_bookings_path status: :non_existent_status
+      visit host_inn_bookings_path status: :non_existent_status
 
       expect(page).to have_content @pending_booking.code
       expect(page).to have_content @reserved_booking.code

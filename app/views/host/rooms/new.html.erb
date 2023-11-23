@@ -1,6 +1,6 @@
 
 <div class="d-flex mt-5 mx-5 pb-1">
-  <%= link_to 'Voltar', own_inn_rooms_path %>
+  <%= link_to 'Voltar', host_inn_rooms_path %>
 </div>
 
 <div class="container">
@@ -14,7 +14,7 @@
 
   <%= render partial: 'rooms/form', locals: {
     room: @room,
-    action_url: own_inn_rooms_path,
+    action_url: host_inn_rooms_path,
     action_method: :post
   } %>
 </div>

@@ -38,17 +38,17 @@
             </button>
 
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><%= link_to 'Minha Pousada', own_inn_path, class: 'dropdown-item' %></li>
+              <li><%= link_to 'Minha Pousada', host_inn_path, class: 'dropdown-item' %></li>
 
               <li>
-                <%= link_to own_inn_bookings_path, class: 'dropdown-item' do %>
+                <%= link_to host_inn_bookings_path, class: 'dropdown-item' do %>
                   &blacktriangleleft; Reservas
                 <% end %>
 
                 <ul class="submenu submenu-left dropdown-menu">
                   <li>
-                    <%= link_to 'Todas', own_inn_bookings_path, class: 'dropdown-item' %>
-                    <%= link_to 'Em Andamento', own_inn_bookings_path(status: :ongoing), class: 'dropdown-item' %>
+                    <%= link_to 'Todas', host_inn_bookings_path, class: 'dropdown-item' %>
+                    <%= link_to 'Em Andamento', host_inn_bookings_path(status: :ongoing), class: 'dropdown-item' %>
                   </li>
                 </ul>
               </li>

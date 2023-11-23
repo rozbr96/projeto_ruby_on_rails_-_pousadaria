@@ -89,7 +89,7 @@ describe 'User vists the booking details page' do
 
       click_on booking.code
 
-      expect(current_path).to eq own_inn_booking_path booking
+      expect(current_path).to eq host_inn_booking_path booking
     end
 
     it 'and cancels the booking successfully' do
@@ -100,7 +100,7 @@ describe 'User vists the booking details page' do
 
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_booking_path booking
+      visit host_inn_booking_path booking
 
       click_on 'Cancelar Reserva'
 
@@ -115,7 +115,7 @@ describe 'User vists the booking details page' do
 
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_booking_path booking
+      visit host_inn_booking_path booking
 
       click_on 'Cancelar Reserva'
 

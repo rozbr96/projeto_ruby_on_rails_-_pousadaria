@@ -1,7 +1,7 @@
 
 <div class="d-flex mx-5 mt-5 pb-1 justify-content-between">
-  <%= link_to 'Voltar', own_inn_rooms_path %>
-  <%= link_to 'Editar Quarto', edit_own_inn_room_path(@room) %>
+  <%= link_to 'Voltar', host_inn_rooms_path %>
+  <%= link_to 'Editar Quarto', edit_host_inn_room_path(@room) %>
 </div>
 
 <h1 class="text-center"><%= @room.name %></h1>
@@ -10,7 +10,7 @@
   <%= render partial: 'rooms/info', locals: { room: @room } %>
 
   <div class="d-flex mx-5 mt-3 justify-content-end">
-    <%= link_to 'Adicionar Preço Especial', new_own_inn_room_custom_price_path(@room) %>
+    <%= link_to 'Adicionar Preço Especial', new_host_inn_room_custom_price_path(@room) %>
   </div>
 
   <%= render partial: 'custom_prices/list', locals: {

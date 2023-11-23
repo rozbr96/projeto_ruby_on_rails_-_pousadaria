@@ -24,7 +24,7 @@ describe 'User visits the inn creation page' do
         click_on 'Log in'
       end
 
-      expect(current_path).to eq new_own_inn_path
+      expect(current_path).to eq new_host_inn_path
 
       within '.alert.alert-warning' do
         expect(page).to have_content 'Primeiro é necessário registrar sua pousada'
@@ -34,7 +34,7 @@ describe 'User visits the inn creation page' do
     it 'and sees the creation form' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_path
+      visit new_host_inn_path
 
       within '#inn-form' do
         expect(page).to have_field 'Nome Fantasia'
@@ -77,7 +77,7 @@ describe 'User visits the inn creation page' do
     it 'and creates the inn successfully' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_path
+      visit new_host_inn_path
 
       within '#inn-form' do
         fill_in 'Nome Fantasia', with: 'Pousada Universal'
@@ -116,7 +116,7 @@ describe 'User visits the inn creation page' do
         click_on 'Criar Pousada'
       end
 
-      expect(current_path).to eq own_inn_path
+      expect(current_path).to eq host_inn_path
       expect(page).to have_content 'Pousada criada com sucesso'
       expect(page).to have_content 'Pousada Universal'
       expect(page).to have_content 'Pousada universal...'
@@ -128,7 +128,7 @@ describe 'User visits the inn creation page' do
     it 'fails to create the inn, seeing the related errors' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_path
+      visit new_host_inn_path
 
       within '#inn-form' do
         fill_in 'Nome Fantasia', with: ''
@@ -170,7 +170,7 @@ describe 'User visits the inn creation page' do
 
   context 'when the user is not authenticated' do
     it 'should be redirected to the login page' do
-      visit new_own_inn_path
+      visit new_host_inn_path
 
       expect(current_path).to eq new_innkeeper_session_path
       expect(page).to have_content 'Para continuar, faça login ou registre-se'

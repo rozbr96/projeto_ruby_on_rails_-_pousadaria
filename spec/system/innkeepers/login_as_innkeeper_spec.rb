@@ -33,7 +33,7 @@ describe 'User visits login page' do
       click_on 'Log in'
     end
 
-    expect(current_path).to eq new_own_inn_path
+    expect(current_path).to eq new_host_inn_path
   end
 
   it 'and fails to login, seeing the related errors' do

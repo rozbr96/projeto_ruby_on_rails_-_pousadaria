@@ -36,23 +36,23 @@ describe 'User visits room creation page' do
       click_on 'Visualizar Quartos'
       click_on 'Registrar Quarto'
 
-      expect(current_path).to eq new_own_inn_room_path
+      expect(current_path).to eq new_host_inn_room_path
     end
 
     it 'and goes back to the inn rooms page' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_room_path
+      visit new_host_inn_room_path
 
       click_on 'Voltar'
 
-      expect(current_path).to eq own_inn_rooms_path
+      expect(current_path).to eq host_inn_rooms_path
     end
 
     it 'and sees the registration form' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_room_path
+      visit new_host_inn_room_path
 
       within 'form#inn-room-form' do
         expect(page).to have_field 'Nome'
@@ -74,7 +74,7 @@ describe 'User visits room creation page' do
     it 'and creates the room successfully' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_room_path
+      visit new_host_inn_room_path
 
       within 'form#inn-room-form' do
         fill_in 'Nome', with: 'Sol'
@@ -93,14 +93,14 @@ describe 'User visits room creation page' do
         click_on 'Criar Quarto de Pousada'
       end
 
-      expect(current_path).to eq own_inn_room_path InnRoom.last
+      expect(current_path).to eq host_inn_room_path InnRoom.last
       expect(page).to have_content 'Quarto registrado com sucesso'
     end
 
     it 'and fails to create the room, seeing the related errors' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_room_path
+      visit new_host_inn_room_path
 
       within 'form#inn-room-form' do
         fill_in 'Nome', with: ''
@@ -127,7 +127,7 @@ describe 'User visits room creation page' do
 
   context 'when the user is not authenticated' do
     it 'should be redirected to the login page' do
-      visit new_own_inn_room_path
+      visit new_host_inn_room_path
 
       expect(current_path).to eq new_innkeeper_session_path
       expect(page).to have_content 'Para continuar, faça login ou registre-se'

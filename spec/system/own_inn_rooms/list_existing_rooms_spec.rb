@@ -35,23 +35,23 @@ describe 'User visits listing rooms page' do
 
       click_on 'Visualizar Quartos'
 
-      expect(current_path).to eq own_inn_rooms_path
+      expect(current_path).to eq host_inn_rooms_path
     end
 
     it 'and goes back to the inn details page' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_rooms_path
+      visit host_inn_rooms_path
 
       click_on 'Voltar'
 
-      expect(current_path).to eq own_inn_path
+      expect(current_path).to eq host_inn_path
     end
 
     it 'and sees no existing rooms' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_rooms_path
+      visit host_inn_rooms_path
 
       within '#inn-rooms-table' do
         expect(page).to have_content 'Nenhum quarto encontrado'
@@ -67,7 +67,7 @@ describe 'User visits listing rooms page' do
 
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_rooms_path
+      visit host_inn_rooms_path
 
       within '#inn-rooms-table' do
         expect(page).to have_content 'Sol'
@@ -78,7 +78,7 @@ describe 'User visits listing rooms page' do
 
   context 'when the user is not authenticated' do
     it 'should be redirected to the login page' do
-      visit own_inn_rooms_path
+      visit host_inn_rooms_path
 
       expect(current_path).to eq new_innkeeper_session_path
       expect(page).to have_content 'Para continuar, faça login ou registre-se'

@@ -1,5 +1,5 @@
 
-class OwnInnRoomCustomPricesController < ApplicationController
+class Host::CustomPricesController < Host::BasicController
   before_action :authenticate_innkeeper!
   before_action :set_room
   before_action :verify_room
@@ -9,7 +9,7 @@ class OwnInnRoomCustomPricesController < ApplicationController
     @custom_price.inn_room = @room
 
     if @custom_price.save
-      redirect_to own_inn_room_path(@room), notice: 'Preço especial adicionado com sucesso'
+      redirect_to host_inn_room_path(@room), notice: 'Preço especial adicionado com sucesso'
     else
       flash.now[:alert] = 'Erro ao adicionar preço especial'
       render :new
@@ -28,7 +28,7 @@ class OwnInnRoomCustomPricesController < ApplicationController
     @custom_price = CustomPrice.find params[:id]
 
     if @custom_price.update custom_price_params
-      redirect_to own_inn_room_path(@room), notice: 'Preço especial atualizado com sucesso'
+      redirect_to host_inn_room_path(@room), notice: 'Preço especial atualizado com sucesso'
     else
       flash.now[:alert] = 'Erro ao atualizar preço especial'
       render :edit

@@ -28,17 +28,19 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :own_inn, except: [:destroy], controller: :own_inn do
-    resources :rooms, controller: :own_inn_rooms do
-      resources :custom_prices, controller: :own_inn_room_custom_prices
-    end
+  namespace :host do
+    resource :inn, except: :destroy, controller: :inn do
+      resources :rooms do
+        resources :custom_prices
+      end
 
-    resources :bookings, only: [:index, :show], controller: :own_inn_bookings do
-      member do
-        post "check_in" => "own_inn_bookings#check_in"
-        get "check_out" => "own_inn_bookings#checking_out"
-        post "check_out" => "own_inn_bookings#check_out"
-        post "cancel" => "own_inn_bookings#cancel"
+      resources :bookings, only: [:index, :show] do
+        member do
+          post "check_in" => "bookings#check_in"
+          get "check_out" => "bookings#checking_out"
+          post "check_out" => "bookings#check_out"
+          post "cancel" => "bookings#cancel"
+        end
       end
     end
   end

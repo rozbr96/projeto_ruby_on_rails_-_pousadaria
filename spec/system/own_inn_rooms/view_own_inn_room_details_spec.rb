@@ -42,23 +42,23 @@ describe 'User visits own inn room details page' do
       click_on 'Visualizar Quartos'
       click_on 'Detalhes'
 
-      expect(current_path).to eq own_inn_room_path @room
+      expect(current_path).to eq host_inn_room_path @room
     end
 
     it 'and goes back to rooms listing page' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_room_path @room
+      visit host_inn_room_path @room
 
       click_on 'Voltar'
 
-      expect(current_path).to eq own_inn_rooms_path
+      expect(current_path).to eq host_inn_rooms_path
     end
 
     it 'and sees all info' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_room_path @room
+      visit host_inn_room_path @room
 
       expect(page).to have_content 'Beira Mar'
       expect(page).to have_content 'Quarto arejado com vista para o mar'
@@ -74,7 +74,7 @@ describe 'User visits own inn room details page' do
 
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_room_path second_room
+      visit host_inn_room_path second_room
 
       expect(current_path).to eq root_path
       expect(page).to have_content 'Você não tem permissão para acessar essa página'
@@ -83,7 +83,7 @@ describe 'User visits own inn room details page' do
 
   context 'when not logged in' do
     it 'should be redirected to login page' do
-      visit own_inn_room_path @room
+      visit host_inn_room_path @room
 
       expect(current_path).to eq new_innkeeper_session_path
     end

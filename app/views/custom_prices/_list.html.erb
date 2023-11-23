@@ -31,7 +31,7 @@
           <td class="text-end"><%= number_to_currency(custom_price.price.to_f / 100)  %></td>
 
           <% if display_sensitive_data %>
-            <td><%= link_to 'Editar', edit_own_inn_room_custom_price_path(@room, custom_price) %></td>
+            <td><%= link_to 'Editar', edit_host_inn_room_custom_price_path(@room, custom_price) %></td>
           <% end %>
         </tr>
       <% end %>

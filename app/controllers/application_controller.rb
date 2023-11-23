@@ -19,14 +19,14 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_inn_creation_page
-    whitelist_routes = new_own_inn_path, destroy_innkeeper_session_path
+    whitelist_routes = new_host_inn_path, destroy_innkeeper_session_path
 
     return if whitelist_routes.include? request.fullpath
-    return if request.fullpath == own_inn_path and request.method_symbol == :post
+    return if request.fullpath == host_inn_path and request.method_symbol == :post
     return unless innkeeper_signed_in?
     return unless current_innkeeper.inn.nil?
 
-    redirect_to new_own_inn_path, warning: 'Primeiro é necessário registrar sua pousada!'
+    redirect_to new_host_inn_path, warning: 'Primeiro é necessário registrar sua pousada!'
   end
 
   def set_search

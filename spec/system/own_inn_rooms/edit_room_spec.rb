@@ -31,23 +31,23 @@ describe 'User visits the room edition page' do
       click_on @room.name
       click_on 'Editar Quarto'
 
-      expect(current_path).to eq edit_own_inn_room_path @room
+      expect(current_path).to eq edit_host_inn_room_path @room
     end
 
     it 'and goes back to the room details page' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_room_path @room
+      visit edit_host_inn_room_path @room
 
       click_on 'Voltar'
 
-      expect(current_path).to eq own_inn_room_path @room
+      expect(current_path).to eq host_inn_room_path @room
     end
 
     it 'and sees the edition form' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_room_path @room
+      visit edit_host_inn_room_path @room
 
       within 'form#inn-room-form' do
         expect(page).to have_field 'Nome', with: @room.name
@@ -72,7 +72,7 @@ describe 'User visits the room edition page' do
 
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_room_path @room
+      visit edit_host_inn_room_path @room
 
       within 'form#inn-room-form' do
         fill_in 'Nome', with: 'Novo Nome para o Quarto'
@@ -80,7 +80,7 @@ describe 'User visits the room edition page' do
         click_on 'Atualizar Quarto de Pousada'
       end
 
-      expect(current_path).to eq own_inn_room_path @room
+      expect(current_path).to eq host_inn_room_path @room
       expect(page).not_to have_content previous_description
       expect(page).not_to have_content previous_name
       expect(page).to have_content 'Quarto atualizado com sucesso'
@@ -91,7 +91,7 @@ describe 'User visits the room edition page' do
     it 'and fails to edit the room, seeing the related errors' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_room_path @room
+      visit edit_host_inn_room_path @room
 
       within 'form#inn-room-form' do
         fill_in 'Nome', with: 'Novo Nome para o Quarto'
@@ -114,7 +114,7 @@ describe 'User visits the room edition page' do
 
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_room_path second_room
+      visit edit_host_inn_room_path second_room
 
       expect(current_path).to eq root_path
       expect(page).to have_content 'Você não tem permissão para acessar essa página'

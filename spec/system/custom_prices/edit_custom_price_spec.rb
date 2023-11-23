@@ -50,23 +50,23 @@ describe 'User visit custom price edition' do
         click_on 'Editar'
       end
 
-      expect(current_path).to eq edit_own_inn_room_custom_price_path(@room, @custom_price)
+      expect(current_path).to eq edit_host_inn_room_custom_price_path(@room, @custom_price)
     end
 
     it 'and goes back' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_room_custom_price_path(@room, @custom_price)
+      visit edit_host_inn_room_custom_price_path(@room, @custom_price)
 
       click_on 'Voltar'
 
-      expect(current_path).to eq own_inn_room_path @room
+      expect(current_path).to eq host_inn_room_path @room
     end
 
     it 'and sees the edition form' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_room_custom_price_path(@room, @custom_price)
+      visit edit_host_inn_room_custom_price_path(@room, @custom_price)
 
       within '#custom-price-form' do
         expect(page).to have_field 'Início'
@@ -78,7 +78,7 @@ describe 'User visit custom price edition' do
     it 'and updates the custom price successfully' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_room_custom_price_path(@room, @custom_price)
+      visit edit_host_inn_room_custom_price_path(@room, @custom_price)
 
       within '#custom-price-form' do
         fill_in 'Fim', with: '2020-01-31'
@@ -86,7 +86,7 @@ describe 'User visit custom price edition' do
         click_on 'Atualizar Preço Especial'
       end
 
-      expect(current_path).to eq own_inn_room_path @room
+      expect(current_path).to eq host_inn_room_path @room
       expect(page).to have_content 'Preço especial atualizado com sucesso'
       expect(page).to have_content 'R$ 175,00'
       expect(page).not_to have_content 'R$ 200,00'
@@ -97,7 +97,7 @@ describe 'User visit custom price edition' do
     it 'and fails to update the price, seeing the related errors' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_room_custom_price_path(@room, @custom_price)
+      visit edit_host_inn_room_custom_price_path(@room, @custom_price)
 
       within '#custom-price-form' do
         fill_in 'Fim', with: '2019-12-31'
@@ -118,7 +118,7 @@ describe 'User visit custom price edition' do
 
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_room_custom_price_path(second_room, second_price)
+      visit edit_host_inn_room_custom_price_path(second_room, second_price)
 
       expect(current_path).to eq root_path
       expect(page).to have_content 'Você não tem permissão para acessar essa página'
@@ -127,7 +127,7 @@ describe 'User visit custom price edition' do
 
   context 'when not logged' do
     it 'should be redirected to the login page' do
-      visit edit_own_inn_room_custom_price_path(@room, @custom_price)
+      visit edit_host_inn_room_custom_price_path(@room, @custom_price)
 
       expect(current_path).to eq new_innkeeper_session_path
     end

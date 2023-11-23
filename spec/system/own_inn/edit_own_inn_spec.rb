@@ -47,23 +47,23 @@ describe 'User visits own inn edit page' do
 
       click_on 'Editar Pousada'
 
-      expect(current_path).to eq edit_own_inn_path
+      expect(current_path).to eq edit_host_inn_path
     end
 
     it 'and goes back to the inn details page' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_path
+      visit edit_host_inn_path
 
       click_on 'Voltar'
 
-      expect(current_path).to eq own_inn_path
+      expect(current_path).to eq host_inn_path
     end
 
     it 'and sees the edition form' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_path
+      visit edit_host_inn_path
 
       within '#inn-form' do
         expect(page).to have_field 'Nome Fantasia'
@@ -106,7 +106,7 @@ describe 'User visits own inn edit page' do
     it 'and updates the inn successfully' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit edit_own_inn_path
+      visit edit_host_inn_path
 
       within '#inn-form' do
         fill_in 'Nome Fantasia', with: 'Pousada Universal'
@@ -145,7 +145,7 @@ describe 'User visits own inn edit page' do
         click_on 'Atualizar Pousada'
       end
 
-      expect(current_path).to eq own_inn_path
+      expect(current_path).to eq host_inn_path
       expect(page).to have_content 'Pousada atualizada com sucesso'
       expect(page).to have_content 'Pousada Universal'
       expect(page).to have_content 'Pousada universal...'
@@ -157,7 +157,7 @@ describe 'User visits own inn edit page' do
 
   context 'When user is not logged as innkeeper' do
     it 'should be redirected to the login page' do
-      visit edit_own_inn_path
+      visit edit_host_inn_path
 
       expect(current_path).to eq new_innkeeper_session_path
     end

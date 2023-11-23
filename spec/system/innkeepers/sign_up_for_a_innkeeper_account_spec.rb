@@ -35,7 +35,7 @@ describe 'User visits registration page' do
       click_on 'Cadastrar'
     end
 
-    expect(current_path).to eq new_own_inn_path
+    expect(current_path).to eq new_host_inn_path
   end
 
   it 'and fails to create an account, seeing the related errors' do

@@ -1,5 +1,5 @@
 
-class OwnInnBookingsController < ApplicationController
+class Host::BookingsController < Host::BasicController
   before_action :authenticate_innkeeper!
   before_action :set_booking, only: [
     :cancel, :check_in, :checking_out, :check_out, :show
@@ -24,7 +24,7 @@ class OwnInnBookingsController < ApplicationController
     @booking.check_in = DateTime.now
     @booking.save!
 
-    redirect_to own_inn_booking_path(@booking), notice: 'Check in realizado com sucesso'
+    redirect_to host_inn_booking_path(@booking), notice: 'Check in realizado com sucesso'
   end
 
   def checking_out
@@ -45,7 +45,7 @@ class OwnInnBookingsController < ApplicationController
     @booking.check_out = DateTime.now
     @booking.save!
 
-    redirect_to own_inn_booking_path(@booking), notice: 'Check out realizado com sucesso'
+    redirect_to host_inn_booking_path(@booking), notice: 'Check out realizado com sucesso'
   end
 
   def index

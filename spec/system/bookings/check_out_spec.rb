@@ -42,19 +42,19 @@ describe 'User visits the booking check out page' do
     click_on @booking.code
     click_on 'Realizar check out'
 
-    expect(current_path).to eq check_out_own_inn_booking_path @booking
+    expect(current_path).to eq check_out_host_inn_booking_path @booking
   end
 
   it 'and does the check out successfully' do
     login_as @innkeeper, scope: :innkeeper
 
-    visit check_out_own_inn_booking_path @booking
+    visit check_out_host_inn_booking_path @booking
 
     select 'PIX', from: 'Meio de Pagamento'
 
     click_on 'Registrar check out'
 
-    expect(current_path).to eq own_inn_booking_path @booking
+    expect(current_path).to eq host_inn_booking_path @booking
 
     within '#booking-info' do
       expect(page).not_to have_content 'Em Andamento'

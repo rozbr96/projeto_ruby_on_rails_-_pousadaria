@@ -32,7 +32,7 @@ describe 'User visits his own inn details page' do
         click_on 'Minha Pousada'
       end
 
-      expect(current_path).to eq own_inn_path
+      expect(current_path).to eq host_inn_path
       expect(page).to have_content 'Rua Galática'
       expect(page).to have_content '01.137-000'
       expect(page).to have_content 'Pousada Universal'
@@ -45,16 +45,16 @@ describe 'User visits his own inn details page' do
     it 'automatically when trying to access the inn creation page' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_path
+      visit new_host_inn_path
 
-      expect(current_path).to eq own_inn_path
+      expect(current_path).to eq host_inn_path
       expect(page).to have_content 'Sua pousada já está cadastrada'
     end
   end
 
   context 'when the user is not authenticated' do
     it 'should be redirected to the login page' do
-      visit own_inn_path
+      visit host_inn_path
 
       expect(current_path).to eq new_innkeeper_session_path
       expect(page).to have_content 'Para continuar, faça login ou registre-se'

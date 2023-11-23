@@ -33,13 +33,13 @@ describe 'User visit the bookings listing page' do
         click_on 'Reservas'
       end
 
-      expect(current_path).to eq own_inn_bookings_path
+      expect(current_path).to eq host_inn_bookings_path
     end
 
     it 'and sees the bookings infos' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_bookings_path
+      visit host_inn_bookings_path
 
       within '#bookins-table' do
         expect(page).to have_content @booking.code
@@ -64,13 +64,13 @@ describe 'User visit the bookings listing page' do
         click_on 'Reservas'
       end
 
-      expect(current_path).to eq own_inn_bookings_path
+      expect(current_path).to eq host_inn_bookings_path
     end
 
     it 'and sees the bookings infos' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_bookings_path
+      visit host_inn_bookings_path
 
       within '#bookins-table' do
         expect(page).to have_content @booking.code
@@ -95,7 +95,7 @@ describe 'User visit the bookings listing page' do
 
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_bookings_path
+      visit host_inn_bookings_path
 
       expect(page).to have_content @booking.code
       expect(page).not_to have_content another_booking.code
@@ -104,7 +104,7 @@ describe 'User visit the bookings listing page' do
 
   context 'when not logged in' do
     it 'gets directed to the login page' do
-      visit own_inn_bookings_path
+      visit host_inn_bookings_path
 
       expect(current_path).to eq new_innkeeper_session_path
     end
@@ -113,7 +113,7 @@ describe 'User visit the bookings listing page' do
       innkeeper = FactoryBot.create :innkeeper
       FactoryBot.create :inn, innkeeper: innkeeper
 
-      visit own_inn_bookings_path
+      visit host_inn_bookings_path
 
       within '#new_innkeeper' do
         fill_in 'E-mail', with: innkeeper.email
@@ -121,7 +121,7 @@ describe 'User visit the bookings listing page' do
         click_on 'Log in'
       end
 
-      expect(current_path).to eq own_inn_bookings_path
+      expect(current_path).to eq host_inn_bookings_path
     end
   end
 end

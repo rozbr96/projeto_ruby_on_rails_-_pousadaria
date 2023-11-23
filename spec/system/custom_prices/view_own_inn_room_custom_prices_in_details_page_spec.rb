@@ -32,7 +32,7 @@ describe 'User visits own inn room details page' do
     it 'and sees no existing custom prices' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_room_path @room
+      visit host_inn_room_path @room
 
       expect(page).to have_content 'Preços por temporada'
       expect(page).to have_content 'Nenhum preço especial encontrado'
@@ -44,7 +44,7 @@ describe 'User visits own inn room details page' do
 
       login_as @innkeeper, scope: :innkeeper
 
-      visit own_inn_room_path @room
+      visit host_inn_room_path @room
 
       expect(page).not_to have_content 'Nenhum preço especial encontrado'
       expect(page).to have_content '27/12/2020'
@@ -55,7 +55,7 @@ describe 'User visits own inn room details page' do
 
   context 'when not logged in' do
     it 'should be redirected to login page' do
-      visit own_inn_room_path @room
+      visit host_inn_room_path @room
 
       expect(current_path).to eq new_innkeeper_session_path
     end

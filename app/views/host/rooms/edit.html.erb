@@ -1,12 +1,12 @@
 
 <div class="d-flex mx-5 mt-5 pb-1">
-  <%= link_to 'Voltar', own_inn_room_path(@room) %>
+  <%= link_to 'Voltar', host_inn_room_path(@room) %>
 </div>
 
 <div class="container">
   <%= render partial: 'rooms/form', locals: {
     room: @room,
-    action_url: own_inn_room_path(@room),
+    action_url: host_inn_room_path(@room),
     action_method: :patch
   } %>
 </div>

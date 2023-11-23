@@ -1,5 +1,5 @@
 
-class OwnInnRoomsController < ApplicationController
+class Host::RoomsController < Host::BasicController
   before_action :authenticate_innkeeper!
   before_action :set_room, only: [:show, :edit, :update]
   before_action :verify_inn, only: [:show, :edit, :update]
@@ -9,7 +9,7 @@ class OwnInnRoomsController < ApplicationController
     @room.inn = current_innkeeper.inn
 
     if @room.save
-      redirect_to own_inn_room_path(@room), notice: 'Quarto registrado com sucesso'
+      redirect_to host_inn_room_path(@room), notice: 'Quarto registrado com sucesso'
     else
       flash.now[:alert] = 'Erro ao registrar quarto'
       render :new
@@ -30,7 +30,7 @@ class OwnInnRoomsController < ApplicationController
 
   def update
     if @room.update room_params
-      redirect_to own_inn_room_path(@room), notice: 'Quarto atualizado com sucesso'
+      redirect_to host_inn_room_path(@room), notice: 'Quarto atualizado com sucesso'
     else
       flash.now[:alert] = 'Erro ao atualizar quarto'
       render :edit

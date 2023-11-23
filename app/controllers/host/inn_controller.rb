@@ -1,5 +1,5 @@
 
-class OwnInnController < ApplicationController
+class Host::InnController < Host::BasicController
   MAXIMUM_PHONES_AMOUNT = 3
 
   before_action :authenticate_innkeeper!
@@ -11,7 +11,7 @@ class OwnInnController < ApplicationController
     @inn.innkeeper = current_innkeeper
 
     if @inn.save
-      redirect_to own_inn_path, notice: 'Pousada criada com sucesso'
+      redirect_to host_inn_path, notice: 'Pousada criada com sucesso'
     else
       set_payment_methods_ids
       set_phone_numbers
@@ -38,7 +38,7 @@ class OwnInnController < ApplicationController
 
   def update
     if @inn.update inn_params
-      redirect_to own_inn_path, notice: 'Pousada atualizada com sucesso'
+      redirect_to host_inn_path, notice: 'Pousada atualizada com sucesso'
     else
       set_payment_methods_ids
       set_phone_numbers
@@ -95,7 +95,7 @@ class OwnInnController < ApplicationController
   def redirect_to_details_page
     return if current_innkeeper.inn.nil?
 
-    redirect_to own_inn_path, info: 'Sua pousada já está cadastrada'
+    redirect_to host_inn_path, info: 'Sua pousada já está cadastrada'
   end
 
   def set_inn

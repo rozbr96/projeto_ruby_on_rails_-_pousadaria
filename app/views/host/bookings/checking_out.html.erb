@@ -29,7 +29,7 @@
 
   <hr>
 
-  <%= form_with model: @booking, url: check_out_own_inn_booking_path(@booking), method: :post do |form| %>
+  <%= form_with model: @booking, url: check_out_host_inn_booking_path(@booking), method: :post do |form| %>
     <div class="d-flex flex-column gap-1">
       <%= form.fields_for :billing, @booking.billing do |billing_form| %>
         <%= billing_form.label :payment_method_id %>

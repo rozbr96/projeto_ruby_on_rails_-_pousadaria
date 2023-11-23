@@ -1,13 +1,13 @@
 
 <div class="d-flex justify-content-between mx-5 mt-5">
-  <%= link_to 'Voltar', own_inn_path %>
-  <%= link_to 'Registrar Quarto', new_own_inn_room_path %>
+  <%= link_to 'Voltar', host_inn_path %>
+  <%= link_to 'Registrar Quarto', new_host_inn_room_path %>
 </div>
 
 <%=
   render partial: 'rooms/list', locals: {
     rooms: @rooms,
     display_sensitive_data: true,
-    get_room_path: -> room { own_inn_room_path(room) }
+    get_room_path: -> room { host_inn_room_path(room) }
   }
 %>

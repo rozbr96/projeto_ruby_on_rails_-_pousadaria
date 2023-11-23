@@ -23,7 +23,7 @@ describe 'User visits the booking details page' do
   it 'and makes the check in successfully' do
     login_as @innkeeper, scope: :innkeeper
 
-    visit own_inn_booking_path @booking
+    visit host_inn_booking_path @booking
 
     click_on 'Registrar check in'
 

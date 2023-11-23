@@ -43,23 +43,23 @@ describe 'User visits own inn room custom price creation page' do
       click_on 'Detalhes'
       click_on 'Adicionar Preço Especial'
 
-      expect(current_path).to eq new_own_inn_room_custom_price_path @room
+      expect(current_path).to eq new_host_inn_room_custom_price_path @room
     end
 
     it 'and goes back to the room page' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_room_custom_price_path @room
+      visit new_host_inn_room_custom_price_path @room
 
       click_on 'Voltar'
 
-      expect(current_path).to eq own_inn_room_path @room
+      expect(current_path).to eq host_inn_room_path @room
     end
 
     it 'and sees the custom price creation form' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_room_custom_price_path @room
+      visit new_host_inn_room_custom_price_path @room
 
       within '#custom-price-form' do
         expect(page).to have_field 'Início'
@@ -71,7 +71,7 @@ describe 'User visits own inn room custom price creation page' do
     it 'and creates a new custom price successfully' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_room_custom_price_path @room
+      visit new_host_inn_room_custom_price_path @room
 
       within '#custom-price-form' do
         fill_in 'Início', with: '20200101'
@@ -80,7 +80,7 @@ describe 'User visits own inn room custom price creation page' do
         click_on 'Criar Preço Especial'
       end
 
-      expect(current_path).to eq own_inn_room_path @room
+      expect(current_path).to eq host_inn_room_path @room
       expect(page).to have_content 'Preço especial adicionado com sucesso'
       expect(page).to have_content '01/01/2020'
       expect(page).to have_content '31/01/2020'
@@ -90,7 +90,7 @@ describe 'User visits own inn room custom price creation page' do
     it 'and fails to create a new custom price, seeing the related errors' do
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_room_custom_price_path @room
+      visit new_host_inn_room_custom_price_path @room
 
       within '#custom-price-form' do
         fill_in 'Início', with: '20200201'
@@ -112,7 +112,7 @@ describe 'User visits own inn room custom price creation page' do
 
       login_as @innkeeper, scope: :innkeeper
 
-      visit new_own_inn_room_custom_price_path second_room
+      visit new_host_inn_room_custom_price_path second_room
 
       expect(current_path).to eq root_path
       expect(page).to have_content 'Você não tem permissão para acessar essa página'
@@ -121,7 +121,7 @@ describe 'User visits own inn room custom price creation page' do
 
   context 'when not logged in' do
     it 'should be redirected to login page' do
-      visit own_inn_room_path @room
+      visit host_inn_room_path @room
 
       expect(current_path).to eq new_innkeeper_session_path
     end
