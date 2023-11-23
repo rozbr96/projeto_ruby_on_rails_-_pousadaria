@@ -6,6 +6,7 @@ class Booking < ApplicationRecord
 
   has_one :inn, through: :inn_room
   has_one :billing
+  has_one :review
 
   accepts_nested_attributes_for :billing
 

@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      review: Avaliação
+
+    attributes:
+      review:
+        score: Nota
+        guest_commentary: Comentário do Hóspede
+        innkeeper_reply: Resposta da Pousada

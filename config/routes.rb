@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     member do
       post "cancel" => "bookings#cancel"
     end
+
+    resources :reviews, only: [:new, :create]
   end
 
   resource :own_inn, except: [:destroy], controller: :own_inn do

@@ -64,3 +64,12 @@
     </tbody>
   </table>
 </div>
+
+
+<% unless @booking.review.nil? %>
+  <div class="container">
+    <div>
+      <%= @booking.review.guest_commentary %>
+    </div>
+  </div>
+<% end %>
