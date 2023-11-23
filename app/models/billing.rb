@@ -1,11 +1,11 @@
 class Billing < ApplicationRecord
-  belongs_to :payment_method
+  belongs_to :payment_method, optional: true
   belongs_to :booking
 
-  validates_presence_of :base_price, on: :save
+  validates_presence_of :base_price, :payment_method, on: :save
 
   after_initialize do
-    return unless valid?
+    next unless valid?
 
     self.base_price = calculated_price
   end

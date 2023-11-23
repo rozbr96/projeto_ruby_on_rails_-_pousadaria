@@ -1,0 +1,42 @@
+
+<div class="container d-flex justify-content-center flex-column">
+  <table id="booking-info" class="table table-striped table-hover" style="width: 600px">
+    <thead class="text-center">
+      <tr>
+        <th colspan="2">
+          <h3>Reserva: <%= @booking.code %></h3>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td class="fw-bold">Data de Entrada</td>
+        <td><%= I18n.l @booking.start_date %></td>
+      </tr>
+
+      <tr>
+        <td class="fw-bold">Quarto Escolhido</td>
+        <td><%= @booking.inn_room.name %></td>
+      </tr>
+
+      <tr>
+        <td class="fw-bold">Valor Total</td>
+        <td><%= number_to_currency(@billing.base_price.to_f / 100) %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <%= form_with model: @booking, url: check_out_own_inn_booking_path(@booking), method: :post do |form| %>
+    <div class="d-flex flex-column gap-1">
+      <%= form.fields_for :billing, @booking.billing do |billing_form| %>
+        <%= billing_form.label :payment_method_id %>
+        <%= billing_form.select :payment_method_id, @available_payment_methods %>
+      <% end %>
+
+      <%= form.submit 'Registrar check out' %>
+    </div>
+  <% end %>
+</div>

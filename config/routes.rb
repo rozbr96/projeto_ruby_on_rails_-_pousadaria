@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :bookings, only: [:index, :show], controller: :own_inn_bookings do
       member do
         post "check_in" => "own_inn_bookings#check_in"
+        get "check_out" => "own_inn_bookings#checking_out"
         post "check_out" => "own_inn_bookings#check_out"
         post "cancel" => "own_inn_bookings#cancel"
       end

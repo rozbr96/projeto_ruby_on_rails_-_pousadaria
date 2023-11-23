@@ -5,6 +5,9 @@ class Booking < ApplicationRecord
   belongs_to :guest, optional: true
 
   has_one :inn, through: :inn_room
+  has_one :billing
+
+  accepts_nested_attributes_for :billing
 
   validates_presence_of :start_date, :end_date, :guests_number
   validates_presence_of :guest, on: :save

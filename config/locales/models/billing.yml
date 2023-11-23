@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    models:
+      billing: Fatura
+
+    attributes:
+      billing:
+        payment_method_id: Meio de Pagamento
