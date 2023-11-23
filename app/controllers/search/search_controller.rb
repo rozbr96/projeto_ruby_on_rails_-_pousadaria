@@ -1,5 +1,5 @@
 
-class SearchController < ApplicationController
+class Search::SearchController < ApplicationController
   def advanced_search
     @inns = Inn.left_outer_joins :address, :inn_rooms
     @inns = @inns.where enabled: true
