@@ -21,7 +21,8 @@ describe 'User vists the booking details page' do
   context 'when logged in as guest' do
     it 'and cancels the booking successfully' do
       booking = FactoryBot.create :booking, guest: @guest,
-        start_date: Time.current.advance(days: 7), inn_room: @room
+        start_date: Time.current.advance(days: 7), inn_room: @room,
+        status: Booking.statuses[:reserved]
 
       login_as @guest, scope: :guest
 
@@ -39,12 +40,14 @@ describe 'User vists the booking details page' do
     context 'fails to cancel the booking, seeing the related error' do
       it 'when it is already on going' do
         booking = FactoryBot.create :booking, guest: @guest,
-          status: Booking.statuses[:ongoing],
+          status: Booking.statuses[:reserved],
           start_date: Time.now.yesterday, inn_room: @room
 
         login_as @guest, scope: :guest
 
         visit guest_booking_path booking
+
+        booking.ongoing!
 
         click_on 'Cancelar Reserva'
 

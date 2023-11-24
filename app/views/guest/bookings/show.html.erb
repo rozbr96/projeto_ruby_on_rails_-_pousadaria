@@ -6,7 +6,11 @@
 
 
 <% content_for :booking_actions do %>
-  <%= button_to 'Cancelar Reserva', cancel_guest_booking_path(@booking), method: :post %>
+  <% if @booking.reserved? %>
+    <%= button_to 'Cancelar Reserva', cancel_guest_booking_path(@booking), method: :post %>
+  <% else %>
+    Nenhuma ação para ser executada
+  <% end %>
 <% end %>
 
 <%= render partial: 'bookings/info', locals: {
