@@ -80,4 +80,23 @@ describe 'User visits the booking room page' do
     expect(page).to have_content 'Data Final não pode ser anterior à data inicial'
     expect(page).to have_content 'Número de Convidados excede a quantidade máxima permitida pelo quarto'
   end
+
+  it 'and verifies the room cannot be reserved, seeing the related errors' do
+    guest = FactoryBot.create :guest
+    Booking.create! start_date: '2020-01-10', end_date: '2020-01-23',
+      guest: guest, inn_room: @first_room, guests_number: 1,
+      status: Booking.statuses[:reserved]
+
+    visit availability_verification_room_path @first_room
+
+    within 'form#booking-verification-form' do
+      fill_in 'Data Inicial', with: '2020-01-22'
+      fill_in 'Data Final', with: '2020-01-31'
+      fill_in 'Número de Convidados', with: '1'
+      click_on 'Verificar'
+    end
+
+    expect(page).to have_content 'Impossível reservar esse quarto para o período especificado'
+    expect(page).to have_content 'Período de reserva está sobrepondo algum outro período já existente'
+  end
 end

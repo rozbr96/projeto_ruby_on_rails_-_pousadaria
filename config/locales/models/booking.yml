@@ -8,6 +8,7 @@ pt-BR:
         start_date: Data Inicial
         end_date: Data Final
         guests_number: Número de Convidados
+        reservation_dates_range: Período de reserva
 
         status:
           one: Status
