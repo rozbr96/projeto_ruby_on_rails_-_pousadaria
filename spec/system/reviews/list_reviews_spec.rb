@@ -73,4 +73,12 @@ describe 'User visits the reviews listing page' do
       end
     end
   end
+
+  context 'when not logged' do
+    it 'and gets redirected to the login page' do
+      visit host_inn_reviews_path
+
+      expect(current_path).to eq new_innkeeper_session_path
+    end
+  end
 end

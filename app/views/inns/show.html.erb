@@ -14,3 +14,10 @@
     get_room_path: -> room { room_path(room) }
   } %>
 </div>
+
+<div class="container-fluid">
+  <%= render partial: 'reviews/list', locals: {
+    display_sensitive_data: false,
+    reviews: @inn.reviews.last(3)
+  } %>
+</div>

@@ -8,3 +8,8 @@
 </div>
 
 <%= render partial: 'inns/infos', locals: { display_sensitive_data: true } %>
+
+<%= render partial: 'reviews/list', locals: {
+  display_sensitive_data: true,
+  reviews: @inn.reviews
+} %>
