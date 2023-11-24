@@ -130,6 +130,29 @@ describe 'User visits the booking creation page' do
       end
     end
 
+    it 'and fails to finish the booking, seeing the related error' do
+      another_room = FactoryBot.create :inn_room, inn: @inn
+      FactoryBot.create :booking, inn_room: another_room, guest: @guest,
+        start_date: '2020-01-10', end_date: '2020-01-16',
+        guests_number: 1, status: Booking.statuses[:reserved]
+
+      booking = {
+        start_date: '2020-01-15', end_date: '2020-01-28',
+        guests_number: 1, inn_room_id: @room.id
+      }
+
+      SessionInjecter::inject booking: booking
+
+      login_as @guest, scope: :guest
+
+      visit new_guest_booking_path
+
+      click_on 'Confirmar Reserva'
+      expect(page).not_to have_content 'Reserva efetuada com sucesso'
+      expect(page).to have_content 'Erro ao efetuar reserva'
+      expect(page).to have_content 'Período de reserva está sobrepondo algum outro período já existente (talvez em outro quarto)'
+    end
+
     it 'and goes back to room availability verification page' do
       booking = {
         start_date: '2020-01-15', end_date: '2020-01-28',

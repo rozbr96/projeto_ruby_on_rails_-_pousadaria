@@ -3,6 +3,12 @@
   <%= link_to 'Voltar', availability_verification_room_path(@booking.inn_room) %>
 </div>
 
+<% if @booking.errors.any? %>
+  <% @booking.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
 <div class="container d-flex justify-content-center">
   <table class="table table-striped table-hover" style="width: 600px">
     <thead class="text-center">

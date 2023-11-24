@@ -14,6 +14,10 @@ class RoomsController < ApplicationController
     @booking = Booking.new booking_params
     @booking.inn_room = @room
 
+    if guest_signed_in?
+      @booking.guest = current_guest
+    end
+
     if @booking.valid?
       session[:booking] = @booking
       flash.now[:notice] = 'Quarto disponível para o período especificado'
