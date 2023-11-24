@@ -18,7 +18,7 @@
         <% @reviews.each do |review| %>
           <tr>
             <td><%= review.score %></td>
-            <td><%= review.replied? ? 'Sim' : 'Não' %></td>
+            <td><%= get_boolean_text_for review.replied? %></td>
             <td><%= review.guest_commentary %></td>
           </tr>
         <% end %>
