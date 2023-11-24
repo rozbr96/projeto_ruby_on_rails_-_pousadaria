@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Booking, type: :model do
   before :all do
     innkeeper = FactoryBot.create :innkeeper
-    inn = FactoryBot.create :inn, innkeeper: innkeeper
-    @room = FactoryBot.create :inn_room, inn: inn, enabled: true,
+    @inn = FactoryBot.create :inn, innkeeper: innkeeper
+    @room = FactoryBot.create :inn_room, inn: @inn, enabled: true,
       maximum_number_of_guests: 2
   end
 
@@ -73,13 +73,29 @@ RSpec.describe Booking, type: :model do
     end
 
     context 'uniqueness' do
-      it 'should be invalid when dates range overlapping occurs' do
+      it 'should be invalid when dates range overlapping occurs for the same room' do
         guest = FactoryBot.create :guest
         Booking.create! start_date: '2020-01-10', end_date: '2020-01-24',
           guests_number: 2, status: Booking.statuses[:reserved], inn_room: @room, guest: guest
 
         booking = Booking.new start_date: '2020-01-22', end_date: '2020-01-31',
           guests_number: 3, status: Booking.statuses[:pending], inn_room: @room
+
+        expect(booking).not_to be_valid
+      end
+
+      it 'should be invalid when dates range overlapping occurs for the same user' do
+        guest = FactoryBot.create :guest
+        another_room = FactoryBot.create :inn_room, inn: @inn, enabled: true,
+          maximum_number_of_guests: 2
+
+        Booking.create! start_date: '2020-01-10', end_date: '2020-01-24',
+          guests_number: 2, status: Booking.statuses[:reserved],
+          inn_room: @room, guest: guest
+
+        booking = Booking.new start_date: '2020-01-22', end_date: '2020-01-31',
+          guests_number: 2, status: Booking.statuses[:pending],
+          inn_room: another_room, guest: guest
 
         expect(booking).not_to be_valid
       end

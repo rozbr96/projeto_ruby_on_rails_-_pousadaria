@@ -65,10 +65,17 @@ class Booking < ApplicationRecord
   def overlappinp_dates
     return if inn_room.nil?
 
-    bookings = Booking.where(
-      inn_room: inn_room,
-      status: [:reserved, :ongoing]
-    ).where.not(id: id)
+    bookings = Booking.where(status: [:reserved, :ongoing])
+    room_bookings = Booking.where(inn_room: inn_room)
+
+    if guest.nil?
+      bookings = bookings.and room_bookings
+    else
+      user_bookings = Booking.where guest: guest
+      bookings = bookings.and room_bookings.or user_bookings
+    end
+
+    bookings = bookings.where.not(id: id)
 
     invalid_ranges = bookings.map &:reservation_dates_range
 
@@ -76,7 +83,7 @@ class Booking < ApplicationRecord
       invalid_range.overlaps? reservation_dates_range
     end
 
-    errors.add :reservation_dates_range, 'está sobrepondo algum outro período já existente'
+    errors.add :reservation_dates_range, 'está sobrepondo algum outro período já existente (talvez em outro quarto)'
   end
 
   def reservation_dates_range
