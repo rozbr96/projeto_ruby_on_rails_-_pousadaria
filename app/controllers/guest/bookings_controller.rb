@@ -22,6 +22,7 @@ class Guest::BookingsController < Guest::BasicController
 
   def create
     @booking.guest = current_guest
+    @booking.status = :reserved
 
     if @booking.save
       redirect_to guest_bookings_path, notice: 'Reserva efetuada com sucesso'

@@ -26,7 +26,7 @@
       <% @bookings.each do |booking| %>
         <tr>
           <td><%= link_to booking.code, get_booking_path.call(booking) %></td>
-          <td><%= booking.status.upcase %></td>
+          <td><%= Booking.human_enum_name_for :status, booking.status %></td>
           <td><%= I18n.l booking.start_date %> às <%= get_time_from(booking.inn_room.inn.check_in) %></td>
           <td><%= I18n.l booking.end_date %> às <%= get_time_from(booking.inn_room.inn.check_out) %></td>
           <td class="text-end"><%= number_to_currency(booking.estimated_price.to_f / 100) %></td>

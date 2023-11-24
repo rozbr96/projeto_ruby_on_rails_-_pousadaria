@@ -124,6 +124,10 @@ describe 'User visits the booking creation page' do
       click_on 'Confirmar Reserva'
       expect(current_path).to eq guest_bookings_path
       expect(page).to have_content 'Reserva efetuada com sucesso'
+
+      within 'td:nth-child(2)' do
+        expect(page).to have_content 'Reservada'
+      end
     end
 
     it 'and goes back to room availability verification page' do
