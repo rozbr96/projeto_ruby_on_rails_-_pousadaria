@@ -3,6 +3,12 @@
   <%= link_to 'Voltar', guest_booking_path(@booking) %>
 </div>
 
+<% unless @review.errors.empty? %>
+  <% @review.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
 <div class="container">
   <%= form_with model: @review, url: guest_booking_reviews_path(@booking), id: 'booking-review' do |form| %>
     <%= form.label :score %>

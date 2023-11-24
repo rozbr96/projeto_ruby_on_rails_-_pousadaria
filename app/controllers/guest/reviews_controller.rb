@@ -5,9 +5,13 @@ class Guest::ReviewsController < Guest::BasicController
   def create
     @review = Review.new review_params
     @review.booking = @booking
-    @review.save
 
-    redirect_to guest_booking_path(@booking), notice: 'Avaliação registrada com sucesso'
+    if @review.save
+      redirect_to guest_booking_path(@booking), notice: 'Avaliação registrada com sucesso'
+    else
+      flash.now[:alert] = 'Erro ao registrar avaliação'
+      render :new
+    end
   end
 
   def new

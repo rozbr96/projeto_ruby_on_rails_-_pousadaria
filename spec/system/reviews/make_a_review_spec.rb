@@ -76,5 +76,23 @@ describe 'User visits the review creation page' do
       expect(page).to have_content 'Avaliação registrada com sucesso'
       expect(page).to have_content 'Muito bom!!!'
     end
+
+    it 'and fails to create another review' do
+      login_as @guest, scope: :guest
+
+      visit new_guest_booking_review_path @booking
+
+      FactoryBot.create :review, booking: @booking
+
+      within '#booking-review' do
+        fill_in 'Nota', with: '5'
+        fill_in 'Comentário', with: 'Muito bom!!!'
+        click_on 'Avaliar'
+      end
+
+      expect(page).not_to have_content 'Avaliação registrada com sucesso'
+      expect(page).to have_content 'Erro ao registrar avaliação'
+      expect(page).to have_content 'Já existe uma avaliação sobre essa estadia'
+    end
   end
 end
