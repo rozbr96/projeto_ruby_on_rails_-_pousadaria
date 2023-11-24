@@ -53,6 +53,8 @@
                 </ul>
               </li>
 
+              <li><%= link_to 'Avaliações', host_inn_reviews_path %></li>
+
               <li><%= button_to 'Sair', destroy_innkeeper_session_path, method: :delete, class: 'dropdown-item', style: 'cursor: pointer' %></li>
             </ul>
           <% elsif guest_signed_in? %>

@@ -37,6 +37,8 @@ Rails.application.routes.draw do
           post "cancel" => "bookings#cancel"
         end
       end
+
+      resources :reviews, only: [:index]
     end
   end
 

@@ -1,0 +1,28 @@
+
+<div class="container">
+  <table id="reviews-table" class="table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Nota</th>
+        <th>Respondida?</th>
+        <th>Comentário</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if @reviews.empty? %>
+        <tr>
+          <td colspan="3">Nenhuma avaliação encontrada</td>
+        </tr>
+      <% else %>
+        <% @reviews.each do |review| %>
+          <tr>
+            <td><%= review.score %></td>
+            <td><%= review.replied? ? 'Sim' : 'Não' %></td>
+            <td><%= review.guest_commentary %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
