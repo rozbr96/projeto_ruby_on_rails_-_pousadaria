@@ -1,36 +1,40 @@
 
-<div class="container">
-  <table id="reviews-table" class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Nota</th>
+<table id="reviews-table" class="table table-striped table-hover">
+  <thead class="text-center">
+    <tr>
+      <th colspan="<%= display_sensitive_data ? 3 : 2 %>">
+        <h3>Avaliações</h3>
+      </th>
+    </tr>
 
-        <% if display_sensitive_data %>
-          <th>Respondida?</th>
-        <% end %>
+    <tr>
+      <th>Nota</th>
 
-        <th>Comentário</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% if reviews.empty? %>
-        <tr>
-          <td colspan="<%= display_sensitive_data ? 3 : 2 %>">Nenhuma avaliação encontrada</td>
-        </tr>
-      <% else %>
-        <% reviews.each do |review| %>
-          <tr>
-            <td><%= review.score %></td>
-
-            <% if display_sensitive_data %>
-              <td><%= get_boolean_text_for review.replied? %></td>
-            <% end %>
-
-            <td><%= review.guest_commentary %></td>
-          </tr>
-        <% end %>
+      <% if display_sensitive_data %>
+        <th>Respondida?</th>
       <% end %>
-    </tbody>
-  </table>
-</div>
+
+      <th>Comentário</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if reviews.empty? %>
+      <tr>
+        <td class="text-center" colspan="<%= display_sensitive_data ? 3 : 2 %>">Nenhuma avaliação encontrada</td>
+      </tr>
+    <% else %>
+      <% reviews.each do |review| %>
+        <tr>
+          <td class="text-center"><%= review.score %></td>
+
+          <% if display_sensitive_data %>
+            <td class="text-center"><%= get_boolean_text_for review.replied? %></td>
+          <% end %>
+
+          <td><%= review.guest_commentary %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
