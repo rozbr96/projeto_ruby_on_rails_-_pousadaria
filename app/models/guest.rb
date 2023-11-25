@@ -6,4 +6,7 @@ class Guest < ApplicationRecord
 
   validates_presence_of :name, :citizen_number
   validates_uniqueness_of :citizen_number
+
+  has_many :bookings
+  has_many :reviews, through: :bookings
 end

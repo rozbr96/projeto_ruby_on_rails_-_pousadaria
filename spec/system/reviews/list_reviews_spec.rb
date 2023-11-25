@@ -124,4 +124,47 @@ describe 'User visits the reviews listing page' do
       end
     end
   end
+
+  context 'within the guest context' do
+    context 'when logged in' do
+      it 'from the home page' do
+        login_as @guest, scope: :guest
+
+        visit root_path
+
+        within 'nav' do
+          click_on @guest.name
+          click_on 'Minhas Avaliações'
+        end
+
+        expect(current_path).to eq guest_reviews_path
+      end
+
+      it 'and sees no existing reviews' do
+        login_as @guest, scope: :guest
+
+        visit guest_reviews_path
+
+        expect(page).to have_content 'Nenhuma avaliação encontrada'
+      end
+
+      it 'and sees existing reviews' do
+        review = FactoryBot.create :review, booking: @booking
+
+        login_as @guest, scope: :guest
+
+        visit guest_reviews_path
+
+        expect(page).to have_content review.guest_commentary
+      end
+    end
+
+    context 'when not logged' do
+      it 'should be redirected to the login page' do
+        visit guest_reviews_path
+
+        expect(current_path).to eq new_guest_session_path
+      end
+    end
+  end
 end

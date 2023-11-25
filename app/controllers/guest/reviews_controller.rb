@@ -1,6 +1,7 @@
 
 class Guest::ReviewsController < Guest::BasicController
-  before_action :set_booking
+  before_action :authenticate_guest!
+  before_action :set_booking, only: [:create, :new]
 
   def create
     @review = Review.new review_params
@@ -12,6 +13,10 @@ class Guest::ReviewsController < Guest::BasicController
       flash.now[:alert] = 'Erro ao registrar avaliação'
       render :new
     end
+  end
+
+  def index
+    @reviews = current_guest.reviews
   end
 
   def new
