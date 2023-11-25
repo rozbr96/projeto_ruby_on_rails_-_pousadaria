@@ -23,19 +23,25 @@
     </thead>
 
     <tbody>
-      <% @bookings.each do |booking| %>
+      <% if @bookings.empty? %>
         <tr>
-          <td><%= link_to booking.code, get_booking_path.call(booking) %></td>
-          <td><%= Booking.human_enum_name_for :status, booking.status %></td>
-          <td><%= I18n.l booking.start_date %> às <%= get_time_from(booking.inn_room.inn.check_in) %></td>
-          <td><%= I18n.l booking.end_date %> às <%= get_time_from(booking.inn_room.inn.check_out) %></td>
-          <td class="text-end"><%= number_to_currency(booking.estimated_price.to_f / 100) %></td>
-
-          <% if display_sensitive_info %>
-            <td><%= booking.inn_room.name %></td>
-            <td><%= booking.guests_number %></td>
-          <% end %>
+          <td class="text-center" colspan="<%= display_sensitive_info ? 7 : 5 %>">Nenhuma reserva encontrada</td>
         </tr>
+      <% else %>
+        <% @bookings.each do |booking| %>
+          <tr>
+            <td><%= link_to booking.code, get_booking_path.call(booking) %></td>
+            <td><%= Booking.human_enum_name_for :status, booking.status %></td>
+            <td><%= I18n.l booking.start_date %> às <%= get_time_from(booking.inn_room.inn.check_in) %></td>
+            <td><%= I18n.l booking.end_date %> às <%= get_time_from(booking.inn_room.inn.check_out) %></td>
+            <td class="text-end"><%= number_to_currency(booking.estimated_price.to_f / 100) %></td>
+
+            <% if display_sensitive_info %>
+              <td><%= booking.inn_room.name %></td>
+              <td><%= booking.guests_number %></td>
+            <% end %>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

@@ -9,14 +9,12 @@ describe 'User visit the bookings listing page' do
       @inn = FactoryBot.create :inn, innkeeper: @innkeeper, enabled: true,
         check_in: '10:00', check_out: '14:00'
       @room = FactoryBot.create :inn_room, inn: @inn, price: 100_00
-      @booking = FactoryBot.create :booking, inn_room: @room, guest: @guest,
-          guests_number: 1, start_date: '2020-01-10', end_date: '2020-01-23'
+
       FactoryBot.create :address, inn: @inn
     end
 
     after :all do
       Address.delete_all
-      Booking.delete_all
       InnRoom.delete_all
       Guest.delete_all
       Inn.delete_all
@@ -36,25 +34,41 @@ describe 'User visit the bookings listing page' do
       expect(current_path).to eq host_inn_bookings_path
     end
 
-    it 'and sees the bookings infos' do
+    it 'and sees no bookings' do
       login_as @innkeeper, scope: :innkeeper
 
       visit host_inn_bookings_path
 
       within '#bookins-table' do
-        expect(page).to have_content @booking.code
+        expect(page).to have_content 'Nenhuma reserva encontrada'
+      end
+    end
+
+    it 'and sees the bookings infos' do
+      booking = FactoryBot.create :booking, inn_room: @room, guest: @guest,
+          guests_number: 1, start_date: '2020-01-10', end_date: '2020-01-23'
+
+      login_as @innkeeper, scope: :innkeeper
+
+      visit host_inn_bookings_path
+
+      within '#bookins-table' do
+        expect(page).to have_content booking.code
         expect(page).to have_content '10/01/2020 às 10:00'
         expect(page).to have_content '23/01/2020 às 14:00'
         expect(page).to have_content 'R$ 1.400,00'
         expect(page).to have_content @room.name
 
         within 'td:last-child' do
-          expect(page).to have_content @booking.guests_number
+          expect(page).to have_content booking.guests_number
         end
       end
     end
 
     it 'and sees only his inn bookings' do
+      booking = FactoryBot.create :booking, inn_room: @room, guest: @guest,
+          guests_number: 1, start_date: '2020-01-10', end_date: '2020-01-23'
+
       another_innkeeper = FactoryBot.create :innkeeper
       another_inn = FactoryBot.create :inn, innkeeper: another_innkeeper,
         enabled: true
@@ -66,7 +80,7 @@ describe 'User visit the bookings listing page' do
 
       visit host_inn_bookings_path
 
-      expect(page).to have_content @booking.code
+      expect(page).to have_content booking.code
       expect(page).not_to have_content another_booking.code
     end
   end
