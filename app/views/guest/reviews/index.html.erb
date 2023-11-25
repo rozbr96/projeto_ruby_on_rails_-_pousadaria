@@ -1,5 +1,6 @@
 
 <%= render partial: 'reviews/list', locals: {
-  display_sensitive_data: false,
-  reviews: @reviews
+  display_sensitive_data: true,
+  reviews: @reviews,
+  get_review_path: -> review { guest_review_path review }
 } %>

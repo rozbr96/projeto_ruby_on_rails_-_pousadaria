@@ -14,6 +14,7 @@
 <div class="container-fluid mt-5">
   <%= render partial: 'reviews/list', locals: {
     display_sensitive_data: true,
-    reviews: @inn.reviews
+    reviews: @inn.reviews,
+    get_review_path: nil
   } %>
 </div>

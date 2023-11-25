@@ -23,7 +23,7 @@ Rails.application.routes.draw do
         post "cancel" => "bookings#cancel"
       end
 
-      resources :reviews, only: [:new, :create]
+      resources :reviews, shallow: true, only: [:new, :create, :show]
     end
 
     get "reviews" => "reviews#index"

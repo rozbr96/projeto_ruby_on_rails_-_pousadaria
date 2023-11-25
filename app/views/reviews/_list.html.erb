@@ -33,10 +33,10 @@
           <% end %>
 
           <td>
-            <% if display_sensitive_data %>
-              <%= link_to review.guest_commentary, host_inn_review_replying_path(review) %>
-            <% else %>
+            <% if get_review_path.nil? %>
               <%= review.guest_commentary %>
+            <% else %>
+              <%= link_to review.guest_commentary, get_review_path.call(review) %>
             <% end %>
           </td>
         </tr>

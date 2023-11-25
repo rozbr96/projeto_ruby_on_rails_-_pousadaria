@@ -23,6 +23,10 @@ class Guest::ReviewsController < Guest::BasicController
     @review = Review.new
   end
 
+  def show
+    @review = Review.find params[:id]
+  end
+
 
   private
 
