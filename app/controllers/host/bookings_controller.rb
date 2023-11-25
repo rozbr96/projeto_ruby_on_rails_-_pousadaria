@@ -20,11 +20,18 @@ class Host::BookingsController < Host::BasicController
   end
 
   def check_in
-    @booking.status = :ongoing
-    @booking.check_in = DateTime.now
-    @booking.save!
+    if Time.current.to_date >= @booking.start_date.to_date
+      @booking.status = :ongoing
+      @booking.check_in = DateTime.now
+      @booking.save!
 
-    redirect_to host_inn_booking_path(@booking), notice: 'Check in realizado com sucesso'
+      redirect_to host_inn_booking_path(@booking), notice: 'Check in realizado com sucesso'
+    else
+      flash.now[:alert] = 'Erro ao efetuar o check in'
+      @booking.errors.add :start_date, 'deve ser igual ou posterior à data atual'
+
+      render :show
+    end
   end
 
   def checking_out
