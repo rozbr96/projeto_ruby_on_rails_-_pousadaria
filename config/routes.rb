@@ -42,7 +42,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :reviews, only: [:index]
+      resources :reviews, only: [:index, :update] do
+        get "replying" => "reviews#replying"
+        post "reply" => "reviews#reply"
+      end
     end
   end
 

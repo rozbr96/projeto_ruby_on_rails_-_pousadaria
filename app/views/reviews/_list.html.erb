@@ -32,7 +32,13 @@
             <td class="text-center"><%= get_boolean_text_for review.replied? %></td>
           <% end %>
 
-          <td><%= review.guest_commentary %></td>
+          <td>
+            <% if display_sensitive_data %>
+              <%= link_to review.guest_commentary, host_inn_review_replying_path(review) %>
+            <% else %>
+              <%= review.guest_commentary %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     <% end %>
