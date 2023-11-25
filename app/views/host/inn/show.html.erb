@@ -3,13 +3,17 @@
   <%= link_to 'Editar Pousada', edit_host_inn_path %>
 
   &nbsp;
+  |
+  &nbsp;
 
   <%= link_to 'Visualizar Quartos', host_inn_rooms_path %>
 </div>
 
 <%= render partial: 'inns/infos', locals: { display_sensitive_data: true } %>
 
-<%= render partial: 'reviews/list', locals: {
-  display_sensitive_data: true,
-  reviews: @inn.reviews
-} %>
+<div class="container-fluid mt-5">
+  <%= render partial: 'reviews/list', locals: {
+    display_sensitive_data: true,
+    reviews: @inn.reviews
+  } %>
+</div>

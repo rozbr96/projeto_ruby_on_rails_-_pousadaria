@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   resources :inns, except: :destroy do
     resources :rooms, shallow: true, only: :show
+
+    member do
+      get "reviews" => "inns#reviews"
+    end
   end
 
   resources :rooms, only: [:show] do

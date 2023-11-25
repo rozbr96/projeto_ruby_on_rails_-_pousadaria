@@ -1,0 +1,9 @@
+
+<div class="d-flex mx-5 mt-5 pb-1">
+  <%= link_to 'Voltar', @inn %>
+</div>
+
+<%= render partial: 'reviews/list', locals: {
+  display_sensitive_data: false,
+  reviews: @inn.reviews
+} %>

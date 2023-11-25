@@ -5,14 +5,14 @@ describe 'User visits the reviews listing page' do
   before :all do
     @guest = FactoryBot.create :guest
     @innkeeper = FactoryBot.create :innkeeper
-    inn = FactoryBot.create :inn, innkeeper: @innkeeper
-    room = FactoryBot.create :inn_room, inn: inn
+    @inn = FactoryBot.create :inn, innkeeper: @innkeeper
+    @room = FactoryBot.create :inn_room, inn: @inn
     @booking = FactoryBot.create :booking, guest: @guest,
-      inn_room: room, status: Booking.statuses[:finished],
+      inn_room: @room, status: Booking.statuses[:finished],
       start_date: Time.now.ago(10.days),
       end_date: Time.now.ago(3.days)
 
-    FactoryBot.create :address, inn: inn
+    FactoryBot.create :address, inn: @inn
   end
 
   after :all do
@@ -24,61 +24,104 @@ describe 'User visits the reviews listing page' do
     Innkeeper.delete_all
   end
 
-  context 'when logged in as innpeer' do
-    it 'from the home page' do
-      login_as @innkeeper, scope: :innkeeper
+  context 'within the innkeeper context' do
+    context 'when logged in as innkeeper' do
+      it 'from the home page' do
+        login_as @innkeeper, scope: :innkeeper
 
-      visit root_path
+        visit root_path
 
-      within 'nav' do
-        click_on @innkeeper.name
-        click_on 'Avaliações'
+        within 'nav' do
+          click_on @innkeeper.name
+          click_on 'Avaliações'
+        end
+
+        expect(current_path).to eq host_inn_reviews_path
       end
 
-      expect(current_path).to eq host_inn_reviews_path
-    end
+      it 'and sees no existing reviews' do
+        login_as @innkeeper, scope: :innkeeper
 
-    it 'and sees no existing reviews' do
-      login_as @innkeeper, scope: :innkeeper
+        visit host_inn_reviews_path
 
-      visit host_inn_reviews_path
+        within '#reviews-table' do
+          expect(page).to have_content 'Nenhuma avaliação encontrada'
+        end
+      end
 
-      within '#reviews-table' do
-        expect(page).to have_content 'Nenhuma avaliação encontrada'
+      it 'and sees the existing reviews' do
+        review = Review.create! booking: @booking, score: 5,
+          guest_commentary: 'Muitíssimo bom!'
+
+        login_as @innkeeper, scope: :innkeeper
+
+        visit host_inn_reviews_path
+
+        within '#reviews-table' do
+          expect(page).not_to have_content 'Nenhuma avaliação encontrada'
+
+          within 'td:nth-child(1)' do
+            expect(page).to have_content review.score
+          end
+
+          within 'td:nth-child(2)' do
+            expect(page).to have_content 'Não'
+          end
+
+          within 'td:nth-child(3)' do
+            expect(page).to have_content review.guest_commentary
+          end
+        end
       end
     end
 
-    it 'and sees the existing reviews' do
-      review = Review.create! booking: @booking, score: 5,
-        guest_commentary: 'Muitíssimo bom!'
+    context 'when not logged' do
+      it 'and gets redirected to the login page' do
+        visit host_inn_reviews_path
 
-      login_as @innkeeper, scope: :innkeeper
-
-      visit host_inn_reviews_path
-
-      within '#reviews-table' do
-        expect(page).not_to have_content 'Nenhuma avaliação encontrada'
-
-        within 'td:nth-child(1)' do
-          expect(page).to have_content review.score
-        end
-
-        within 'td:nth-child(2)' do
-          expect(page).to have_content 'Não'
-        end
-
-        within 'td:nth-child(3)' do
-          expect(page).to have_content review.guest_commentary
-        end
+        expect(current_path).to eq new_innkeeper_session_path
       end
     end
   end
 
-  context 'when not logged' do
-    it 'and gets redirected to the login page' do
-      visit host_inn_reviews_path
+  context 'within the public context' do
+    it 'from the home page' do
+      visit root_path
 
-      expect(current_path).to eq new_innkeeper_session_path
+      click_on @inn.name
+      click_on 'Listar todas avaliações'
+
+      expect(current_path).to eq reviews_inn_path @inn
+    end
+
+    it 'and goes back to the inn details page' do
+      visit reviews_inn_path @inn
+
+      click_on 'Voltar'
+
+      expect(current_path).to eq inn_path @inn
+    end
+
+    it 'and sees no existing reviews' do
+      visit reviews_inn_path @inn
+
+      expect(page).to have_content 'Nenhuma avaliação encontrada'
+    end
+
+    it 'and sees all existing reviews' do
+      texts = ['oldest review', 'old review', 'new review', 'newest review']
+      texts.each do |text|
+        booking = FactoryBot.create :booking, guest: @guest,
+          inn_room: @room, status: Booking.statuses[:finished]
+
+        FactoryBot.create :review, booking: booking, guest_commentary: text
+      end
+
+      visit reviews_inn_path @inn
+
+      texts.each do |text|
+        expect(page).to have_content text
+      end
     end
   end
 end
