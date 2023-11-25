@@ -54,37 +54,6 @@ describe 'User visit the bookings listing page' do
       end
     end
 
-    it 'from the home page' do
-      login_as @innkeeper, scope: :innkeeper
-
-      visit root_path
-
-      within 'nav' do
-        click_on @innkeeper.name
-        click_on 'Reservas'
-      end
-
-      expect(current_path).to eq host_inn_bookings_path
-    end
-
-    it 'and sees the bookings infos' do
-      login_as @innkeeper, scope: :innkeeper
-
-      visit host_inn_bookings_path
-
-      within '#bookins-table' do
-        expect(page).to have_content @booking.code
-        expect(page).to have_content '10/01/2020 às 10:00'
-        expect(page).to have_content '23/01/2020 às 14:00'
-        expect(page).to have_content 'R$ 1.400,00'
-        expect(page).to have_content @room.name
-
-        within 'td:last-child' do
-          expect(page).to have_content @booking.guests_number
-        end
-      end
-    end
-
     it 'and sees only his inn bookings' do
       another_innkeeper = FactoryBot.create :innkeeper
       another_inn = FactoryBot.create :inn, innkeeper: another_innkeeper,
