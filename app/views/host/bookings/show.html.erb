@@ -1,7 +1,10 @@
 
 <div class="d-flex mx-5 mt-5 mb-1 justify-content-between">
   <%= link_to 'Voltar', host_inn_bookings_path %>
-  <%= link_to 'Realizar check out', check_out_host_inn_booking_path(@booking) %>
+
+  <% if @booking.ongoing? %>
+    <%= link_to 'Realizar check out', check_out_host_inn_booking_path(@booking) %>
+  <% end %>
 </div>
 
 <% unless @booking.errors.empty? %>
@@ -11,8 +14,15 @@
 <% end %>
 
 <% content_for :booking_actions do %>
-  <%= button_to 'Registrar check in', check_in_host_inn_booking_path(@booking), method: :post %>
-  <%= button_to 'Cancelar Reserva', cancel_host_inn_booking_path(@booking), method: :post %>
+  <div class="d-flex justify-content-evenly">
+    <% if @booking.reserved? %>
+      <%= button_to 'Cancelar Reserva', cancel_host_inn_booking_path(@booking), method: :post, class: 'btn btn-outline-danger' %>
+
+      <%= button_to 'Registrar check in', check_in_host_inn_booking_path(@booking), method: :post, class: 'btn btn-outline-success' %>
+    <% else %>
+      Nenhuma ação para ser realizada
+    <% end %>
+  </div>
 <% end %>
 
 <%= render partial: 'bookings/info', locals: {

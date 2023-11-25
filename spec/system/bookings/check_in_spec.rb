@@ -8,7 +8,7 @@ describe 'User visits the booking details page' do
     inn = FactoryBot.create :inn, innkeeper: @innkeeper
     room = FactoryBot.create :inn_room, inn: inn
     @booking = FactoryBot.create :booking, guest: guest,
-      inn_room: room, status: Booking.statuses[:ongoing],
+      inn_room: room, status: Booking.statuses[:reserved],
       start_date: Time.now.ago(10.minutes)
   end
 
