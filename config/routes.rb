@@ -57,5 +57,11 @@ Rails.application.routes.draw do
     get "/by_city/:city" => "search#search_by_city", as: :by_city
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :inns, only: [:index]
+    end
+  end
+
   root "inns#index"
 end
