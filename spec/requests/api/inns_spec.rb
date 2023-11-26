@@ -77,6 +77,8 @@ describe 'Inns API' do
 
       expect(json_response['name']).to eq inn.name
       expect(json_response['address']['city']).to eq inn.address.city
+      expect(json_response.keys).to include 'score_avg'
+      expect(json_response['score_avg']).to be_nil
       expect(json_response.keys).not_to include 'registration_number'
       expect(json_response.keys).not_to include 'corporate_name'
     end

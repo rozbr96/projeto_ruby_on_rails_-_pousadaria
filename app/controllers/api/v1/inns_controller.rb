@@ -12,7 +12,7 @@ class Api::V1::InnsController < ::Api::V1::BasicController
 
   def show
     inn = Inn.find params[:id]
-    inn_json = inn.as_json include: :address
+    inn_json = inn.as_json include: :address, methods: :score_avg
 
     inn_json.extract! 'registration_number', 'corporate_name'
 

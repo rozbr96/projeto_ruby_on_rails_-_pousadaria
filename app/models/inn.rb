@@ -23,7 +23,7 @@ class Inn < ApplicationRecord
   end
 
   def score_avg
-    return 0 if reviews.empty?
+    return nil if reviews.empty?
 
     reviews.pluck(:score).sum.to_f / reviews.size
   end
