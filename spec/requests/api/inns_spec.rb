@@ -55,4 +55,30 @@ describe 'Inns API' do
       expect(json_response.first['name']).to eq 'Pousada Solar'
     end
   end
+
+  context 'GET /api/v1/inns/:id' do
+    it 'returns an error due to non existent inn' do
+      get '/api/v1/inns/685'
+
+      expect(response).to have_http_status :not_found
+    end
+
+    it 'returns the info of the inn with the given id' do
+      innkeeper = FactoryBot.create :innkeeper
+      inn = FactoryBot.create :inn, innkeeper: innkeeper, enabled: true
+      FactoryBot.create :address, inn: inn
+
+      get api_v1_inn_path inn
+
+      expect(response).to have_http_status :ok
+      expect(response.content_type).to include 'application/json'
+
+      json_response = JSON.parse response.body
+
+      expect(json_response['name']).to eq inn.name
+      expect(json_response['address']['city']).to eq inn.address.city
+      expect(json_response.keys).not_to include 'registration_number'
+      expect(json_response.keys).not_to include 'corporate_name'
+    end
+  end
 end

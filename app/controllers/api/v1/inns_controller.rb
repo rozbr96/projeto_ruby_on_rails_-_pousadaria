@@ -9,4 +9,13 @@ class Api::V1::InnsController < ::Api::V1::BasicController
 
     render status: :ok, json: inns
   end
+
+  def show
+    inn = Inn.find params[:id]
+    inn_json = inn.as_json include: :address
+
+    inn_json.extract! 'registration_number', 'corporate_name'
+
+    render status: :ok, json: inn_json
+  end
 end
