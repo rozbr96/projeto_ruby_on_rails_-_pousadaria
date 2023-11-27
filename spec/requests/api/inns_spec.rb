@@ -23,6 +23,10 @@ describe 'Inns API' do
       second_inn = FactoryBot.create :inn, innkeeper: second_innkeeper, enabled: false
       third_inn = FactoryBot.create :inn, innkeeper: third_innkeeper, enabled: true
 
+      FactoryBot.create :address, inn: first_inn
+      FactoryBot.create :address, inn: second_inn
+      FactoryBot.create :address, inn: third_inn
+
       get api_v1_inns_path
 
       expect(response).to have_http_status :ok
@@ -33,6 +37,8 @@ describe 'Inns API' do
       expect(json_response.size).to eq 2
       expect(json_response.first['name']).to eq first_inn.name
       expect(json_response.second['name']).to eq third_inn.name
+      expect(json_response.first.keys).to include 'score_avg'
+      expect(json_response.first.keys).to include 'address'
     end
 
     it 'returns active inns, filtered by their names' do

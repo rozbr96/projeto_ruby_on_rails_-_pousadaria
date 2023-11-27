@@ -7,6 +7,8 @@ class Api::V1::InnsController < ::Api::V1::BasicController
       inns = inns.where 'name LIKE :term', term: "%#{params[:search_in_name]}%"
     end
 
+    inns = inns.as_json include: :address, methods: :score_avg
+
     render status: :ok, json: inns
   end
 
