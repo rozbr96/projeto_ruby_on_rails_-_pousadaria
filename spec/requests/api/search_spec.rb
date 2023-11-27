@@ -47,5 +47,17 @@ describe 'Search API' do
       expect(json_response.size).to eq 1
       expect(json_response.first['name']).to eq 'Primeira Pousada'
     end
+
+    it 'should return all existing active inns if serch term is empty' do
+      params = { search_for: '' }
+      get api_v1_search_path params
+
+      expect(response).to have_http_status :ok
+      expect(response.content_type).to include 'application/json'
+
+      json_response = JSON.parse response.body
+
+      expect(json_response.size).to eq 2
+    end
   end
 end
