@@ -64,6 +64,10 @@ Rails.application.routes.draw do
           get "availability" => "rooms#availability"
         end
       end
+
+      resource :search do
+        get "/" => "search#search"
+      end
     end
   end
 
