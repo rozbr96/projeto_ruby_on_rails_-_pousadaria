@@ -38,4 +38,10 @@ class Api::V1::RoomsController < Api::V1::BasicController
 
     render status: :ok, json: rooms
   end
+
+  def show
+    room = InnRoom.find params[:id]
+
+    render status: :ok, json: room
+  end
 end

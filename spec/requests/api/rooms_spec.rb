@@ -50,6 +50,22 @@ describe 'Rooms API' do
     end
   end
 
+  context 'GET /api/v1/rooms/:room_id' do
+    it 'return the room with the given id' do
+      room = FactoryBot.create :inn_room, enabled: true, inn: @inn
+
+      get api_v1_room_path room
+
+      expect(response).to have_http_status :ok
+      expect(response.content_type).to include 'application/json'
+
+      json_response = JSON.parse response.body
+
+      expect(json_response['name']).to eq room.name
+      expect(json_response['description']).to eq room.description
+    end
+  end
+
   context 'GET /api/v1/rooms/:room_id/availability' do
     before :all do
       guest = FactoryBot.create :guest
