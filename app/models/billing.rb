@@ -2,6 +2,8 @@ class Billing < ApplicationRecord
   belongs_to :payment_method, optional: true
   belongs_to :booking
 
+  has_many :billing_items
+
   validates_presence_of :base_price, on: :save
   validate :billing_status
 

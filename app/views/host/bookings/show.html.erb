@@ -5,6 +5,10 @@
   <% if @booking.ongoing? %>
     <%= link_to 'Realizar check out', check_out_host_inn_booking_path(@booking) %>
   <% end %>
+
+  <% if @booking.ongoing? or @booking.finished? %>
+    <%= link_to 'Itens Adicionais', additional_items_host_inn_booking_path(@booking) %>
+  <% end %>
 </div>
 
 <% unless @booking.errors.empty? %>

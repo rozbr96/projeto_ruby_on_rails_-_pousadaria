@@ -8,6 +8,8 @@ class Booking < ApplicationRecord
   has_one :billing
   has_one :review
 
+  has_many :billing_items, through: :billing
+
   accepts_nested_attributes_for :billing
 
   validates_presence_of :start_date, :end_date, :guests_number
