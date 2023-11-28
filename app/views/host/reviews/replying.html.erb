@@ -1,12 +1,28 @@
 
-<div class="container">
+<div class="d-flex mx-5 mt-5 mb-1">
+  <%= link_to 'Voltar', host_inn_reviews_path %>
+</div>
+
+<div class="container d-flex flex-column gap-4">
+  <div class="d-flex flex-column gap-2">
+    Comentário do Convidado:
+
+    <div class="form-control">
+      <%= @review.guest_commentary || 'Nenhum comentário feito pelo convidado' %>
+    </div>
+  </div>
+
   <%= form_with model: @review,
     url: host_inn_review_reply_path(@review),
     method: :post do |form|
   %>
-    <%= form.label :innkeeper_reply %>
-    <%= form.text_area :innkeeper_reply %>
+    <div class="d-flex flex-column gap-3">
+      <div class="d-flex flex-column gap-1">
+        <%= form.label :innkeeper_reply %>
+        <%= form.text_area :innkeeper_reply, class: 'form-control' %>
+      </div>
 
-    <%= form.submit 'Responder' %>
+      <%= form.submit 'Responder', class: 'btn btn-outline-primary form-control' %>
+    </div>
   <% end %>
 </div>

@@ -40,6 +40,7 @@ describe 'User visits the booking review reply page' do
     click_on @review.guest_commentary
 
     expect(current_path).to eq host_inn_review_replying_path @review
+    expect(page).to have_content @review.guest_commentary
   end
 
   it 'and replies successfully' do
@@ -53,5 +54,15 @@ describe 'User visits the booking review reply page' do
 
     expect(current_path).to eq host_inn_reviews_path
     expect(page).to have_content 'Avaliação respondida com sucesso'
+  end
+
+  it 'and goes back to the reviews listing page' do
+    login_as @innkeeper, scope: :innkeeper
+
+    visit host_inn_review_replying_path @review
+
+    click_on 'Voltar'
+
+    expect(current_path).to eq host_inn_reviews_path
   end
 end
