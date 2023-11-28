@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_28_091818) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_28_094744) do
   create_table "addresses", force: :cascade do |t|
     t.string "street", null: false
     t.integer "number"
@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_28_091818) do
 
   create_table "billings", force: :cascade do |t|
     t.integer "base_price", null: false
-    t.integer "payment_method_id", null: false
+    t.integer "payment_method_id"
     t.integer "booking_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
