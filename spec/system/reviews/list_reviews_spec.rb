@@ -5,7 +5,7 @@ describe 'User visits the reviews listing page' do
   before :all do
     @guest = FactoryBot.create :guest
     @innkeeper = FactoryBot.create :innkeeper
-    @inn = FactoryBot.create :inn, innkeeper: @innkeeper
+    @inn = FactoryBot.create :inn, innkeeper: @innkeeper, enabled: true
     @room = FactoryBot.create :inn_room, inn: @inn
     @booking = FactoryBot.create :booking, guest: @guest,
       inn_room: @room, status: Booking.statuses[:finished],
