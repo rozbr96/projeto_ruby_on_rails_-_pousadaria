@@ -64,4 +64,14 @@ RSpec.describe BillingItem, type: :model do
       end
     end
   end
+
+  describe 'item_total_price' do
+    it 'should calculate the price correctly' do
+      first_item = BillingItem.new amount: 2, unit_price: 20_00
+      second_item = BillingItem.new amount: 3, unit_price: 23_00
+
+      expect(first_item.total_price).to eq 40_00
+      expect(second_item.total_price).to eq 69_00
+    end
+  end
 end
