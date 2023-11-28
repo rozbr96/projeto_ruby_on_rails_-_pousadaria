@@ -25,6 +25,9 @@ class Host::BookingsController < Host::BasicController
       @booking.check_in = DateTime.now
       @booking.save!
 
+      billing = Billing.new booking: @booking
+      billing.save!
+
       redirect_to host_inn_booking_path(@booking), notice: 'Check in realizado com sucesso'
     else
       flash.now[:alert] = 'Erro ao efetuar o check in'
@@ -35,7 +38,7 @@ class Host::BookingsController < Host::BasicController
   end
 
   def checking_out
-    @billing = Billing.new booking: @booking
+    @billing = @booking.billing
     @available_payment_methods = @booking.inn.payment_methods.map do |payment_method|
       [payment_method.name, payment_method.id]
     end
@@ -44,9 +47,9 @@ class Host::BookingsController < Host::BasicController
   def check_out
     booking_params = params.require(:booking).permit billing_attributes: :payment_method_id
     billing_params = booking_params[:billing_attributes]
-    billing_params[:booking] = @booking
+    billing_params[:finished] = true
 
-    Billing.new billing_params
+    @booking.billing.update! billing_params
 
     @booking.status = :finished
     @booking.check_out = DateTime.now

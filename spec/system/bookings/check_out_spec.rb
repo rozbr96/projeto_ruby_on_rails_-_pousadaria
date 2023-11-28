@@ -11,6 +11,8 @@ describe 'User visits the booking check out page' do
       inn_room: room, status: Booking.statuses[:ongoing],
       start_date: Time.now.ago(10.minutes)
 
+    Billing.create! booking: @booking
+
     FactoryBot.create :address, inn: inn
     ['Dinheiro', 'PIX', 'Cartão'].each do |payment_method_name|
       payment_method = PaymentMethod.create! name: payment_method_name
@@ -19,6 +21,7 @@ describe 'User visits the booking check out page' do
   end
 
   after :all do
+    Billing.delete_all
     InnPaymentMethod.delete_all
     PaymentMethod.delete_all
     Address.delete_all
