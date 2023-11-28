@@ -14,7 +14,8 @@ describe 'User visit the view review reply page' do
 
     FactoryBot.create :address, inn: inn
     @review = Review.create! guest_commentary: 'Bom, mas poderia ser melhor',
-      score: 5, booking: booking
+      score: 5, booking: booking,
+      innkeeper_reply: 'Esperamos atender suas expectativas na próxima vez'
   end
 
   after :all do
