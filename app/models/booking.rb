@@ -9,8 +9,9 @@ class Booking < ApplicationRecord
   has_one :review
 
   has_many :billing_items, through: :billing
+  has_many :companions
 
-  accepts_nested_attributes_for :billing
+  accepts_nested_attributes_for :billing, :companions
 
   validates_presence_of :start_date, :end_date, :guests_number
   validates_presence_of :guest, on: :save
@@ -21,13 +22,7 @@ class Booking < ApplicationRecord
 
   before_save :generate_random_code, :set_estimated_price
 
-  enum status: {
-    pending: 0,
-    reserved: 1,
-    ongoing: 2,
-    finished: 3,
-    canceled: 4
-  }
+  enum status: [:pending, :reserved, :ongoing, :finished, :canceled]
 
   def generate_random_code
     self.code ||= SecureRandom.alphanumeric(8).upcase

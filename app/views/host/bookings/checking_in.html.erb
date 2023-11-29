@@ -1,0 +1,28 @@
+
+<div class="d-flex mx-5 mt-5 mb-1">
+  <%= link_to 'Voltar', host_inn_booking_path(@booking) %>
+</div>
+
+<%=
+  form_with model: @booking,
+    url: check_in_host_inn_booking_path(@booking),
+    method: :post,
+    id: 'check-in-form' do |form|
+%>
+  <div id="companions-wrapper">
+    <%= form.fields_for :companions, @companions do |companions_form| %>
+      <div class="companion-info">
+        <%= companions_form.label :name %>
+        <%= companions_form.text_field :name %>
+
+        <%= companions_form.label :document_type %>
+        <%= companions_form.select :document_type, Companion.document_types.keys %>
+
+        <%= companions_form.label :document_number %>
+        <%= companions_form.text_field :document_number %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form.submit 'Registrar check in' %>
+<% end %>

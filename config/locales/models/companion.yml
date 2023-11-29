@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      companion: Companhia
+
+    attributes:
+      companion:
+        name: Nome
+        document_type: Tipo de Documento
+        document_number: Número do Documento

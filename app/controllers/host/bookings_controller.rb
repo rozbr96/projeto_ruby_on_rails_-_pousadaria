@@ -2,7 +2,7 @@
 class Host::BookingsController < Host::BasicController
   before_action :authenticate_innkeeper!
   before_action :set_booking, only: [
-    :cancel, :check_in, :checking_out, :check_out, :show
+    :cancel, :check_in, :checking_in, :checking_out, :check_out, :show
   ]
 
   def cancel
@@ -21,9 +21,12 @@ class Host::BookingsController < Host::BasicController
 
   def check_in
     if Time.current.to_date >= @booking.start_date.to_date
-      @booking.status = :ongoing
-      @booking.check_in = DateTime.now
-      @booking.save!
+      companions_attributes = :name, :document_type, :document_number
+      booking_params = params.require(:booking).permit companions_attributes: companions_attributes
+      booking_params[:status] = :ongoing
+      booking_params[:check_in] = DateTime.now
+
+      @booking.update! booking_params
 
       billing = Billing.new booking: @booking
       billing.save!
@@ -35,6 +38,10 @@ class Host::BookingsController < Host::BasicController
 
       render :show
     end
+  end
+
+  def checking_in
+    @companions = @booking.guests_number.times.map { Companion.new }
   end
 
   def checking_out

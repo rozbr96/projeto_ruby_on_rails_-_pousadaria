@@ -2,6 +2,10 @@
 <div class="d-flex mx-5 mt-5 mb-1 justify-content-between">
   <%= link_to 'Voltar', host_inn_bookings_path %>
 
+  <% if @booking.reserved? %>
+    <%= link_to 'Realizar check in', check_in_host_inn_booking_path(@booking) %>
+  <% end %>
+
   <% if @booking.ongoing? %>
     <%= link_to 'Realizar check out', check_out_host_inn_booking_path(@booking) %>
   <% end %>
@@ -32,3 +36,27 @@
 <%= render partial: 'bookings/info', locals: {
   get_booking_path: -> booking { host_inn_booking_path booking }
 } %>
+
+<table id="companions-table">
+  <thead>
+    <tr>
+      <th colspan="3">Companhias</th>
+    </tr>
+
+    <tr>
+      <th>Nome</th>
+      <th>Documento</th>
+      <th>Número</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @booking.companions.each do |companion| %>
+      <tr>
+        <td><%= companion.name %></td>
+        <td><%= companion.document_type %></td>
+        <td><%= companion.document_number %></td>
+      </tr>
+    <% end %>
+  <tbody>
+</table>

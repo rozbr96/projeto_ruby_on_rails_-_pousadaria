@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
       resources :bookings, only: [:index, :show] do
         member do
+          get "check_in" => "bookings#checking_in"
           post "check_in" => "bookings#check_in"
           get "check_out" => "bookings#checking_out"
           post "check_out" => "bookings#check_out"
