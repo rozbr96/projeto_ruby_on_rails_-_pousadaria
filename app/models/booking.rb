@@ -1,6 +1,4 @@
 class Booking < ApplicationRecord
-  # TODO add 8-length random code attribute
-
   belongs_to :inn_room
   belongs_to :guest, optional: true
 
