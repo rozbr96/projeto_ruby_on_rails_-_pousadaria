@@ -22,7 +22,7 @@
 
       <tr>
         <td class="fw-bold">Valor Total</td>
-        <td><%= number_to_currency(@billing.base_price.to_f / 100) %></td>
+        <td><%= number_to_currency(@billing.calculated_price.to_f / 100) %></td>
       </tr>
     </tbody>
   </table>

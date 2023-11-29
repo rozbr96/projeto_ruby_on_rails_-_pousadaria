@@ -5,11 +5,11 @@ describe 'User visits the booking check out page' do
   before :all do
     @guest = FactoryBot.create :guest
     @innkeeper = FactoryBot.create :innkeeper
-    inn = FactoryBot.create :inn, innkeeper: @innkeeper
-    room = FactoryBot.create :inn_room, inn: inn
+    inn = FactoryBot.create :inn, innkeeper: @innkeeper, check_in: '10:00'
+    room = FactoryBot.create :inn_room, inn: inn, price: 100_00
     @booking = FactoryBot.create :booking, guest: @guest,
       inn_room: room, status: Booking.statuses[:ongoing],
-      start_date: Time.now.ago(10.minutes)
+      start_date: Time.current.ago(10.days)
 
     Billing.create! booking: @booking
 
@@ -46,6 +46,29 @@ describe 'User visits the booking check out page' do
     click_on 'Realizar check out'
 
     expect(current_path).to eq check_out_host_inn_booking_path @booking
+  end
+
+  it 'and sees the related info about the booking' do
+    time = Time.current
+    year = time.year
+    month = time.month
+    day = time.day
+
+    datetime = DateTime.new year, month, day, 9, 30
+
+    BillingItem.create! billing: @booking.billing, amount: 2, unit_price: 10_00,
+      description: 'Fanta Laranja 600ml'
+
+    BillingItem.create! billing: @booking.billing, amount: 2, unit_price: 30_00,
+      description: 'X-Tudo Duplo'
+
+    allow(Time).to receive(:current).and_return datetime
+
+    login_as @innkeeper, scope: :innkeeper
+
+    visit check_out_host_inn_booking_path @booking
+
+    expect(page).to have_content 'R$ 1.180,00'
   end
 
   it 'and does the check out successfully' do
