@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_28_095749) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_29_101054) do
   create_table "addresses", force: :cascade do |t|
     t.string "street", null: false
     t.integer "number"
@@ -62,6 +62,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_28_095749) do
     t.index ["code"], name: "index_bookings_on_code", unique: true
     t.index ["guest_id"], name: "index_bookings_on_guest_id"
     t.index ["inn_room_id"], name: "index_bookings_on_inn_room_id"
+  end
+
+  create_table "companions", force: :cascade do |t|
+    t.integer "booking_id", null: false
+    t.string "document_number", null: false
+    t.string "document_type", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id", "document_number"], name: "index_companions_on_booking_id_and_document_number", unique: true
+    t.index ["booking_id"], name: "index_companions_on_booking_id"
   end
 
   create_table "custom_prices", force: :cascade do |t|
@@ -195,6 +206,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_28_095749) do
   add_foreign_key "billings", "payment_methods"
   add_foreign_key "bookings", "guests"
   add_foreign_key "bookings", "inn_rooms"
+  add_foreign_key "companions", "bookings"
   add_foreign_key "custom_prices", "inn_rooms"
   add_foreign_key "inn_payment_methods", "inns"
   add_foreign_key "inn_payment_methods", "payment_methods"
