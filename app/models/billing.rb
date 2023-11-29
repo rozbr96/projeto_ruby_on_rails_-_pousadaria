@@ -24,7 +24,8 @@ class Billing < ApplicationRecord
 
   def calculated_price
     today = Time.current
-    today = today.tomorrow if today.min > booking.inn.check_out.min
+    today = today.tomorrow if today.hour >= booking.inn.check_out.hour and
+      today.min > booking.inn.check_out.min
 
     booking_price = booking.get_real_price today.to_date
     items_price = billing_items.map(&:total_price).sum

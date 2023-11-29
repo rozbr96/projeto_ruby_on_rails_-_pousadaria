@@ -5,7 +5,7 @@ describe 'User visits the booking check out page' do
   before :all do
     @guest = FactoryBot.create :guest
     @innkeeper = FactoryBot.create :innkeeper
-    inn = FactoryBot.create :inn, innkeeper: @innkeeper, check_in: '10:00'
+    inn = FactoryBot.create :inn, innkeeper: @innkeeper, check_out: '10:00'
     room = FactoryBot.create :inn_room, inn: inn, price: 100_00
     @booking = FactoryBot.create :booking, guest: @guest,
       inn_room: room, status: Booking.statuses[:ongoing],
