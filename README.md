@@ -3,6 +3,9 @@
 
 - [API](#api)
   - [List inns](#list-inns)
+  - [List Cities](#list-cities)
+  - [List City Inns](#list-city-inns)
+  - [Search](#search)
   - [View inn details](#view-inn-details)
   - [List inn rooms](#list-inn-rooms)
   - [Room Availability Verification](#room-availability-verification)
@@ -30,6 +33,174 @@ None
 - **Status Code**: 200
 
   **Body**: list of existing and active inns
+
+  **Example**:
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "Moura LTDA",
+      "description": "Deserunt provident sapiente. Reiciendis ex consequatur. Quo et explicabo.",
+      "pets_are_allowed": false,
+      "usage_policies": "Explicabo et necessitatibus. Iste voluptates molestiae. Distinctio sed voluptas.",
+      "email": "moura.ltda@blick.example",
+      "enabled": true,
+      "innkeeper_id": 1,
+      "check_in": "2000-01-01T02:23:46.952Z",
+      "check_out": "2000-01-01T04:40:34.490Z",
+      "created_at": "2023-11-24T05:29:21.810Z",
+      "updated_at": "2023-11-24T05:29:21.810Z",
+      "score_avg": 2.0,
+      "address": {
+        "id": 1,
+        "street": "Ponte Marli da Conceição",
+        "number": 84241,
+        "complement": "Casa 2",
+        "neighbourhood": "Royal Creek",
+        "city": "Brejo Alegre",
+        "state": "RR",
+        "postal_code": "24560-679",
+        "inn_id": 1,
+        "created_at": "2023-11-24T05:29:21.825Z",
+        "updated_at": "2023-11-24T05:29:21.825Z"
+      }
+    },
+    .
+    .
+    .
+  ]
+  ```
+
+
+
+### List cities
+
+#### Request
+```
+GET /api/v1/cities
+```
+
+
+#### Params
+```
+None
+```
+
+
+#### Response
+- **Status Code**: 200
+
+  **Body**: list of cities with existing and active inns
+
+  **Example**:
+  ```json
+  [
+    "Cidade A",
+    "Cidade B",
+    .
+    .
+    .
+  ]
+  ```
+
+
+
+### List city inns
+
+#### Request
+```
+GET /api/v1/city/:city/inns
+```
+
+
+#### Params
+- city
+
+  **type**: string
+
+  **location**: path
+
+  **description**: the city in which you wanna search for inns
+
+
+#### Request example
+```sh
+curl "http://host_api:port_api/api/v1/cities/Cidade Alfa/inns"
+```
+
+
+#### Response
+- **Status Code**: 200
+
+  **Body**: list of existing and active inns in the given city
+
+  **Example**:
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "Moura LTDA",
+      "description": "Deserunt provident sapiente. Reiciendis ex consequatur. Quo et explicabo.",
+      "pets_are_allowed": false,
+      "usage_policies": "Explicabo et necessitatibus. Iste voluptates molestiae. Distinctio sed voluptas.",
+      "email": "moura.ltda@blick.example",
+      "enabled": true,
+      "innkeeper_id": 1,
+      "check_in": "2000-01-01T02:23:46.952Z",
+      "check_out": "2000-01-01T04:40:34.490Z",
+      "created_at": "2023-11-24T05:29:21.810Z",
+      "updated_at": "2023-11-24T05:29:21.810Z",
+      "score_avg": 2.0,
+      "address": {
+        "id": 1,
+        "street": "Ponte Marli da Conceição",
+        "number": 84241,
+        "complement": "Casa 2",
+        "neighbourhood": "Royal Creek",
+        "city": "Cidade Alfa",
+        "state": "RR",
+        "postal_code": "24560-679",
+        "inn_id": 1,
+        "created_at": "2023-11-24T05:29:21.825Z",
+        "updated_at": "2023-11-24T05:29:21.825Z"
+      }
+    },
+    .
+    .
+    .
+  ]
+  ```
+
+
+
+### Search
+
+#### Request
+```
+GET /api/v1/search
+```
+
+
+#### Params
+- search_for
+
+  **type**: string
+
+  **location**: query
+
+  **description**: the term to search for
+
+
+#### Request example
+```sh
+curl "http://host_api:port_api/api/v1/search?search_for=moura"
+```
+
+
+#### Response
+- **Status Code**: 200
+
+  **Body**: list of found and active inns
 
   **Example**:
   ```json
