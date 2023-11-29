@@ -7,7 +7,7 @@
   <% end %>
 
   <% if @booking.ongoing? or @booking.finished? %>
-    <%= link_to 'Itens Adicionais', additional_items_host_inn_booking_path(@booking) %>
+    <%= link_to 'Itens Adicionais', host_inn_booking_billing_items_path(@booking) %>
   <% end %>
 </div>
 

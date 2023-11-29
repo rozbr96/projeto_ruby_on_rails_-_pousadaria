@@ -41,8 +41,9 @@ Rails.application.routes.draw do
           get "check_out" => "bookings#checking_out"
           post "check_out" => "bookings#check_out"
           post "cancel" => "bookings#cancel"
-          get "additional_items" => "bookings#additional_items"
         end
+
+        resources :billing_items, shallow: true, only: [:index]
       end
 
       resources :reviews, only: [:index, :update] do

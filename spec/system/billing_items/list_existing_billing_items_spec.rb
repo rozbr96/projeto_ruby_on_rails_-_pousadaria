@@ -42,13 +42,13 @@ describe 'User visits the the billing items page' do
     click_on @booking.code
     click_on 'Itens Adicionais'
 
-    expect(current_path).to eq additional_items_host_inn_booking_path @booking
+    expect(current_path).to eq host_inn_booking_billing_items_path @booking
   end
 
   it 'and goes back to the booking details page' do
     login_as @innkeeper, scope: :innkeeper
 
-    visit additional_items_host_inn_booking_path @booking
+    visit host_inn_booking_billing_items_path @booking
 
     click_on 'Voltar'
 
@@ -58,7 +58,7 @@ describe 'User visits the the billing items page' do
   it 'and sees no existing additional items' do
     login_as @innkeeper, scope: :innkeeper
 
-    visit additional_items_host_inn_booking_path @booking
+    visit host_inn_booking_billing_items_path @booking
 
     within '#additional-items-table' do
       expect(page).to have_content 'Nenhum Item Registrado'
@@ -74,7 +74,7 @@ describe 'User visits the the billing items page' do
 
     login_as @innkeeper, scope: :innkeeper
 
-    visit additional_items_host_inn_booking_path @booking
+    visit host_inn_booking_billing_items_path @booking
 
     within '#additional-items-table' do
       expect(page).to have_content first_item.description

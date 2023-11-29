@@ -2,10 +2,8 @@
 class Host::BookingsController < Host::BasicController
   before_action :authenticate_innkeeper!
   before_action :set_booking, only: [
-    :additional_items, :cancel, :check_in, :checking_out, :check_out, :show
+    :cancel, :check_in, :checking_out, :check_out, :show
   ]
-
-  def additional_items; end
 
   def cancel
     if Time.current.ago(2.days) >= @booking.start_date
