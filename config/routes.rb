@@ -71,6 +71,9 @@ Rails.application.routes.draw do
       resource :search do
         get "/" => "search#search"
       end
+
+      get "/cities" => "cities#index"
+      get "/cities/:city/inns" => "cities#inns", as: :city_inns
     end
   end
 
