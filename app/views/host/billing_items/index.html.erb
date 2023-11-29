@@ -1,6 +1,8 @@
 
-<div class="d-flex mx-5 mt-5 mb-1">
+<div class="d-flex mx-5 mt-5 mb-1 justify-content-around">
   <%= link_to 'Voltar', host_inn_booking_path(@booking) %>
+
+  <%= link_to 'Adicionar Item', new_host_inn_booking_billing_item_path(@booking) %>
 </div>
 
 <%= render partial: 'billing_items/list', locals: {

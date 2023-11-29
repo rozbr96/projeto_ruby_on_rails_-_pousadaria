@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      billing_item: Item Adicional
+
+    attributes:
+      billing_item:
+        description: Descrição
+        amount: Quantidade
+        unit_price: Preço Unitário

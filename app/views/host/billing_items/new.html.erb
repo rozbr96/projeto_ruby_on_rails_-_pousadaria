@@ -1,0 +1,27 @@
+
+<div class="d-flex mx-5 mt-5 mb-1">
+  <%= link_to 'Voltar', host_inn_booking_billing_items_path(@booking) %>
+</div>
+
+<% unless @billing_item.errors.empty? %>
+  <% @billing_item.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<%=
+  form_with model: @billing_item,
+    url: host_inn_booking_billing_items_path(@booking),
+    id: 'new-billing-item-form' do |form|
+%>
+  <%= form.label :description %>
+  <%= form.text_field :description %>
+
+  <%= form.label :amount %>
+  <%= form.number_field :amount %>
+
+  <%= form.label :unit_price %>
+  <%= form.text_field :unit_price %>
+
+  <%= form.submit %>
+<% end %>

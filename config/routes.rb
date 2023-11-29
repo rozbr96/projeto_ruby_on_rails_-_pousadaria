@@ -43,7 +43,7 @@ Rails.application.routes.draw do
           post "cancel" => "bookings#cancel"
         end
 
-        resources :billing_items, shallow: true, only: [:index]
+        resources :billing_items, shallow: true, only: [:create, :index, :new]
       end
 
       resources :reviews, only: [:index, :update] do
