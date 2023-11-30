@@ -1,7 +1,7 @@
 
 class Api::V1::InnsController < ::Api::V1::BasicController
   def index
-    inns = Inn.where enabled: true
+    inns = Inn.where(enabled: true).order('LOWER(name)')
 
     unless params[:search_in_name].nil?
       inns = inns.where 'name LIKE :term', term: "%#{params[:search_in_name]}%"

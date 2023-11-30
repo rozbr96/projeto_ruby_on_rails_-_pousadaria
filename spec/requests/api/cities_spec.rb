@@ -25,8 +25,8 @@ describe 'Cities API' do
       third_inn = FactoryBot.create :inn, innkeeper: third_innkeeper, enabled: false
       fourth_inn = FactoryBot.create :inn, innkeeper: fourth_innkeeper, enabled: true
 
-      FactoryBot.create :address, inn: first_inn, city: 'Cidade A'
-      FactoryBot.create :address, inn: second_inn, city: 'Cidade B'
+      FactoryBot.create :address, inn: first_inn, city: 'Cidade B'
+      FactoryBot.create :address, inn: second_inn, city: 'Cidade A'
       FactoryBot.create :address, inn: third_inn, city: 'Cidade C'
       FactoryBot.create :address, inn: fourth_inn, city: 'Cidade B'
 
@@ -38,8 +38,8 @@ describe 'Cities API' do
       json_response = JSON.parse response.body
 
       expect(json_response.size).to eq 2
-      expect(json_response).to include 'Cidade A'
-      expect(json_response).to include 'Cidade B'
+      expect(json_response.first).to eq 'Cidade A'
+      expect(json_response.second).to eq 'Cidade B'
     end
   end
 
@@ -70,16 +70,18 @@ describe 'Cities API' do
       expect(json_response.size).to be_zero
     end
 
-    it 'should return an one elment only list' do
+    it 'should return a two elments list' do
       first_innkeeper = FactoryBot.create :innkeeper
       second_innkeeper = FactoryBot.create :innkeeper
       third_innkeeper = FactoryBot.create :innkeeper
       fourth_innkeeper = FactoryBot.create :innkeeper
 
       first_inn = FactoryBot.create :inn, innkeeper: first_innkeeper, enabled: true
-      second_inn = FactoryBot.create :inn, innkeeper: second_innkeeper, enabled: true
+      second_inn = FactoryBot.create :inn, innkeeper: second_innkeeper,
+        enabled: true, name: 'Pousada do Amanhecer'
       third_inn = FactoryBot.create :inn, innkeeper: third_innkeeper, enabled: false
-      fourth_inn = FactoryBot.create :inn, innkeeper: fourth_innkeeper, enabled: false
+      fourth_inn = FactoryBot.create :inn, innkeeper: fourth_innkeeper,
+        enabled: true, name: 'Alvorecer Dourado'
 
       FactoryBot.create :address, inn: first_inn, city: 'Cidade A'
       FactoryBot.create :address, inn: second_inn, city: 'Cidade B'
@@ -93,8 +95,9 @@ describe 'Cities API' do
 
       json_response = JSON.parse response.body
 
-      expect(json_response.size).to eq 1
-      expect(json_response.first['name']).to eq second_inn.name
+      expect(json_response.size).to eq 2
+      expect(json_response.first['name']).to eq 'Alvorecer Dourado'
+      expect(json_response.second['name']).to eq 'Pousada do Amanhecer'
     end
   end
 end

@@ -19,9 +19,14 @@ describe 'Inns API' do
       second_innkeeper = FactoryBot.create :innkeeper
       third_innkeeper = FactoryBot.create :innkeeper
 
-      first_inn = FactoryBot.create :inn, innkeeper: first_innkeeper, enabled: true
-      second_inn = FactoryBot.create :inn, innkeeper: second_innkeeper, enabled: false
-      third_inn = FactoryBot.create :inn, innkeeper: third_innkeeper, enabled: true
+      first_inn = FactoryBot.create :inn, innkeeper: first_innkeeper,
+        enabled: true, name: 'Pousada Solar'
+
+      second_inn = FactoryBot.create :inn, innkeeper: second_innkeeper,
+        enabled: false, name: 'Segunda Galática'
+
+      third_inn = FactoryBot.create :inn, innkeeper: third_innkeeper,
+        enabled: true, name: 'Pousada do Sol'
 
       FactoryBot.create :address, inn: first_inn
       FactoryBot.create :address, inn: second_inn
@@ -35,8 +40,8 @@ describe 'Inns API' do
       json_response = JSON.parse response.body
 
       expect(json_response.size).to eq 2
-      expect(json_response.first['name']).to eq first_inn.name
-      expect(json_response.second['name']).to eq third_inn.name
+      expect(json_response.first['name']).to eq 'Pousada do Sol'
+      expect(json_response.second['name']).to eq 'Pousada Solar'
       expect(json_response.first.keys).to include 'score_avg'
       expect(json_response.first.keys).to include 'address'
     end
