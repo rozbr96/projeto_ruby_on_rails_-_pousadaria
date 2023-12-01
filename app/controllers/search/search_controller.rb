@@ -58,7 +58,7 @@ class Search::SearchController < ApplicationController
       })
     end
 
-    puts @inns.to_sql
+    @inns = @inns.uniq
 
     render 'inns/list'
   end
