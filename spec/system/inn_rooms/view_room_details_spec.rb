@@ -9,7 +9,7 @@ describe 'User visits the room details page' do
 
     @room = FactoryBot.create :inn_room, inn: inn, enabled: true, price: 100_00,
       has_balcony: true, has_tv: true, has_air_conditioning: false, has_vault: false,
-      is_accessible_for_people_with_disabilities: true, enabled: true
+      is_accessible_for_people_with_disabilities: true
   end
 
   after :all do
