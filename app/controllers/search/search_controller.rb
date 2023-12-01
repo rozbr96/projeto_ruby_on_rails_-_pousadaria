@@ -58,7 +58,7 @@ class Search::SearchController < ApplicationController
       })
     end
 
-    @inns = @inns.uniq
+    @inns = @inns.order('LOWER(inns.name)').uniq
 
     render 'inns/list'
   end

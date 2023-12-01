@@ -141,9 +141,20 @@ describe 'User opens the advanced search menu' do
 
     expect(current_path).to eq search_advanced_path
     expect(page).to have_content 'Nº de Pousadas encontradas: 3'
-    expect(page).to have_content 'Pousada Solar'
-    expect(page).to have_content 'Galáxia Infinita'
-    expect(page).to have_content 'Galaxy Explosion'
+
+    within 'tbody' do
+      within 'tr:nth-child(1)' do
+        expect(page).to have_content 'Galaxy Explosion'
+      end
+
+      within 'tr:nth-child(2)' do
+        expect(page).to have_content 'Galáxia Infinita'
+      end
+
+      within 'tr:nth-child(3)' do
+        expect(page).to have_content 'Pousada Solar'
+      end
+    end
   end
 
   it 'searches for rooms with tv and air conditioning and sees only one result' do
@@ -161,7 +172,15 @@ describe 'User opens the advanced search menu' do
 
     expect(current_path).to eq search_advanced_path
     expect(page).to have_content 'Nº de Pousadas encontradas: 2'
-    expect(page).to have_content 'Pousada Solar'
-    expect(page).to have_content 'Galaxy Explosion'
+
+    within 'tbody' do
+      within 'tr:nth-child(1)' do
+        expect(page).to have_content 'Galaxy Explosion'
+      end
+
+      within 'tr:nth-child(2)' do
+        expect(page).to have_content 'Pousada Solar'
+      end
+    end
   end
 end

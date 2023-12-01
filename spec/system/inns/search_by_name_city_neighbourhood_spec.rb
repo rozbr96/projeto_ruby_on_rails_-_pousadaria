@@ -31,9 +31,20 @@ describe 'User searchs for' do
 
     expect(page).to have_content 'Você procurou por: xt'
     expect(page).to have_content 'Nº de Pousadas encontradas: 3'
-    expect(page).to have_content 'Cidade Alpha'
-    expect(page).to have_content 'Cidade Beta'
-    expect(page).to have_content 'Cidade Gamma'
+
+    within 'tbody' do
+      within 'tr:nth-child(1)' do
+        expect(page).to have_content 'Cidade Alpha'
+      end
+
+      within 'tr:nth-child(2)' do
+        expect(page).to have_content 'Cidade Beta'
+      end
+
+      within 'tr:nth-child(3)' do
+        expect(page).to have_content 'Cidade Gamma'
+      end
+    end
   end
 
   it 'alpha and sees only one inn' do
