@@ -21,7 +21,9 @@
 
   <tbody>
     <% if rooms.empty? %>
-      <tr colspan="<%= display_sensitive_data ? 4 : 3 %>">Nenhum quarto encontrado</td>
+      <tr>
+        <td colspan="<%= display_sensitive_data ? 4 : 3 %>">Nenhum quarto encontrado</td>
+      </tr>
     <% else %>
       <% rooms.each do |room| %>
         <tr>
