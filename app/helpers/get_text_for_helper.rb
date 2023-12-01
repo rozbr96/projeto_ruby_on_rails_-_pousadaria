@@ -3,6 +3,6 @@ module GetTextForHelper
     class_name = record.class.name.downcase
     value = record[attr]
 
-    I18n.t "#{class_name}.texts.#{attr}.#{value}"
+    I18n.t "texts.#{class_name}.#{attr}.#{value}"
   end
 end

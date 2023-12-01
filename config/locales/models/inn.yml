@@ -17,8 +17,8 @@ pt-BR:
         check_out: Check out
         innkeeper: Dono de Pousada
 
-  inn:
-    texts:
+  texts:
+    inn:
       pets_are_allowed:
         true: Animais são permitidos
         false: Animais não são permitidos
