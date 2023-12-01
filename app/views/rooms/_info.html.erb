@@ -37,32 +37,32 @@
   <dl class="d-flex flex-column gap-1">
     <div>
       <dt>Varanda</dt>
-      <dd><%= room.has_balcony %></dd>
+      <dd><%= get_text_for @room, :has_balcony %></dd>
     </div>
 
     <div>
       <dt>TV</dt>
-      <dd><%= room.has_tv %></dd>
+      <dd><%= get_text_for @room, :has_tv %></dd>
     </div>
 
     <div>
       <dt>Ar Condionado</dt>
-      <dd><%= room.has_air_conditioning %></dd>
+      <dd><%= get_text_for @room, :has_air_conditioning %></dd>
     </div>
 
     <div>
       <dt>Cofre</dt>
-      <dd><%= room.has_vault %></dd>
+      <dd><%= get_text_for @room, :has_vault %></dd>
     </div>
 
     <div>
       <dt>Acessível</dt>
-      <dd><%= room.is_accessible_for_people_with_disabilities %></dd>
+      <dd><%= get_text_for @room, :is_accessible_for_people_with_disabilities %></dd>
     </div>
 
     <div>
       <dt>Disponível</dt>
-      <dd><%= room.enabled %></dd>
+      <dd><%= get_text_for @room, :enabled %></dd>
     </div>
   </dl>
 </div>

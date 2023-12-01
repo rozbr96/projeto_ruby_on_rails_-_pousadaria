@@ -20,3 +20,29 @@ pt-BR:
         has_vault: Possui Cofre?
         is_accessible_for_people_with_disabilities: É acessível para pessoas com deficiência?
         enabled: Habilitado?
+
+  texts:
+    innroom:
+      has_balcony:
+        true: Possui Varanda
+        false: Não possui Varanda
+
+      has_tv:
+        true: Possui TV
+        false: Não possui TV
+
+      has_air_conditioning:
+        true: Possui Ar Condicionado
+        false: Não possui Ar Condicionado
+
+      has_vault:
+        true: Possui Cofre
+        false: Não possui Cofre
+
+      is_accessible_for_people_with_disabilities:
+        true: É acessível para PcD
+        false: Não é acessível para PcD
+
+      enabled:
+        true: Disponível para reservas
+        false: Não disponível para reservas
