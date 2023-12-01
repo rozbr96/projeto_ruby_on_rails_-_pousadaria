@@ -106,6 +106,13 @@ describe 'User visits the booking creation page' do
 
       expect(current_path).to eq new_guest_booking_path
     end
+
+    it 'and gets redirected to the home page when there is no ongoing reservation' do
+      visit new_guest_booking_path
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'É necessário realizar todo o processo de verificação de disponibilidade para acessar essa página'
+    end
   end
 
   context 'when logged in as guest' do
@@ -168,6 +175,26 @@ describe 'User visits the booking creation page' do
       click_on 'Voltar'
 
       expect(current_path).to eq availability_verification_room_path @room
+    end
+
+    it 'and gets redirected to the home page when trying to create a booking the previous data' do
+      booking = {
+        start_date: '2020-01-15', end_date: '2020-01-28',
+        guests_number: 1, inn_room_id: @room.id
+      }
+
+      SessionInjecter::inject booking: booking
+
+      login_as @guest, scope: :guest
+
+      visit new_guest_booking_path
+
+      click_on 'Confirmar Reserva'
+
+      visit new_guest_booking_path
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'É necessário realizar todo o processo de verificação de disponibilidade para acessar essa página'
     end
   end
 end

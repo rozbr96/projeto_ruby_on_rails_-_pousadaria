@@ -2,6 +2,7 @@
 class Guest::BookingsController < Guest::BasicController
   before_action :redirect_to_login_page, only: [:create, :index, :show]
   before_action :set_booking, only: [:create, :new, :show]
+  before_action :redirect_to_home_page, only: :new
 
   def cancel
     @booking = Booking.find params[:id]
@@ -25,6 +26,7 @@ class Guest::BookingsController < Guest::BasicController
     @booking.status = :reserved
 
     if @booking.save
+      session.delete :booking
       redirect_to guest_bookings_path, notice: 'Reserva efetuada com sucesso'
     else
       flash.now[:alert] = 'Erro ao efetuar reserva'
@@ -45,6 +47,12 @@ class Guest::BookingsController < Guest::BasicController
 
   private
 
+  def redirect_to_home_page
+    return unless @booking.nil?
+
+    redirect_to root_path, warning: 'É necessário realizar todo o processo de verificação de disponibilidade para acessar essa página'
+  end
+
   def redirect_to_login_page
     return if guest_signed_in?
 
@@ -54,7 +62,6 @@ class Guest::BookingsController < Guest::BasicController
   end
 
   def set_booking
-    # TODO clear session after successful save
     @booking = session[:booking] ? Booking.new(session[:booking]) : nil
   end
 end
